@@ -23,14 +23,15 @@ public class Movie {
     private String director;
     private Genre genre;
     @ManyToOne
-    @JoinColumn(name="userId")
+    @JoinColumn(name = "userId")
     private User user;
     private int year;
+    private int duration;
 
     public Movie() {
     }
 
-    public Movie(int id, String name, String director, Genre genre, User user, int year) {
+    public Movie(int id, String name, String director, Genre genre, User user, int year, int duration) {
         this.id = id;
         this.name = name;
         this.director = director;
@@ -90,6 +91,14 @@ public class Movie {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
 }
