@@ -5,6 +5,7 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.controller;
 
+import com.diplomski.njt.bioskop.pokusaj100.domain.Genre;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
@@ -46,6 +47,8 @@ public class MovieController {
     @PostMapping(value = "/save")
     public String saveMovie(RedirectAttributes redirectAttributes, Movie movie, HttpSession session) {
         movie.setUser((User) session.getAttribute("user"));
+        movie.setGenre(Genre.drama);
+        movie.setId(12121);
         movieService.add(movie);
         redirectAttributes.addFlashAttribute("movieStatus", "Film je sacuvan.");
         return "redirect:/movie/new";
@@ -53,22 +56,31 @@ public class MovieController {
 
     @RequestMapping(value = "/all")
     public String allMovies(Model model) {
-        model.addAttribute("movies", movieService.getAll());
+//        model.addAttribute("movies", movieService.getAll());
         return "movie/all";
     }
 
     @GetMapping(value = "/{id}/delete")
-    public String delete(@PathVariable(name = "id") int id, Model model) {
+    public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
+//        movieService.delete(id);
+//        System.out.println("Brisem film...");
+//        model.addAttribute("message", "Film sa idijem: " + id + " je obrisan");
+//        return "movie/all";
         movieService.delete(id);
-        System.out.println("Brisem film...");
-        model.addAttribute("message", "Film sa idijem: " + id + " je obrisan");
-        return "movie/all";
+        ModelAndView modelAndView = new ModelAndView("redirect:/movie/all");
+        redirectAttributes.addFlashAttribute("message", "Movie " + id + " is deleted!");
+        return modelAndView;
     }
 
 //    Movie attributes
     @ModelAttribute(name = "movie")
     private Movie getMovie() {
         return new Movie();
+    }
+
+    @ModelAttribute(name = "movies")
+    private List<Movie> getMovies() {
+        return movieService.getAll();
     }
 
 }

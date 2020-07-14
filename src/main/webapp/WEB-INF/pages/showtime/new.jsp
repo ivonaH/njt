@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -27,38 +28,26 @@
                 ${movieStatus}
             </div>
             <div>
-                <form:form modelAttribute="movie" method="POST" action="${pageContext.request.contextPath}/movie/save" >
+                <form:form modelAttribute="showtime" method="POST" action="${pageContext.request.contextPath}/showtime/save" >
                     <div class="form-group" >
-                        <label for="name">Name: </label>
+                        <label for="movie">Movie: </label>
                         <div class="col-sm-6">
-                            <form:input path="name" class="form-control"/>
+                            <form:input path="movie" class="form-control" readonly="true"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="name">Genre: </label>
+                        <label for="hall">Sala: </label>
                         <div class="col-sm-6">
-                            <form:select path="genre" class="custom-select">
-                                <option selected disabled>Odaberite zanr filma</option>
-                                <form:options items="${genres}"></form:options>
+                            <form:select path="hall" class="custom-select">
+                                <option selected disabled>Odaberite salu</option>
+                                <form:options items="${halls}"></form:options>
                             </form:select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="director">Director: </label>
+                        <label for="dateTime">Datum i vreme: </label>
                         <div class="col-sm-6">
-                            <form:input path="director" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="year">Year: </label>
-                        <div class="col-sm-6">
-                            <form:input path="year" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="duration">Duration: </label>
-                        <div class="col-sm-6">
-                            <form:input path="duration" class="form-control"/>
+                            <form:input path="dateTime" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-sm-6" >

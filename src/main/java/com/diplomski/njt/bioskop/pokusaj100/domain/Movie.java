@@ -6,6 +6,8 @@
 package com.diplomski.njt.bioskop.pokusaj100.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,7 @@ public class Movie {
     private int id;
     private String name;
     private String director;
+    @Enumerated(EnumType.STRING)
     private Genre genre;
     @ManyToOne
     @JoinColumn(name = "userId")

@@ -18,13 +18,22 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/home">Pocetna strana</a>
             </li>
 
-             <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     Film
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/new">Kreiraj film</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/all">Pretraga filmova</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Projekcija
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/new">Kreiraj projekciju</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/all">Pretraga projekcija</a>
                 </div>
             </li>
 
