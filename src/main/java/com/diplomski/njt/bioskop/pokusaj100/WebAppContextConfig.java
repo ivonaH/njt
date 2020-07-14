@@ -5,6 +5,10 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100;
 
+import com.diplomski.njt.bioskop.pokusaj100.formatter.HallFormatter;
+import com.diplomski.njt.bioskop.pokusaj100.formatter.MovieFormatter;
+import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
+import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.MessageSource;
@@ -32,9 +36,14 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 public class WebAppContextConfig implements WebMvcConfigurer {
 //    //definisanje handler mapera, view resolvera
 //
-//    private final CountryService countryService;
 
-    WebAppContextConfig() {
+    private final HallService hallService;
+    private final MovieService movieService;
+
+    @Autowired
+    WebAppContextConfig(HallService hallService,MovieService movieService) {
+        this.hallService = hallService;
+        this.movieService=movieService;
     }
 
     @Bean
@@ -62,5 +71,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //    public void addFormatters(FormatterRegistry registry) {
 //        registry.addFormatter(new CountryDtoFormater(countryService));
 //    }
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new HallFormatter(hallService));
+        registry.addFormatter(new MovieFormatter(movieService));
+    }
 
 }

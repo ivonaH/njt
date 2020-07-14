@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,10 +46,11 @@ public class MovieController {
     }
 
     @PostMapping(value = "/save")
-    public String saveMovie(RedirectAttributes redirectAttributes, Movie movie, HttpSession session) {
+    public String saveMovie(@SessionAttribute(name = "user") User user,RedirectAttributes redirectAttributes, Movie movie, HttpSession session) {
         movie.setUser((User) session.getAttribute("user"));
         movie.setGenre(Genre.drama);
         movie.setId(12121);
+        movie.setUser(user);
         movieService.add(movie);
         redirectAttributes.addFlashAttribute("movieStatus", "Film je sacuvan.");
         return "redirect:/movie/new";

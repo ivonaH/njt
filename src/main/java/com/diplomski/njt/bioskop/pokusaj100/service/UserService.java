@@ -19,4 +19,7 @@ public interface UserService {
     User getById(Long id);
 
     void add(User user);
+
+    User findByUsernameAndPassword(String username, String password);
+
 }

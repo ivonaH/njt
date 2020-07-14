@@ -44,6 +44,10 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     public void delete(int i) {
         showtimeRepository.deleteById(i);
     }
-    
+
+    @Override
+    public void save(Showtime showtime) {
+        showtimeRepository.save(showtime);
+    }
 
 }
