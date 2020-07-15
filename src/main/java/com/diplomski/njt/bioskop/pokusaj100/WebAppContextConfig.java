@@ -7,8 +7,12 @@ package com.diplomski.njt.bioskop.pokusaj100;
 
 import com.diplomski.njt.bioskop.pokusaj100.formatter.HallFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.formatter.MovieFormatter;
+import com.diplomski.njt.bioskop.pokusaj100.formatter.ReservationFormatter;
+import com.diplomski.njt.bioskop.pokusaj100.formatter.ShowtimeFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
+import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
+import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.MessageSource;
@@ -39,11 +43,15 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 
     private final HallService hallService;
     private final MovieService movieService;
+    private final ShowtimeService showtimeService;
+    private final ReservationService reservationService;
 
     @Autowired
-    WebAppContextConfig(HallService hallService,MovieService movieService) {
+    WebAppContextConfig(HallService hallService, MovieService movieService, ShowtimeService showtimeService, ReservationService reservationService) {
         this.hallService = hallService;
-        this.movieService=movieService;
+        this.movieService = movieService;
+        this.reservationService = reservationService;
+        this.showtimeService = showtimeService;
     }
 
     @Bean
@@ -75,6 +83,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new HallFormatter(hallService));
         registry.addFormatter(new MovieFormatter(movieService));
+        registry.addFormatter(new ShowtimeFormatter(showtimeService));
+        registry.addFormatter(new ReservationFormatter(reservationService));
     }
 
 }

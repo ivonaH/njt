@@ -3,7 +3,22 @@
     Created on : 12-Jul-2020, 16:22:35
     Author     : root
 --%>
-
+<style>
+    .dropdown-menu{
+       
+        background-color: #6C757D;
+    }
+    .dropdown-item{
+         color:white;
+    }
+    .dropdown-item:hover{
+        background-color:lightgreen;
+    }
+    .nav-item:hover{
+        background-color:#6C757D;
+    }
+  
+</style>
 
 
 <div class="container">
@@ -34,6 +49,15 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/new">Kreiraj projekciju</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/all">Pretraga projekcija</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Rezervacija
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/new">Kreiraj rezervaciju</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/all">Pretraga rezervacija</a>
                 </div>
             </li>
 

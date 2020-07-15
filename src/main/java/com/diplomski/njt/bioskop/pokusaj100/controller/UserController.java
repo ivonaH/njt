@@ -42,13 +42,18 @@ public class UserController {
         }
         req.getSession(true).setAttribute("user", u1);
 
-        return "movie/all";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/login")
     public String userPage() {
 
         return "login";
+    }
+    @RequestMapping(value = "/home")
+    public String homePage() {
+
+        return "redirect:/";
     }
     
      @RequestMapping(value = "/logout")
@@ -57,4 +62,5 @@ public class UserController {
         model.addAttribute("logoutMessage", "Uspesno ste se odjavili.");
         return "login";
     }
+   
 }

@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-        <title>Pretraga projekcija</title>
+        <title>Pretraga rezervacija</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -23,30 +23,29 @@
     <body>
         <%@include file="../template/menu.jsp" %>
         <div class="container">
-            <h2>Sve projekcije</h2>
+            <h2>Sve rezervacije</h2>
             <p>${message}</p>
             <table class="table table-dark">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Film</th>
-                        <th>Datum i vreme</th>
-                        <th>Sala</th>
-                        <th>Korisnik</th>
-                        <th>Akcija</th>
+                        <th>Projekcija</th>
+                        <th>Ime i prezime</th>
+                        <th>email</th>
+                        <th>Korisnik koji je uneo</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach
-                        items="${showtimes}"
-                        var="showtime"
+                        items="${reservations}"
+                        var="reservation"
                         varStatus="loop">
                         <tr>
-                            <td>${showtime.id}</td>
-                            <td>${showtime.movie.name}</td>
-                            <td>${showtime.dateTime}</td>
-                            <td>${showtime.hall}</td>
-                            <td>${showtime.user}</td>
+                            <td>${reservation.id}</td>
+                            <td>${reservation.showtime}</td>
+                            <td>${reservation.nameLastname}</td>
+                            <td>${reservation.email}</td>
+                            <td>${reservation.user}</td>
 
                             <td>
                                 <ul class="navbar-nav mr-auto d-flex justify-content-end">
@@ -55,16 +54,13 @@
                                             action
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/delete/">
+                                            <a class="dropdown-item" href="<c:url value = "/reservation/${reservation.id}/delete/">
 
                                                 </c:url>">Delete</a>
 
-                                            <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/view/">
+                                            <a class="dropdown-item" href="<c:url value = "/reservation/${reservation.id}/view/">
 
                                                 </c:url>">View</a>
-                                            <a class="dropdown-item" href="<c:url value = "/reservation/new?showtimeId=${showtime.id}">
-
-                                                </c:url>">Kreiraj rezervaciju</a>
                                         </div>
                                     </div>
                                 </ul>

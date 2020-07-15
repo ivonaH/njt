@@ -20,23 +20,34 @@
         <link href='${pageContext.request.contextPath}/resources/css/styles.css' rel="stylesheet"/>
     </head>
     <body>
-        <div class="container">
+        <div class="container col-sm-3" style="position: fixed; top: 35%;left: 40%; ">
             <h2>Login strana</h2>
-            <div class="row">     
-                ${logoutMessage}
-                ${errorMessage}
-            </div>
-            <div class="row">
-                <form method="Post"  action="${pageContext.request.contextPath}/login/user">
-                    <div>
+            <div class="row" >  
+                <c:if test="${not empty logoutMessage}">
+                    <div class="alert alert-success" role="alert">
+                        ${logoutMessage}
+                    </div>
+                </c:if>
+                <c:if test="${not empty errorMessage}">
+                    <div class="alert alert-danger" role="alert">
+                        ${errorMessage}
+                    </div> 
+                </c:if>
+
+                </div>
+                <div class="row">
+                    <form method="Post"  action="${pageContext.request.contextPath}/login/user">
+                    <div class="form-group col-sm-6">
                         <label for="username">Username:</label>
                         <input name="username"/>
                     </div> 
-                    <div>
+                    <div class="form-group col-sm-6">
                         <label for="password">Password:</label>
                         <input type="password" name="password"/>
                     </div> 
-                    <input type="submit" value="Login" />
+                    <div class="col-sm-6">
+                        <input type="submit" value="Login" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                    </div>
                 </form>
             </div>
         </div>
