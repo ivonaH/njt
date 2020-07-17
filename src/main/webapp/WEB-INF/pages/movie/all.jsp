@@ -25,6 +25,8 @@
         <%@include file="../template/menu.jsp" %>
         <div class="container">
             <h2>Svi filmovi</h2>
+            <hr>
+
             <p>${message}</p>
             <table class="table table-dark">
                 <thead>

@@ -7,12 +7,14 @@ package com.diplomski.njt.bioskop.pokusaj100.domain;
 
 import java.security.Timestamp;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import org.hibernate.annotations.GeneratorType;
 
 /**
@@ -23,6 +25,7 @@ import org.hibernate.annotations.GeneratorType;
 public class Showtime {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date dateTime;
     @ManyToOne
@@ -34,6 +37,10 @@ public class Showtime {
     @ManyToOne
     @JoinColumn(name = "movieId")
     private Movie movie;
+    @Transient
+    private int freeSeats;
+    @Column(name = "marathonId")
+    int movieMarathonId;
 
     public Showtime(int id, Date dateTime, Hall hall, User user, Movie movie) {
         this.id = id;
@@ -88,9 +95,23 @@ public class Showtime {
 
     @Override
     public String toString() {
-        return "Showtime{" + "id=" + id + ", dateTime=" + dateTime + ", hall=" + hall + ", user=" + user + ", movie=" + movie + '}';
+        return "Showtime{" + "id=" + id + ", dateTime=" + dateTime + ", hall=" + hall + ", user=" + user + ", movie=" + movie + '}' + freeSeats;
     }
-    
-    
+
+    public int getFreeSeats() {
+        return freeSeats;
+    }
+
+    public void setFreeSeats(int freeSeats) {
+        this.freeSeats = freeSeats;
+    }
+
+    public void setMovieMarathonId(int movieMarathonId) {
+        this.movieMarathonId = movieMarathonId;
+    }
+
+    public int getMovieMarathon() {
+        return movieMarathonId;
+    }
 
 }

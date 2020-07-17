@@ -5,9 +5,9 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.repository;
 
-import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
+import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
+import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,8 +15,6 @@ import org.springframework.stereotype.Repository;
  * @author Korisnik
  */
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+public interface MovieMarathonRepository extends JpaRepository<MovieMarathon, Integer> {
 
-//    @Query("SELECT COUNT(r.id) FROM reservation AS r where r.showtimeId=?1")
-    int countByShowtimeId(int id);
 }

@@ -19,11 +19,44 @@
 
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
         <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
+
+
+        <style>
+            .ikonica{
+                color:lightgreen;
+                font-size: 25px;
+            }
+            .ikonica:hover{
+                color:#6C757D;
+            }
+            .tooltiptextMM {
+                font-size: 15px;
+                visibility: hidden;
+                width: 120px;
+                background-color: #6C757D;
+                color: lightgreen;
+                text-align: center;
+                padding: 5px 5px;
+                border-radius: 4px;
+                border-style:inset;
+                border-color: lightgray;
+
+                /* Position the tooltip text - see examples below! */
+                position: absolute;
+                z-index: 1;
+            }
+            .ikonica:hover .tooltiptextMM{
+                visibility: visible;
+
+            }
+        </style>
+
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
         <div class="container">
             <h2>Sve projekcije</h2>
+            <hr>
             <p>${message}</p>
             <table class="table table-dark">
                 <thead>
@@ -33,7 +66,9 @@
                         <th>Datum i vreme</th>
                         <th>Sala</th>
                         <th>Korisnik</th>
+                        <th>Slobodna mesta</th>
                         <th>Akcija</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +82,7 @@
                             <td>${showtime.dateTime}</td>
                             <td>${showtime.hall}</td>
                             <td>${showtime.user}</td>
+                            <td>${showtime.freeSeats}</td>
 
                             <td>
                                 <ul class="navbar-nav mr-auto d-flex justify-content-end">
@@ -65,11 +101,20 @@
                                             <a class="dropdown-item" href="<c:url value = "/reservation/new?showtimeId=${showtime.id}">
 
                                                 </c:url>">Kreiraj rezervaciju</a>
-                                        </div>
+                                        </div
                                     </div>
                                 </ul>
                             </td>
-                        </tr>
+                            <td>
+                                <a class="ikonica" href="<c:url value = "/mm/new?showtimeId=${showtime.id}"> </c:url>">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-film" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0h8v6H4V1zm8 8H4v6h8V9zM1 1h2v2H1V1zm2 3H1v2h2V4zM1 7h2v2H1V7zm2 3H1v2h2v-2zm-2 3h2v2H1v-2zM15 1h-2v2h2V1zm-2 3h2v2h-2V4zm2 3h-2v2h2V7zm-2 3h2v2h-2v-2zm2 3h-2v2h2v-2z"/>
+                                        </svg>
+                                        <span class="tooltiptextMM">Dodaj projekciju na filmski marathon</span>
+
+                                    </a>
+                                </td>
+                            </tr>
                     </c:forEach>
                 </tbody>
             </table>

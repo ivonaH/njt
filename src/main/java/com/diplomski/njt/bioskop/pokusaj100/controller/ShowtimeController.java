@@ -11,6 +11,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
+import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,13 +43,15 @@ public class ShowtimeController {
 
     ShowtimeService showtimeService;
     MovieService movieService;
+    ReservationService reservationService;
     HallService hallService;
 
     @Autowired
-    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService) {
+    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService,ReservationService reservationService) {
         this.showtimeService = showtimeService;
         this.movieService = movieService;
         this.hallService = hallService;
+        this.reservationService=reservationService;
     }
 
     @RequestMapping(value = "/all")
@@ -94,7 +97,12 @@ public class ShowtimeController {
 
     @ModelAttribute(name = "showtimes")
     private List<Showtime> getShowtimes() {
-        return showtimeService.findAll();
+        List<Showtime> showtimes=showtimeService.findAll();
+        for(Showtime showtime:showtimes){
+            showtime.setFreeSeats(showtime.getHall().getCapacity()-reservationService.countByShowtimeId(showtime.getId()));
+            System.out.println("FREE SEATS: "+showtime.getFreeSeats());
+        }
+        return showtimes;
     }
 
     @ModelAttribute(name = "movies")

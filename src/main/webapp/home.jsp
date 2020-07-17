@@ -18,27 +18,22 @@
 
     </head>
     <body>
-        <div class="container">
-            <c:if test="${not empty sessionScope.user}">
-                <%@include file="/WEB-INF/pages/template/menu.jsp" %>
-            </c:if>
-            <c:if test="${empty sessionScope.user}">
+
+        <%@include file="/WEB-INF/pages/template/menu.jsp" %>
+        <c:if test="${empty sessionScope.user}">
 
 
+            <div class="container" style="padding-top: 15%; padding-left: 17%;">
 
-                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                    <!-- Brand -->
-                    <a class="navbar-brand" href="#" style="color: lightgreen">Bioskop</a>
-
-                </nav>
-
-                <h3>Dobrodosli,<br>
-                    Da biste nastavili <a href="${pageContext.request.contextPath}/login" style="color: lightgreen;"><b>prijavite se</b>!</a>
+                <h2>Dobrodošli,</h2>
+                <br>
+                <h3>
+                    Da biste nastavili
+                    <a href="${pageContext.request.contextPath}/login" style="color: lightgreen;font-size: 30px;"><b>prijavite se</b>!</a>
                 </h3>
+            </div>
 
+        </c:if>
 
-            </c:if>
-
-        </div>
     </body>
 </html>

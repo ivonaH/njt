@@ -6,7 +6,9 @@
 package com.diplomski.njt.bioskop.pokusaj100.repository;
 
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,6 +16,6 @@ import org.springframework.stereotype.Repository;
  * @author Korisnik
  */
 @Repository
-public interface ShowtimeRepository extends JpaRepository<Showtime,Integer> {
+public interface ShowtimeRepository extends JpaRepository<Showtime, Integer> {
 
 }

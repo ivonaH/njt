@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,8 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
+
+
         <div class="container">
             <h2>Kreiraj novi film </h2>
             <hr>
@@ -67,5 +70,6 @@
                 </form:form>
             </div>
         </div>
+
     </body>
 </html>

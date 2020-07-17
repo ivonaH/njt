@@ -20,4 +20,6 @@ public interface ReservationService {
     public Reservation findById(int id);
 
     public void save(Reservation reservation);
+    
+    public int countByShowtimeId(int id);
 }

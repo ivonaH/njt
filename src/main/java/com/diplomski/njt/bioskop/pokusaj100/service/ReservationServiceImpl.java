@@ -47,4 +47,9 @@ public class ReservationServiceImpl implements ReservationService {
         reservationRepository.save(reservation);
     }
 
+    @Override
+    public int countByShowtimeId(int id) {
+        return reservationRepository.countByShowtimeId(id);
+    }
+
 }

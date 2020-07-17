@@ -40,7 +40,7 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/new")
-    public String userPage(Model model) {
+    public String newMovie(Model model) {
 
         return "movie/new";
     }
