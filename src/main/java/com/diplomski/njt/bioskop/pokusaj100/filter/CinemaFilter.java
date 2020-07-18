@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @author root
  */
 @Component
-@WebFilter(urlPatterns = {"/movie/*","/reservation/*","/showtime/*"})
+@WebFilter(urlPatterns = {"/movie/*","/reservation/*","/showtime/*","/mm/*"})
 public class CinemaFilter implements Filter {
 
     @Override

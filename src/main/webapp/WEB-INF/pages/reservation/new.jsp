@@ -36,10 +36,18 @@
                         <div class="col-sm-6">
 
                             <form:select path="showtime" class="custom-select">
-                                <c:forEach items="${showtimes}" var="showtime">
-                                    <option value="${showtime.id}" label="${showtime}"
-                                            <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
-                                </c:forEach>
+                                <c:if test="${not empty selectedShowtimeId}">
+                                    <c:forEach items="${showtimes}" var="showtime">
+                                        <option value="${showtime.id}" label="${showtime}"
+                                                <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${empty selectedShowtimeId}">
+                                    <option selected disabled>Odaberite rezervaciju</option>
+                                    <c:forEach items="${showtimes}" var="showtime">
+                                        <option value="${showtime.id}" label="${showtime}"/>
+                                    </c:forEach>
+                                </c:if>
                             </form:select>
                         </div>
 

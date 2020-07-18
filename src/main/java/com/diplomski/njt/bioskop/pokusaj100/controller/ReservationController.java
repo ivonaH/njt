@@ -62,6 +62,12 @@ public class ReservationController {
         return "reservation/new";
     }
 
+    @RequestMapping(value = "/reservation/newR")
+    public String newReservation(Model model) {
+        model.addAttribute("reservation", new Reservation());
+        return "reservation/new";
+    }
+
     @ModelAttribute(name = "showtimes")
     private List<Showtime> getShowtimes() {
         return showtimeService.findAll();

@@ -47,11 +47,11 @@ public class ShowtimeController {
     HallService hallService;
 
     @Autowired
-    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService,ReservationService reservationService) {
+    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService, ReservationService reservationService) {
         this.showtimeService = showtimeService;
         this.movieService = movieService;
         this.hallService = hallService;
-        this.reservationService=reservationService;
+        this.reservationService = reservationService;
     }
 
     @RequestMapping(value = "/all")
@@ -75,33 +75,33 @@ public class ShowtimeController {
         model.addAttribute("selectedMovieId", movieId);
         return "showtime/new";
     }
+    @GetMapping(value = "/newS")
+    public String newShowtime(Model model) {
+        model.addAttribute("showtime", new Showtime());
+        return "showtime/new";
+    }
 
     @PostMapping(value = "/save")
-    public String saveShowtime(@SessionAttribute(name = "user") User user, Showtime showtime, Model model) {
+    public String saveShowtime(@SessionAttribute(name = "user") User user, Showtime showtime, RedirectAttributes redirectAttributes) {
         System.out.println("Projekcija je:" + showtime);
         showtime.setId(1919);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
-        try {
-            showtime.setDateTime(sdf.parse("2020-07-24 21:05:13"));
-            showtime.setUser(user);
-            showtimeService.save(showtime);
-            model.addAttribute("message", "Projekcija je sacuvana" + showtime);
-            return "redirect:/showtime/all";
-        } catch (ParseException ex) {
-            Logger.getLogger(ShowtimeController.class.getName()).log(Level.SEVERE, null, ex);
-            model.addAttribute("message", "Neispravan format datuma.");
-            return "showtime/new";
-        }
+        showtime.setUser(user);
+        showtimeService.save(showtime);
+        redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime+" datum je: "+showtime.getDateTime());
+        return "redirect:/showtime/all";
 
     }
 
     @ModelAttribute(name = "showtimes")
     private List<Showtime> getShowtimes() {
-        List<Showtime> showtimes=showtimeService.findAll();
-        for(Showtime showtime:showtimes){
-            showtime.setFreeSeats(showtime.getHall().getCapacity()-reservationService.countByShowtimeId(showtime.getId()));
-            System.out.println("FREE SEATS: "+showtime.getFreeSeats());
-        }
+        List<Showtime> showtimes = showtimeService.findAll();
+//        for (Showtime showtime : showtimes) {
+//            int numberOfReservations = reservationService.countByShowtimeId(showtime.getId());
+//            if (numberOfReservations > 0) {
+//                showtime.setFreeSeats(showtime.getHall().getCapacity() - numberOfReservations);
+//            }else showtime.setFreeSeats(showtime.getHall().getCapacity());
+//            System.out.println("FREE SEATS: " + showtime.getFreeSeats());
+//        }
         return showtimes;
     }
 

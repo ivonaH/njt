@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import org.hibernate.annotations.GeneratorType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *

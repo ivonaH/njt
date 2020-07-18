@@ -63,13 +63,13 @@ public class MovieMarathonController {
     }
 
     @PostMapping(value = "/save")
-    public String saveMM(@SessionAttribute(name = "user") User user, HttpSession session, RedirectAttributes redirectAttributes) {//MovieMarathon mm
-        MovieMarathon mm = new MovieMarathon();
+    public String saveMM(@SessionAttribute(name = "user") User user,MovieMarathon mm, HttpSession session, RedirectAttributes redirectAttributes) {
         mm.setId(1313);
         mm.setUser(user);
         mm.setShowtimes((List<Showtime>) session.getAttribute("addedShowtimes"));
         movieMarathonService.save(mm);
         redirectAttributes.addFlashAttribute("mmStatus", "Maraton je sacuvan.");
+        session.setAttribute("addedShowtimes", new ArrayList<Showtime>());
         return "redirect:/mm/all";
     }
 

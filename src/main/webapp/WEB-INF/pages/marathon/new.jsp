@@ -1,8 +1,9 @@
 <%-- 
     Document   : new
-    Created on : 12-Jul-2020, 16:51:44
+    Created on : 18-Jul-2020, 08:52:11
     Author     : root
 --%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -22,13 +23,13 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
-${showtimes}
+        ${showtimes}
 
         <div class="container" style="margin-top: 3%;margin-bottom: 3%;">
             <h2>Kreiraj novi maraton </h2>
             <hr>
-            
-             <table class="table table-dark" id='table1'>
+
+            <table class="table table-dark" id='table1'>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -96,10 +97,11 @@ ${showtimes}
                 </tbody>
             </table>
             <div>
-                <form action="${pageContext.request.contextPath}/mm/save" method="POST">
-                    
-                    
-                    
+                <form action="${pageContext.request.contextPath}/mm/save" method="POST" modelAttribute="mm">
+                    <div class="form-group">
+                        <label for="name">Naziv maratona: </label>
+                        <input type="text" name="name"/>
+                    </div>
                     <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;" />
                 </form>
             </div>

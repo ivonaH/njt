@@ -20,6 +20,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -85,6 +86,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new MovieFormatter(movieService));
         registry.addFormatter(new ShowtimeFormatter(showtimeService));
         registry.addFormatter(new ReservationFormatter(reservationService));
+        registry.addFormatter(new DateFormatter("yyyy-MM-dd HH:mm:ss"));
+
     }
 
 }

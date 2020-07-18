@@ -51,7 +51,7 @@
                     Projekcija
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/new">Kreiraj projekciju</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/newS">Kreiraj projekciju</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/all">Pretraga projekcija</a>
                 </div>
             </li>
@@ -60,7 +60,7 @@
                     Rezervacija
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/new">Kreiraj rezervaciju</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/newR">Kreiraj rezervaciju</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/all">Pretraga rezervacija</a>
                 </div>
             </li>
