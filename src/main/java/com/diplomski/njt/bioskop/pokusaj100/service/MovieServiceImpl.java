@@ -5,12 +5,14 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.service;
 
+import com.diplomski.njt.bioskop.pokusaj100.domain.Genre;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.repository.MovieRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,32 +23,41 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class MovieServiceImpl implements MovieService {
-    
+
     @Autowired
     private MovieRepository movieRepository;
-    
+
     public MovieServiceImpl() {
     }
-    
+
     @Override
     public List<Movie> getAll() {
         return movieRepository.findAll();
     }
-    
+
     @Override
     public Movie getById(int id) {
         return movieRepository.findById(id).get();
     }
-    
+
     @Override
     public void add(Movie movie) {
         movieRepository.save(movie);
     }
-    
+
     @Override
     public void delete(int id) {
         movieRepository.deleteById(id);
     }
 
-    
+    @Override
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
+    }
+
+    @Override
+    public List<Movie> findAll(Specification<Movie> specification) {
+        return movieRepository.findAll(specification);
+    }
+
 }

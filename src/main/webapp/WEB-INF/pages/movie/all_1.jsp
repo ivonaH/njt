@@ -28,31 +28,31 @@
         <div class="container">
             <h2>Pretraga filmova</h2>
             <hr>
-            <form method="GET" action="${pageContext.request.contextPath}/movie/findC">
-                <div class="form-group col-sm-6">
+            <form:form method="GET" action="${pageContext.request.contextPath}/movie/findC" modelAttribute="movie">
+                <div class="form-group">
                     <label for="name">Naziv:</label>
-                    <input type="text" name="name"  class="form-control"/>
+                    <form:input type="text" path="name"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group">
                     <label for="director">Reziser:</label>
-                    <input name="director"  class="form-control"/>
+                    <form:input path="director"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group">
                     <label for="year">Godina:</label>
-                    <input name="year"  class="form-control"/>
+                    <form:input path="year"/>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="genre">Genre: </label>
-                    <select name="genre" class="custom-select">
-                        <c:forEach items="${genres}" var="genre">
+                <div class="form-group">
+                    <label for="name">Genre: </label>
+                    <div class="col-sm-6">
+                        <form:select path="genre" class="custom-select">
                             <option selected disabled>Odaberite zanr filma</option>
-                            <option value="${genre}">${genre}</option>
-                        </c:forEach>
-                    </select>
+                            <form:options items="${genres}"></form:options>
+                        </form:select>
+                    </div>
                 </div>
                 <input type="submit" class="btn" style="background-color: lightseagreen;"value="Pronadji"/>
 
-            </form>
+            </form:form>
 
             <h2>Svi filmovi</h2>
             <hr>

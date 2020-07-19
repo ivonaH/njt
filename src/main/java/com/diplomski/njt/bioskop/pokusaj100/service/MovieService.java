@@ -5,9 +5,11 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.service;
 
+import com.diplomski.njt.bioskop.pokusaj100.domain.Genre;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import java.util.List;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  *
@@ -22,4 +24,10 @@ public interface MovieService {
     void add(Movie movie);
 
     void delete(int id);
+
+
+    public List<Movie> findAll();
+
+    public List<Movie> findAll(Specification<Movie> specification);
+
 }
