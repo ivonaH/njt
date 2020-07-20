@@ -33,7 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author root
  */
 @Controller
-//@RequestMapping(value = "/reservation")
+@RequestMapping(value = "/reservation")
 public class ReservationController {
 
     ReservationService reservationService;
@@ -45,7 +45,7 @@ public class ReservationController {
         this.showtimeService = showtimeService;
     }
 
-    @RequestMapping(value = "/reservation/save")
+    @RequestMapping(value = "/save")
     public String save(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, Reservation reservation) {
         reservation.setUser(user);
         reservationService.save(reservation);
@@ -53,13 +53,13 @@ public class ReservationController {
         return "redirect:/reservation/all";
     }
 
-    @RequestMapping(value = "/reservation/all")
+    @RequestMapping(value = "/all")
     public String all() {
 
         return "/reservation/all";
     }
 
-    @RequestMapping(value = "/reservation/new")
+    @RequestMapping(value = "/new")
     public String newReservation(@RequestParam(value = "showtimeId") int showtimeId, Model model) {
         Showtime s = getShowtimeWithId(showtimeId);
         model.addAttribute("selectedShowtimeId", showtimeId);
@@ -67,13 +67,13 @@ public class ReservationController {
         return "reservation/new";
     }
 
-    @RequestMapping(value = "/reservation/newR")
+    @RequestMapping(value = "/newR")
     public String newReservation(Model model) {
         model.addAttribute("reservation", new Reservation());
         return "reservation/new";
     }
 
-    @GetMapping(value = "/reservation/find")
+    @GetMapping(value = "/find")
     public String findReservations(
             @And({
         @Spec(path = "nameLastname", params = "nameLastname", spec = Like.class),
