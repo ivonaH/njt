@@ -116,13 +116,6 @@ public class ShowtimeController {
     @ModelAttribute(name = "showtimes")
     private List<Showtime> getShowtimes() {
         List<Showtime> showtimes = showtimeService.findAll();
-//        for (Showtime showtime : showtimes) {
-//            int numberOfReservations = reservationService.countByShowtimeId(showtime.getId());
-//            if (numberOfReservations > 0) {
-//                showtime.setFreeSeats(showtime.getHall().getCapacity() - numberOfReservations);
-//            }else showtime.setFreeSeats(showtime.getHall().getCapacity());
-//            System.out.println("FREE SEATS: " + showtime.getFreeSeats());
-//        }
         return showtimes;
     }
 

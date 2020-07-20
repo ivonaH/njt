@@ -9,6 +9,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Hall;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.repository.HallRepository;
+import com.diplomski.njt.bioskop.pokusaj100.repository.ReservationRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ShowtimeRepository;
 import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import java.util.List;
@@ -29,13 +30,17 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 
     @Autowired
     ShowtimeRepository showtimeRepository;
+    @Autowired
+    ReservationRepository reservationRepository;
 
     public ShowtimeServiceImpl() {
     }
 
     @Override
     public List<Showtime> findAll() {
-        return showtimeRepository.findAll();
+        List<Showtime> showtimes = showtimeRepository.findAll();
+        calculateFreeSeats(showtimes);
+        return showtimes;
     }
 
     @Override
@@ -55,7 +60,17 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 
     @Override
     public List<Showtime> findAll(Specification<Showtime> specification) {
-        return showtimeRepository.findAll(specification);
+        List<Showtime> showtimes = showtimeRepository.findAll(specification);
+        calculateFreeSeats(showtimes);
+        return showtimes;
+    }
+
+    public void calculateFreeSeats(List<Showtime> showtimes) {
+        for (Showtime showtime : showtimes) {
+            int numberOfReservations = reservationRepository.countByShowtimeId(showtime.getId());
+            showtime.setFreeSeats(showtime.getHall().getCapacity() - numberOfReservations);
+            System.out.println("FREE SEATS: " + showtime.getFreeSeats());
+        }
     }
 
 }
