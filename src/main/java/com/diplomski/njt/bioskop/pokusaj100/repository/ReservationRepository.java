@@ -5,8 +5,10 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.repository;
 
+import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author Korisnik
  */
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+public interface ReservationRepository extends JpaRepository<Reservation, Integer>, JpaSpecificationExecutor<Reservation> {
 
-//    @Query("SELECT COUNT(r.id) FROM reservation AS r where r.showtimeId=?1")
     int countByShowtimeId(int id);
 }
