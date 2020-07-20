@@ -5,6 +5,7 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.controller;
 
+import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
@@ -12,10 +13,16 @@ import com.diplomski.njt.bioskop.pokusaj100.service.MovieMarathonService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.In;
+import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -63,7 +71,7 @@ public class MovieMarathonController {
     }
 
     @PostMapping(value = "/save")
-    public String saveMM(@SessionAttribute(name = "user") User user,MovieMarathon mm, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String saveMM(@SessionAttribute(name = "user") User user, MovieMarathon mm, HttpSession session, RedirectAttributes redirectAttributes) {
         mm.setId(1313);
         mm.setUser(user);
         mm.setShowtimes((List<Showtime>) session.getAttribute("addedShowtimes"));
@@ -71,6 +79,19 @@ public class MovieMarathonController {
         redirectAttributes.addFlashAttribute("mmStatus", "Maraton je sacuvan.");
         session.setAttribute("addedShowtimes", new ArrayList<Showtime>());
         return "redirect:/mm/all";
+    }
+
+    @GetMapping(value = "/find")
+    public String findMM(
+            @Join(path="showtimes",alias="s")
+            @And({
+        @Spec(path = "name", params = "name", spec = Like.class),
+        @Spec(path = "s.movie.name", params = "movieName", spec = Like.class),
+        @Spec(path = "s.dateTime", params = "dateTime", spec = GreaterThanOrEqual.class)
+    }) Specification<MovieMarathon> specification, Model model) {
+        List<MovieMarathon> mms = movieMarathonService.findAll(specification);
+        model.addAttribute("marathons", mms);
+        return "marathon/all";
     }
 
     @RequestMapping(value = "/all")

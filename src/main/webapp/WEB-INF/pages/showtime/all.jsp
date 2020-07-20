@@ -55,6 +55,26 @@
     <body>
         <%@include file="../template/menu.jsp" %>
         <div class="container">
+            <h2>Pretraga projekcija</h2>
+            <hr>
+            <form method="GET" action="${pageContext.request.contextPath}/showtime/find">
+                <div class="form-group col-sm-6">
+                    <label for="name">Naziv filma:</label>
+                    <input type="text" name="movieName"  class="form-control"/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="dateTime">Datum i vreme: </label>
+                    <input name="dateTime"  class="form-control"/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="hall">Sala: </label>
+                    <input name="hallName"  class="form-control"/>
+                </div>
+                <input type="submit" class="btn" style="background-color: lightseagreen;"value="Pronadji"/>
+
+            </form>
+            <hr style="padding-bottom: 3%;">
+
             <h2>Sve projekcije</h2>
             <hr>
             <p>${message}</p>

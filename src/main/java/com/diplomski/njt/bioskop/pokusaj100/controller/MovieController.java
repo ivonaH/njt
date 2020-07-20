@@ -10,7 +10,6 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
 import java.util.List;
-import javax.enterprise.inject.Specializes;
 import javax.servlet.http.HttpSession;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
@@ -79,29 +78,17 @@ public class MovieController {
     }
 
     @GetMapping(value = "/find")
-    public ModelAndView find(Movie movie, RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/movie/all");
-     
-        
-        List<Movie> movies = movieService.findAll();
-        redirectAttributes.addFlashAttribute("movies", movies);
-        return modelAndView;
-    }
-    @GetMapping(value = "/findC")
-    public ModelAndView findC(
+    public String findC(
             @And({
-                @Spec(path = "name",params="name",spec=Like.class),
-                @Spec(path = "director",params="director",spec=Like.class),
-                @Spec(path = "genre",params="genre",spec=Equal.class),
-                @Spec(path = "year",params="year",spec=In.class)
-            })
-                    Specification<Movie> specification,RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/movie/all");
-     
-        
+        @Spec(path = "name", params = "name", spec = Like.class),
+        @Spec(path = "director", params = "director", spec = Like.class),
+        @Spec(path = "genre", params = "genre", spec = Equal.class),
+        @Spec(path = "year", params = "year", spec = In.class)
+    }) Specification<Movie> specification, Model model) {
+
         List<Movie> movies = movieService.findAll(specification);
-        redirectAttributes.addFlashAttribute("movies", movies);
-        return modelAndView;
+        model.addAttribute("movies", movies);
+        return "movie/all";
     }
 
 //    Movie attributes

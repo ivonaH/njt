@@ -12,6 +12,7 @@ import com.diplomski.njt.bioskop.pokusaj100.repository.MovieMarathonRepository;
 import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +44,11 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
     @Override
     public void save(MovieMarathon movieMarathon) {
         movieMarathonRepository.save(movieMarathon);
+    }
+
+    @Override
+    public List<MovieMarathon> findAll(Specification<MovieMarathon> specification) {
+        return movieMarathonRepository.findAll(specification);
     }
 
 }

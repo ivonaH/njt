@@ -28,7 +28,7 @@
         <div class="container">
             <h2>Pretraga filmova</h2>
             <hr>
-            <form method="GET" action="${pageContext.request.contextPath}/movie/findC">
+            <form method="GET" action="${pageContext.request.contextPath}/movie/find">
                 <div class="form-group col-sm-6">
                     <label for="name">Naziv:</label>
                     <input type="text" name="name"  class="form-control"/>
@@ -44,8 +44,8 @@
                 <div class="form-group col-sm-6">
                     <label for="genre">Genre: </label>
                     <select name="genre" class="custom-select">
+                        <option selected disabled>Odaberite zanr filma</option>
                         <c:forEach items="${genres}" var="genre">
-                            <option selected disabled>Odaberite zanr filma</option>
                             <option value="${genre}">${genre}</option>
                         </c:forEach>
                     </select>
@@ -53,6 +53,7 @@
                 <input type="submit" class="btn" style="background-color: lightseagreen;"value="Pronadji"/>
 
             </form>
+            <hr style="padding-bottom: 3%;">
 
             <h2>Svi filmovi</h2>
             <hr>

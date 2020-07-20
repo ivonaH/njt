@@ -13,7 +13,12 @@ import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import java.util.List;
+import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +49,7 @@ public class ReservationController {
     public String save(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, Reservation reservation) {
         reservation.setUser(user);
         reservationService.save(reservation);
-        redirectAttributes.addFlashAttribute("message", "Rezervacija je sacuvana "+user+" res:us "+reservation.getUser());
+        redirectAttributes.addFlashAttribute("message", "Rezervacija je sacuvana " + user + " res:us " + reservation.getUser());
         return "redirect:/reservation/all";
     }
 
@@ -66,6 +71,19 @@ public class ReservationController {
     public String newReservation(Model model) {
         model.addAttribute("reservation", new Reservation());
         return "reservation/new";
+    }
+
+    @GetMapping(value = "/reservation/find")
+    public String findReservations(
+            @And({
+        @Spec(path = "nameLastname", params = "nameLastname", spec = Like.class),
+        @Spec(path = "email", params = "email", spec = Like.class),
+        @Spec(path = "showtime.hall.name", params = "hallName", spec = Like.class),
+        @Spec(path = "showtime.dateTime", params = "dateTime", spec = GreaterThanOrEqual.class),
+        @Spec(path = "showtime.movie.name", params = "movieName", spec = Like.class)
+    }) Specification<Reservation> specification, Model model) {
+        model.addAttribute("reservations", reservationService.findAll(specification));
+        return "reservation/all";
     }
 
     @ModelAttribute(name = "showtimes")

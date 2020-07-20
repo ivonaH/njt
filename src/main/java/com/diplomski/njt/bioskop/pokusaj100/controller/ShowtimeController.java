@@ -7,6 +7,7 @@ package com.diplomski.njt.bioskop.pokusaj100.controller;
 
 import com.diplomski.njt.bioskop.pokusaj100.domain.Hall;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
+import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
@@ -19,7 +20,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.In;
+import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
+import org.aspectj.lang.annotation.After;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +64,18 @@ public class ShowtimeController {
     }
 
     @RequestMapping(value = "/all")
-    public String allHalls(Model model) {
+    public String allShowtimes(Model model) {
+        return "showtime/all";
+    }
+
+    @GetMapping(value = "/find")
+    public String findShowtimes(
+            @And({
+        @Spec(path = "movie.name", params = "movieName", spec = Like.class),
+        @Spec(path = "dateTime", params = "dateTime", spec = GreaterThanOrEqual.class),
+        @Spec(path = "hall.name", params = "hallName", spec = Like.class)
+    }) Specification<Showtime> specification, Model model) {
+        model.addAttribute("showtimes", showtimeService.findAll(specification));
         return "showtime/all";
     }
 
@@ -75,6 +95,7 @@ public class ShowtimeController {
         model.addAttribute("selectedMovieId", movieId);
         return "showtime/new";
     }
+
     @GetMapping(value = "/newS")
     public String newShowtime(Model model) {
         model.addAttribute("showtime", new Showtime());
@@ -87,7 +108,7 @@ public class ShowtimeController {
         showtime.setId(1919);
         showtime.setUser(user);
         showtimeService.save(showtime);
-        redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime+" datum je: "+showtime.getDateTime());
+        redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
         return "redirect:/showtime/all";
 
     }

@@ -14,6 +14,8 @@ import com.diplomski.njt.bioskop.pokusaj100.repository.ShowtimeRepository;
 import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +52,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public int countByShowtimeId(int id) {
         return reservationRepository.countByShowtimeId(id);
+    }
+
+    @Override
+    public Object findAll(Specification<Reservation> specification) {
+        return reservationRepository.findAll(specification);
     }
 
 }
