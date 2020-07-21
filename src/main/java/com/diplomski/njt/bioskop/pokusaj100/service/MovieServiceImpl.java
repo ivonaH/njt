@@ -10,8 +10,10 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.repository.MovieRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,12 +54,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> findAll() {
-        return movieRepository.findAll();
+        return movieRepository.findAll(Sort.by(Sort.Direction.DESC, "Year"));
     }
 
     @Override
     public List<Movie> findAll(Specification<Movie> specification) {
-        return movieRepository.findAll(specification);
+        return movieRepository.findAll(specification,Sort.by(Sort.Direction.DESC, "Year"));
     }
 
 }

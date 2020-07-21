@@ -11,6 +11,7 @@ import javax.servlet.ServletRegistration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+
 /**
  *
  * @author root
@@ -20,12 +21,12 @@ public class ApplicationInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext sc) throws ServletException {
         //konfigurisati dispatcher servlet
-        AnnotationConfigWebApplicationContext webAppContext=new AnnotationConfigWebApplicationContext();
+        AnnotationConfigWebApplicationContext webAppContext = new AnnotationConfigWebApplicationContext();
         webAppContext.register(WebAppContextConfig.class);
         webAppContext.setServletContext(sc);
-        
+
         //webAppContext spring container koji ce se koristiti za komponente koje obradjuju zahtev
-        ServletRegistration.Dynamic dispatcherServlet=sc.addServlet("dispatcherServlet", new DispatcherServlet(webAppContext));
+        ServletRegistration.Dynamic dispatcherServlet = sc.addServlet("dispatcherServlet", new DispatcherServlet(webAppContext));
         dispatcherServlet.addMapping("/");
         dispatcherServlet.setLoadOnStartup(1);
     }

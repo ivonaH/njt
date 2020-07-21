@@ -5,20 +5,14 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.service;
 
-import com.diplomski.njt.bioskop.pokusaj100.domain.Hall;
-import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
-import com.diplomski.njt.bioskop.pokusaj100.repository.HallRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ReservationRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ShowtimeRepository;
-import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 /**
  *

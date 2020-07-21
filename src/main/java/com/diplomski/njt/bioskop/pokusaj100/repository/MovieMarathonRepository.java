@@ -5,9 +5,7 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.repository;
 
-import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
-import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

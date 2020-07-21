@@ -5,7 +5,6 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.service;
 
-import com.diplomski.njt.bioskop.pokusaj100.domain.Hall;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import java.util.List;
 import org.springframework.data.jpa.domain.Specification;

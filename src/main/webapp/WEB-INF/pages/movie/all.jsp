@@ -26,6 +26,7 @@
     <body>
         <%@include file="../template/menu.jsp" %>
         <div class="container">
+
             <h2>Pretraga filmova</h2>
             <hr>
             <form method="GET" action="${pageContext.request.contextPath}/movie/find">
@@ -59,58 +60,57 @@
             <hr>
             <div>
                 <p>${message}</p>
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Naziv</th>
-                            <th>Producent</th>
-                            <th>Zanr</th>
-                            <th>Korisnik</th>
-                            <th>Godina</th>
-                            <th>Trajanje</th>
-                            <th>Akcija</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach
-                            items="${movies}"
-                            var="movie"
-                            varStatus="loop">
+                <div>
+                    <p>${message}</p>
+                    <table class="table table-dark">
+                        <thead>
                             <tr>
-                                <td>${movie.id}</td>
-                                <td>${movie.name}</td>
-                                <td>${movie.director}</td>
-                                <td>${movie.genre}</td>
-                                <td>${movie.user}</td>
-                                <td>${movie.year}</td>
-                                <td>${movie.duration}</td>
-                                <td>
-                                    <ul class="navbar-nav mr-auto d-flex justify-content-end">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                action
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="<c:url value = "/movie/${movie.id}/delete/">
-
-                                                    </c:url>">Delete</a>
-
-                                                <a class="dropdown-item" href="<c:url value = "/movie/${movie.id}/view/">
-
-                                                    </c:url>">View</a>
-                                                <a class="dropdown-item" href="<c:url value = "/showtime/new?movieId=${movie.id}">
-
-                                                    </c:url>">Nova projekcija</a>
-                                            </div>
-                                        </div>
-                                    </ul>
-                                </td>
+                                <th>Id</th>
+                                <th>Naziv</th>
+                                <th>Producent</th>
+                                <th>Zanr</th>
+                                <th>Korisnik</th>
+                                <th>Godina</th>
+                                <th>Trajanje</th>
+                                <th>Akcija</th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <c:forEach
+                                items="${movies}"
+                                var="movie"
+                                varStatus="loop">
+                                <tr>
+                                    <td>${movie.id}</td>
+                                    <td>${movie.name}</td>
+                                    <td>${movie.director}</td>
+                                    <td>${movie.genre}</td>
+                                    <td>${movie.user}</td>
+                                    <td>${movie.year}</td>
+                                    <td>${movie.duration}</td>
+                                    <td>
+                                        <ul class="navbar-nav mr-auto d-flex justify-content-end">
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    action
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="<c:url value = "/movie/${movie.id}/delete/">
+                                                       </c:url>">Delete</a>
+
+                                                    <a class="dropdown-item" href="<c:url value = "/movie/${movie.id}/view/">
+                                                       </c:url>">View</a>
+                                                    <a class="dropdown-item" href="<c:url value = "/showtime/new?movieId=${movie.id}">
+                                                       </c:url>">Nova projekcija</a>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
     </body>
 </html>

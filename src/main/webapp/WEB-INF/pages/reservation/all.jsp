@@ -19,30 +19,32 @@
 
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
         <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
+
+      
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
         <div class="container">
             <h2>Pretraga rezervacija </h2>
             <hr>
-            <form method="GET" action="${pageContext.request.contextPath}/reservation/find">
-                <div class="form-group col-sm-6">
+            <form  method="GET" action="${pageContext.request.contextPath}/reservation/find">
+                <div class="form-group col-sm-3">
                     <label for="name">Ime i prezime: </label>
                     <input type="text" name="nameLastname"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="name">Email: </label>
+                <div class="form-group col-sm-3">
+                    <label for="email">Email: </label>
                     <input type="text" name="email"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="name">Naziv filma:</label>
                     <input type="text" name="movieName"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="dateTime">Datum i vreme: </label>
                     <input name="dateTime"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="hall">Sala: </label>
                     <input name="hallName"  class="form-control"/>
                 </div>

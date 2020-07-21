@@ -3,26 +3,27 @@
     Created on : 12-Jul-2020, 16:22:35
     Author     : root
 --%>
-<style>
-    .dropdown-menu{
 
-        background-color: #6C757D;
-    }
-    .dropdown-item{
-        color:white;
-    }
-    .dropdown-item:hover{
-        background-color:lightgreen;
-    }
-    .nav-item:hover{
-        background-color:#6C757D;
-    }
-    .navbar{
-        margin-bottom: 3%;
-    }
 
-</style>
+    <style>
+        .dropdown-menu{
 
+            background-color: #6C757D;
+        }
+        .dropdown-item{
+            color:white;
+        }
+        .dropdown-item:hover{
+            background-color:lightgreen;
+        }
+        .nav-item:hover{
+            background-color:#6C757D;
+        }
+        .navbar{
+            margin-bottom: 3%;
+        }
+
+    </style>
 
 
 
