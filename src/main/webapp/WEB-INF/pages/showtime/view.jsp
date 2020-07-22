@@ -34,13 +34,15 @@
                             <form:input path="id" readonly="true" class="form-control"/>
                         </div>
                     </div>
-                        <div class="form-group" ">
-                        <label for="movie">Film: </label>
-                      
-                        <div class="col-sm-1" >
-                            <form:input path="movie.id" readonly="true" class="form-control"/> 
+                            <div class="form-group">
+                            <label for="movie">Film: </label>
+                            <div class="col-sm-4" >
+
+                                <form:select path="movie" class="custom-select" readOnly="true">
+                                    <option value="${showtime.movie.id}" label="${showtime.movie.id} ${showtime.movie.name} ${showtime.movie.year}" selected="selected"/>
+                                </form:select>
+                            </div>
                         </div>
-                    </div>
                     <div class="form-group">
                         <label for="hall">Sala: </label>
                         <div class="col-sm-4">
@@ -62,6 +64,7 @@
                             <form:input path="user.id"  readonly="true" class="form-control"/>
                         </div>
                     </div>
+                        
                     <div class="col-sm-4" >
                         <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                     </div>
