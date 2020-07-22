@@ -21,5 +21,7 @@ public interface UserService {
     void add(User user);
 
     User findByUsernameAndPassword(String username, String password);
+    
+    User findByUsername(String username);
 
 }

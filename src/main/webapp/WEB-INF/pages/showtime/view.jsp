@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <label for="user">Korisnik koji je uneo projekciju: </label>
                         <div class="col-sm-1">
-                            <form:input path="user.id"  readonly="true" class="form-control"/>
+                            <form:input path="user.username"  readonly="true" class="form-control"/>
                         </div>
                     </div>
                         

@@ -33,9 +33,9 @@ public class UserFormatter implements Formatter<User> {
     }
 
     @Override
-    public User parse(String id, Locale locale) throws ParseException {
+    public User parse(String username, Locale locale) throws ParseException {
         System.out.println("user formatter");
-        return userService.getById(Long.parseLong(id));
+        return userService.findByUsername(username);
     }
 
 }
