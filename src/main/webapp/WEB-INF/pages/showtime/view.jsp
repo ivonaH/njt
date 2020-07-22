@@ -30,19 +30,20 @@
 
                     <div class="form-group">
                         <label for="id">Id: </label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-1">
                             <form:input path="id" readonly="true" class="form-control"/>
                         </div>
                     </div>
-                    <div class="form-group">
+                        <div class="form-group" ">
                         <label for="movie">Film: </label>
-                        <div class="col-sm-6">
-                            <form:input path="movie.id" readonly="true" class="form-control"/>
+                      
+                        <div class="col-sm-1" >
+                            <form:input path="movie.id" readonly="true" class="form-control"/> 
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="hall">Sala: </label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <form:select path="hall" class="custom-select">
                                 <option selected disabled>Odaberite salu: </option>
                                 <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
@@ -51,17 +52,17 @@
                     </div>
                     <div class="form-group">
                         <label for="dateTime">Datum i vreme projekcije: </label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <form:input type="date" path="dateTime"  readonly="true" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="user">Korisnik koji je uneo projekciju: </label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-1">
                             <form:input path="user.id"  readonly="true" class="form-control"/>
                         </div>
                     </div>
-                    <div class="col-sm-6" >
+                    <div class="col-sm-4" >
                         <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                     </div>
                 </form:form>
