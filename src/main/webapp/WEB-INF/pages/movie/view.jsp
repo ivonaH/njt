@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Nova rezervacija</title>
+        <title>Prikaz filma</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -21,56 +21,58 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
+
+
         <div class="container">
-            <h2>Kreiraj novu rezervaciju </h2>
+            <h2>Prikaz filma</h2>
             <hr>
             <div>
-                ${message}
-                ${selectedShowtimeId}
-            </div>
-            <div>
-                <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/save" >
-
+                <form:form modelAttribute="movie" method="POST" action="${pageContext.request.contextPath}/movie/edit" >
                     <div class="form-group">
-                        <label for="showtime">Projekcija: </label>
+                        <label for="id">Id: </label>
                         <div class="col-sm-6">
-
-                            <form:select path="showtime" class="custom-select">
-                                <c:if test="${not empty selectedShowtimeId}">
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"
-                                                <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
-                                    </c:forEach>
-                                </c:if>
-                                <c:if test="${empty selectedShowtimeId}">
-                                    <option selected disabled>Odaberite projekciju</option>
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"/>
-                                    </c:forEach>
-                                </c:if>
+                            <form:input path="id" readonly="true" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="name">Name: </label>
+                        <div class="col-sm-6">
+                            <form:input path="name" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Genre: </label>
+                        <div class="col-sm-6">
+                            <form:select path="genre" class="custom-select">
+                                <option selected disabled>Odaberite zanr filma</option>
+                                <form:options items="${genres}"></form:options>
                             </form:select>
                         </div>
-
                     </div>
-
                     <div class="form-group">
-                        <label for="nameLastname">Ime i prezime: </label>
+                        <label for="director">Director: </label>
                         <div class="col-sm-6">
-                            <form:input path="nameLastname" class="form-control"/>
+                            <form:input path="director" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email: </label>
+                        <label for="year">Year: </label>
                         <div class="col-sm-6">
-                            <form:input path="email" class="form-control"/>
+                            <form:input path="year" class="form-control"/>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label for="duration">Duration: </label>
+                        <div class="col-sm-6">
+                            <form:input path="duration" class="form-control"/>
+                        </div>
+                    </div>
                     <div class="col-sm-6" >
                         <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                     </div>
                 </form:form>
             </div>
         </div>
+
     </body>
 </html>

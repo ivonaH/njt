@@ -73,11 +73,11 @@
                                             action
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="<c:url value = "/mm/${movie.id}/delete/">
+                                            <a class="dropdown-item" href="<c:url value = "/mm/${marathon.id}/delete/">
 
                                                 </c:url>">Delete</a>
 
-                                            <a class="dropdown-item" href="<c:url value = "/mm/${movie.id}/view/">
+                                            <a class="dropdown-item" href="<c:url value = "/mm/${marathon.id}/view/">
 
                                                 </c:url>">View</a>
                                         </div>

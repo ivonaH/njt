@@ -67,14 +67,15 @@ public class MovieController {
 
     @GetMapping(value = "/{id}/delete")
     public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
-//        movieService.delete(id);
-//        System.out.println("Brisem film...");
-//        model.addAttribute("message", "Film sa idijem: " + id + " je obrisan");
-//        return "movie/all";
         movieService.delete(id);
         ModelAndView modelAndView = new ModelAndView("redirect:/movie/all");
         redirectAttributes.addFlashAttribute("message", "Movie " + id + " is deleted!");
         return modelAndView;
+    }
+    @GetMapping(value = "/{id}/view")
+    public String delete(@PathVariable(name = "id") int id,Model model) {
+        model.addAttribute("movie", movieService.getById(id));
+        return "/movie/view";
     }
 
     @GetMapping(value = "/find")

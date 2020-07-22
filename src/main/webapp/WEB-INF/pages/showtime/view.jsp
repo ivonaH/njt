@@ -12,65 +12,55 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Nova rezervacija</title>
+        <title>Prikaz projekcije</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
 
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
         <div class="container">
-            <h2>Kreiraj novu rezervaciju </h2>
+            <h2>Prikaz projekcije </h2>
             <hr>
             <div>
-                ${message}
-                ${selectedShowtimeId}
-            </div>
-            <div>
-                <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/save" >
+                <form:form modelAttribute="showtime" method="POST" action="${pageContext.request.contextPath}/showtime/edit" >
 
                     <div class="form-group">
-                        <label for="showtime">Projekcija: </label>
+                        <label for="id">Id: </label>
                         <div class="col-sm-6">
-
-                            <form:select path="showtime" class="custom-select">
-                                <c:if test="${not empty selectedShowtimeId}">
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"
-                                                <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
-                                    </c:forEach>
-                                </c:if>
-                                <c:if test="${empty selectedShowtimeId}">
-                                    <option selected disabled>Odaberite projekciju</option>
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"/>
-                                    </c:forEach>
-                                </c:if>
+                            <form:input path="id" readonly="true" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="movie">Film: </label>
+                        <div class="col-sm-6">
+                            <form:input path="movie" readonly="true" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hall">Sala: </label>
+                        <div class="col-sm-6">
+                            <form:select path="hall" class="custom-select">
+                                <option selected disabled>Odaberite salu: </option>
+                                <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
                             </form:select>
                         </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nameLastname">Ime i prezime: </label>
-                        <div class="col-sm-6">
-                            <form:input path="nameLastname" class="form-control"/>
-                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email: </label>
+                        <label for="dateTime">Datum i vreme projekcije: </label>
                         <div class="col-sm-6">
-                            <form:input path="email" class="form-control"/>
+                            <form:input type="date" path="dateTime"  readonly="true" class="form-control"/>
                         </div>
                     </div>
-
                     <div class="col-sm-6" >
                         <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                     </div>
                 </form:form>
             </div>
         </div>
+
     </body>
 </html>

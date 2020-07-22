@@ -66,9 +66,16 @@
                     <label for="dateTime">Datum i vreme: </label>
                     <input name="dateTime"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group">
                     <label for="hall">Sala: </label>
-                    <input name="hallName"  class="form-control"/>
+                    <div class="col-sm-6">
+                        <select name="hallName" class="custom-select">
+                            <option selected disabled>Odaberite salu: </option>
+                            <c:forEach items="${halls}" var="hall">
+                                <option name="${hall.name}">${hall.name}</option>>
+                            </c:forEach>
+                        </select>
+                    </div>
                 </div>
                 <input type="submit" class="btn" style="background-color: lightseagreen;"value="Pronadji"/>
 

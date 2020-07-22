@@ -92,8 +92,13 @@ public class MovieMarathonController {
 
     @RequestMapping(value = "/all")
     public String allMovies(Model model) {
-//        model.addAttribute("movies", movieService.getAll());
         return "marathon/all";
+    }
+    
+        @GetMapping(value = "/{id}/view")
+    public String delete(@PathVariable(name = "id") int id,Model model) {
+        model.addAttribute("mm", movieMarathonService.findById(id));
+        return "/marathon/view";
     }
 
     @ModelAttribute(name = "marathons")

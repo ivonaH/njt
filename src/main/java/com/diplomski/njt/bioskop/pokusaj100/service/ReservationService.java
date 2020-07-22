@@ -24,4 +24,6 @@ public interface ReservationService {
     public int countByShowtimeId(int id);
 
     public Object findAll(Specification<Reservation> specification);
+
+    public void delete(int id);
 }

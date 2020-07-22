@@ -9,6 +9,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Hall;
 import com.diplomski.njt.bioskop.pokusaj100.repository.HallRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public List<Hall> findAll() {
-        return hallRepository.findAll();
+        return hallRepository.findAll(Sort.by(Sort.Direction.ASC,"Name"));
     }
 
     @Override

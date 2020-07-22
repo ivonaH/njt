@@ -59,7 +59,6 @@
             <h2>Svi filmovi</h2>
             <hr>
             <div>
-                <p>${message}</p>
                 <div>
                     <p>${message}</p>
                     <table class="table table-dark">

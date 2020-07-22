@@ -76,6 +76,11 @@ public class ShowtimeController {
         redirectAttributes.addFlashAttribute("message", "Projekcija sa idijem: " + id + " je obrisana.");
         return modelAndView;
     }
+    @GetMapping(value = "/{id}/view")
+    public String view(@PathVariable(name = "id") int id,Model model) {
+      model.addAttribute("showtime", showtimeService.findById(id));
+        return "/showtime/view";
+    }
 
     @GetMapping(value = "/new")
     public String newShowtime(@RequestParam(value = "movieId") int movieId, Model model) {

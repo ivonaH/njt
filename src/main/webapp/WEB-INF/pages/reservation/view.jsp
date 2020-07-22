@@ -26,29 +26,19 @@
             <hr>
             <div>
                 ${message}
-                ${selectedShowtimeId}
             </div>
             <div>
-                <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/save" >
-
+                <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/edit" >
+                    <div class="form-group">
+                        <label for="id">Id: </label>
+                        <div class="col-sm-6">
+                            <form:input path="id" readonly="true" class="form-control"/>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="showtime">Projekcija: </label>
                         <div class="col-sm-6">
-
-                            <form:select path="showtime" class="custom-select">
-                                <c:if test="${not empty selectedShowtimeId}">
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"
-                                                <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
-                                    </c:forEach>
-                                </c:if>
-                                <c:if test="${empty selectedShowtimeId}">
-                                    <option selected disabled>Odaberite projekciju</option>
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"/>
-                                    </c:forEach>
-                                </c:if>
-                            </form:select>
+                            <form:input path="showtime"  readonly="true" class="form-control"/>
                         </div>
 
                     </div>
