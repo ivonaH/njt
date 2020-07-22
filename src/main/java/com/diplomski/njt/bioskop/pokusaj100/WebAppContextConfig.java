@@ -9,10 +9,12 @@ import com.diplomski.njt.bioskop.pokusaj100.formatter.HallFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.formatter.MovieFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.formatter.ReservationFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.formatter.ShowtimeFormatter;
+import com.diplomski.njt.bioskop.pokusaj100.formatter.UserFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
+import com.diplomski.njt.bioskop.pokusaj100.service.UserService;
 import java.util.List;
 import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +46,15 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     private final MovieService movieService;
     private final ShowtimeService showtimeService;
     private final ReservationService reservationService;
+    private final UserService userService;
 
     @Autowired
-    WebAppContextConfig(HallService hallService, MovieService movieService, ShowtimeService showtimeService, ReservationService reservationService) {
+    WebAppContextConfig(HallService hallService, MovieService movieService, ShowtimeService showtimeService, ReservationService reservationService, UserService userService) {
         this.hallService = hallService;
         this.movieService = movieService;
         this.reservationService = reservationService;
         this.showtimeService = showtimeService;
+        this.userService=userService;
     }
 
     @Override
@@ -89,6 +93,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new MovieFormatter(movieService));
         registry.addFormatter(new ShowtimeFormatter(showtimeService));
         registry.addFormatter(new ReservationFormatter(reservationService));
+        registry.addFormatter(new UserFormatter(userService));
         registry.addFormatter(new DateFormatter("yyyy-MM-dd HH:mm:ss"));
 
     }

@@ -107,6 +107,14 @@ public class ShowtimeController {
         return "redirect:/showtime/all";
 
     }
+    @PostMapping(value = "/update")
+    public String updateShowtime(@SessionAttribute(name = "user") User user, Showtime showtime, RedirectAttributes redirectAttributes) {
+        showtime.setUser(user);
+        showtimeService.save(showtime);
+        redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
+        return "redirect:/showtime/all";
+
+    }
 
     @ModelAttribute(name = "showtimes")
     private List<Showtime> getShowtimes() {

@@ -26,7 +26,7 @@
             <h2>Prikaz projekcije </h2>
             <hr>
             <div>
-                <form:form modelAttribute="showtime" method="POST" action="${pageContext.request.contextPath}/showtime/edit" >
+                <form:form modelAttribute="showtime" method="POST" action="${pageContext.request.contextPath}/showtime/update" >
 
                     <div class="form-group">
                         <label for="id">Id: </label>
@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label for="movie">Film: </label>
                         <div class="col-sm-6">
-                            <form:input path="movie" readonly="true" class="form-control"/>
+                            <form:input path="movie.id" readonly="true" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -53,6 +53,12 @@
                         <label for="dateTime">Datum i vreme projekcije: </label>
                         <div class="col-sm-6">
                             <form:input type="date" path="dateTime"  readonly="true" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user">Korisnik koji je uneo projekciju: </label>
+                        <div class="col-sm-6">
+                            <form:input path="user.id"  readonly="true" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-sm-6" >
