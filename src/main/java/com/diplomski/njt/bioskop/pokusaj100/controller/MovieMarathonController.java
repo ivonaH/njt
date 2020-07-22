@@ -49,19 +49,42 @@ public class MovieMarathonController {
 
     @RequestMapping(value = "/new")
     public String newMM(Model model, HttpSession session) {
-        ArrayList<Showtime> showtimes = new ArrayList<>();
-        session.setAttribute("addedShowtimes", new ArrayList<Showtime>());
-
         return "marathon/new";
     }
 
     @GetMapping(value = "/addShowtime/{showtimeId}")
     public String addShowtime(@PathVariable(name = "showtimeId") int showtimeId, HttpSession session, Model model) {
+        if(session.getAttribute("addedShowtimes")==null){
+            session.setAttribute("addedShowtimes", new ArrayList<Showtime>());
+        }
         ArrayList<Showtime> showtimes = (ArrayList<Showtime>) session.getAttribute("addedShowtimes");
-        showtimes.add(showtimeService.findById(showtimeId));
+        Showtime toAdd=showtimeService.findById(showtimeId);
+        if(!showtimes.contains(toAdd)){
+            showtimes.add(toAdd);
+            model.addAttribute("mmMessage", "Projekcija je dodata.");
+        }
+        else{
+             model.addAttribute("mmMessage", "Projekcija se vec nalazi na filmskom maratonu.");
+        }
+        return "marathon/new";
+    }
+    
+    
+    @GetMapping(value = "/removeShowtime/{showtimeId}")
+    public String removeShowtime(@PathVariable(name = "showtimeId") int showtimeId, HttpSession session, Model model) {
+        ArrayList<Showtime> showtimes = (ArrayList<Showtime>) session.getAttribute("addedShowtimes");
+        Showtime showtimeToRemove=null;
+        for (Showtime s:showtimes) {
+            if (s.getId()==showtimeId) {
+                showtimeToRemove = s;
+                break;
+            }
+        }
+        if (showtimeToRemove != null) {
+            showtimes.remove(showtimeToRemove);
+        }
 
-        model.addAttribute("showtimes", showtimeService.findAll());
-        model.addAttribute("mmMessage", "Projekcija je dodata.");
+        model.addAttribute("mmMessage", "Projekcija je uklonjena sa filmskog maratona.");
 
         return "marathon/new";
     }

@@ -91,6 +91,9 @@
             </table>
             <br> <h1>Dodate projekcije:</h1>
             <br><hr>
+            ${mmMessage}
+            <br>
+            <br>
             <table class="table table-dark" id='table1'>
                 <thead>
                     <tr>
@@ -98,6 +101,7 @@
                         <th>Datum i Vreme</th>
                         <th>Film</th>
                         <th>Sala</th>
+                        <th>Akcija</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,6 +114,8 @@
                             <td>${showtime.dateTime}</td>
                             <td>${showtime.movie}</td>
                             <td>${showtime.hall}</td>
+                            <td><a class="linkAdd btn" href="<c:url value = "/mm/removeShowtime/${showtime.id}" >
+                                   </c:url>">Ukloni projekciju sa maratona</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -125,5 +131,7 @@
             </div>
         </div>
 
+
+                    
     </body>
 </html>

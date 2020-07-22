@@ -61,27 +61,4 @@ public class UserController {
         return "login";
     }
 
-
-
-//
-//    @GetMapping(value = "/removeShowtime/{movieId}")
-//    public String removeShowtime(@PathVariable(name = "movieId") Long movieId, HttpSession session, Model model) {
-//        ArrayList<User> users = (ArrayList<User>) session.getAttribute("addedUsers");
-//        User userToRemove=null;
-//        for (User u : users) {
-//            if (Objects.equals(u.getId(), movieId)) {
-//                userToRemove = u;
-//                break;
-//            }
-//        }
-//        if (userToRemove != null) {
-//            users.remove(userToRemove);
-//        }
-//
-//        model.addAttribute("users", userService.getAll());
-//        model.addAttribute("mmMessage", "Projekcija je uklonjena.");
-//
-//        return "marathon/marathon";
-//    }
-
 }
