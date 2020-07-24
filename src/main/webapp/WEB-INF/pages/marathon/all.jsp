@@ -19,7 +19,19 @@
 
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
         <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
-
+   <style>
+            .btn-holder{
+                text-align: center;
+            }
+            .btnNadji{
+                background-color: lightgreen;
+                color:white;
+            }
+            .btnNadji:hover{
+                background-color:#6C757D ;
+                color: lightgreen;
+            }
+        </style>
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
@@ -28,20 +40,25 @@
             <h2>Pretraga filmskih maratona</h2>
             <hr>
             <form method="GET" action="${pageContext.request.contextPath}/mm/find">
-                <div class="form-group col-sm-6">
+                <div class="row">
+                <div class="form-group col-sm-4">
                     <label for="name">Naziv:</label>
                     <input type="text" name="name"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="movie">Film: </label>
-                    <input name="movieName"  class="form-control"/>
-                </div>
-                <div class="form-group col-sm-6">
+                
+                <div class="form-group col-sm-4">
                     <label for="dateTime">Datum i vreme: </label>
                     <input name="dateTime"  class="form-control"/>
                 </div>
-                <input type="submit" class="btn" style="background-color: lightseagreen;"value="Pronadji"/>
-
+                <div class="form-group col-sm-4">
+                    <label for="movie">Film: </label>
+                    <input name="movie.name"  class="form-control"/>
+                </div>
+                  
+                </div>
+                <div class="btn-holder">
+                <input type="submit" class="btn btnNadji" value="Pronadji"/>
+                </div>
             </form>
             <hr style="padding-bottom: 3%;">
 

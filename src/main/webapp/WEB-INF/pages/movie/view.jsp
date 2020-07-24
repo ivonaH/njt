@@ -27,7 +27,7 @@
             <h2>Prikaz filma</h2>
             <hr>
             <div>
-                <form:form modelAttribute="movie" method="POST" action="${pageContext.request.contextPath}/movie/edit" >
+                <form:form modelAttribute="movie"  >
                     <div class="form-group">
                         <label for="id">Id: </label>
                         <div class="col-sm-6">
@@ -66,9 +66,6 @@
                         <div class="col-sm-6">
                             <form:input path="duration" class="form-control"/>
                         </div>
-                    </div>
-                    <div class="col-sm-6" >
-                        <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                     </div>
                 </form:form>
             </div>

@@ -109,7 +109,13 @@ public class ShowtimeController {
     }
     @PostMapping(value = "/update")
     public String updateShowtime(@SessionAttribute(name = "user") User user, Showtime showtime, RedirectAttributes redirectAttributes) {
-        showtime.setUser(user);
+//        showtime.setUser(user);
+    System.out.println("///////////////USER JE "+showtime.getUser());
+    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
+    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
+    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
+    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
+    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
         showtimeService.save(showtime);
         redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
         return "redirect:/showtime/all";

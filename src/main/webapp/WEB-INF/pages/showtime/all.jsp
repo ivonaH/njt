@@ -49,6 +49,17 @@
                 visibility: visible;
 
             }
+            .btn-holder{
+                text-align: center;
+            }
+            .btnNadji{
+                background-color: lightgreen;
+                color:white;
+            }
+            .btnNadji:hover{
+                background-color:#6C757D ;
+                color: lightgreen;
+            }
         </style>
 
     </head>
@@ -58,26 +69,28 @@
             <h2>Pretraga projekcija</h2>
             <hr>
             <form method="GET" action="${pageContext.request.contextPath}/showtime/find">
-                <div class="form-group col-sm-6">
-                    <label for="name">Naziv filma:</label>
-                    <input type="text" name="movieName"  class="form-control"/>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="name">Naziv filma:</label>
+                        <input type="text" name="movieName"  class="form-control"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="dateTime">Datum i vreme: </label>
+                        <input name="dateTime"  class="form-control"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="hall">Sala: </label>
+                            <select name="hallName" class="custom-select">
+                                <option selected disabled>Odaberite salu: </option>
+                                <c:forEach items="${halls}" var="hall">
+                                    <option name="${hall.name}">${hall.name}</option>>
+                                </c:forEach>
+                            </select>
+
+                    </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="dateTime">Datum i vreme: </label>
-                    <input name="dateTime"  class="form-control"/>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="hall">Sala: </label>
-                        <select name="hallName" class="custom-select">
-                            <option selected disabled>Odaberite salu: </option>
-                            <c:forEach items="${halls}" var="hall">
-                                <option name="${hall.name}">${hall.name}</option>>
-                            </c:forEach>
-                        </select>
-                    
-                </div>
-                <div class="col-sm-6">
-                    <input type="submit" class="btn" style="background-color: lightgreen; " value="Pronadji"/>
+                <div class="btn-holder">
+                    <input type="submit" class="btn btnNadji"  " value="Pronadji"/>
                 </div>
 
             </form>

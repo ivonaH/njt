@@ -95,6 +95,10 @@ public class Showtime {
         this.movie = movie;
     }
 
+    public int getMovieMarathonId() {
+        return movieMarathonId;
+    }
+    
     @Override
     public String toString() {
         return "Showtime{" + "id=" + id + ", dateTime=" + dateTime + ", hall=" + hall + ", user=" + user + ", movie=" + movie + '}' + freeSeats;

@@ -19,7 +19,20 @@
 
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
         <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
-
+        
+        <style>
+            .btn-holder{
+                text-align: center;
+            }
+            .btnNadji{
+                background-color: lightgreen;
+                color:white;
+            }
+            .btnNadji:hover{
+                background-color:#6C757D ;
+                color: lightgreen;
+            }
+        </style>
       
     </head>
     <body>
@@ -28,6 +41,7 @@
             <h2>Pretraga rezervacija </h2>
             <hr>
             <form  method="GET" action="${pageContext.request.contextPath}/reservation/find">
+                <div class="row">
                 <div class="form-group col-sm-3">
                     <label for="name">Ime i prezime: </label>
                     <input type="text" name="nameLastname"  class="form-control"/>
@@ -44,12 +58,11 @@
                     <label for="dateTime">Datum i vreme: </label>
                     <input name="dateTime"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-3">
-                    <label for="hall">Sala: </label>
-                    <input name="hallName"  class="form-control"/>
+              
                 </div>
-                <input type="submit" class="btn" style="background-color: lightseagreen;"value="Pronadji"/>
-
+                <div class="btn-holder">
+                <input type="submit" class="btn btnNadji" value="Pronadji"/>
+                </div>
             </form>
 
             <hr style="padding-bottom: 3%;">

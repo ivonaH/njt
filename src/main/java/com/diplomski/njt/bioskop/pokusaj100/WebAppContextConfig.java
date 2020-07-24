@@ -54,7 +54,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         this.movieService = movieService;
         this.reservationService = reservationService;
         this.showtimeService = showtimeService;
-        this.userService=userService;
+        this.userService = userService;
     }
 
     @Override
@@ -93,8 +93,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new MovieFormatter(movieService));
         registry.addFormatter(new ShowtimeFormatter(showtimeService));
         registry.addFormatter(new ReservationFormatter(reservationService));
-        registry.addFormatter(new UserFormatter(userService));
         registry.addFormatter(new DateFormatter("yyyy-MM-dd HH:mm:ss"));
+        registry.addFormatter(new UserFormatter(userService));
 
     }
 

@@ -21,7 +21,19 @@
 
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
         <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
-
+    <style>
+            .btn-holder{
+                text-align: center;
+            }
+            .btnNadji{
+                background-color: lightgreen;
+                color:white;
+            }
+            .btnNadji:hover{
+                background-color:#6C757D ;
+                color: lightgreen;
+            }
+        </style>
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
@@ -29,20 +41,21 @@
 
             <h2>Pretraga filmova</h2>
             <hr>
-            <form method="GET" action="${pageContext.request.contextPath}/movie/find">
-                <div class="form-group col-sm-6">
+            <form method="GET"  action="${pageContext.request.contextPath}/movie/find">
+                <div class="row">
+                     <div class="form-group col-sm-3">
                     <label for="name">Naziv:</label>
                     <input type="text" name="name"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="director">Reziser:</label>
                     <input name="director"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="year">Godina:</label>
                     <input name="year"  class="form-control"/>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="genre">Genre: </label>
                     <select name="genre" class="custom-select">
                         <option selected disabled>Odaberite zanr filma</option>
@@ -51,7 +64,10 @@
                         </c:forEach>
                     </select>
                 </div>
-                <input type="submit" class="btn" style="background-color: lightseagreen;"value="Pronadji"/>
+                </div>
+                <div class="btn-holder">
+                <input type="submit" class="btn btnNadji" value="Pronadji"/>
+                </div>
 
             </form>
             <hr style="padding-bottom: 3%;">

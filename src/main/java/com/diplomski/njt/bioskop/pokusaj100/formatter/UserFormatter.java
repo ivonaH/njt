@@ -5,9 +5,7 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.formatter;
 
-import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
-import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.UserService;
 import java.text.ParseException;
 import java.util.Locale;
@@ -20,11 +18,11 @@ import org.springframework.format.Formatter;
  */
 public class UserFormatter implements Formatter<User> {
 
-  private final  UserService userService;
+    private final UserService userService;
 
-  @Autowired
+    @Autowired
     public UserFormatter(UserService userService) {
-        this.userService=userService;
+        this.userService = userService;
     }
 
     @Override
@@ -34,7 +32,6 @@ public class UserFormatter implements Formatter<User> {
 
     @Override
     public User parse(String username, Locale locale) throws ParseException {
-        System.out.println("user formatter");
         return userService.findByUsername(username);
     }
 

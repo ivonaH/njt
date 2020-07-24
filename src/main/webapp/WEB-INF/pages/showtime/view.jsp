@@ -34,15 +34,16 @@
                             <form:input path="id" readonly="true" class="form-control"/>
                         </div>
                     </div>
-                            <div class="form-group">
+                        <div class="form-group">
                             <label for="movie">Film: </label>
-                            <div class="col-sm-4" >
-
-                                <form:select path="movie" class="custom-select" readOnly="true">
-                                    <option value="${showtime.movie.id}" label="${showtime.movie.id} ${showtime.movie.name} ${showtime.movie.year}" selected="selected"/>
-                                </form:select>
-                            </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <input placeholder="${showtime.movie.name}" class="form-control col-sm-4" disabled="true"/>
+                                        <form:input path="movie.id"  readonly="true" class="form-control col-sm-1" style="visibility:hidden;"/>
+                                    </div>
+                                </div>
                         </div>
+                        
                     <div class="form-group">
                         <label for="hall">Sala: </label>
                         <div class="col-sm-4">
@@ -55,16 +56,34 @@
                     <div class="form-group">
                         <label for="dateTime">Datum i vreme projekcije: </label>
                         <div class="col-sm-4">
-                            <form:input type="date" path="dateTime"  readonly="true" class="form-control"/>
+                            <form:input path="dateTime"  readonly="true" class="form-control"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="user">Korisnik koji je uneo projekciju: </label>
-                        <div class="col-sm-1">
+                        <h4>Korisnik koji je uneo projekciju</h4>
+                    <div class="form-group row">
+                        <label for="user">Id korisnika:</label>
+                        <div class="col-sm-2">
+                            <form:input path="user.id"  readonly="true" class="form-control"/>
+                        </div>
+                        <label for="user">Korisnicko ime:</label>
+                        <div class="col-sm-2">
                             <form:input path="user.username"  readonly="true" class="form-control"/>
                         </div>
+                        <label for="user">Ime:</label>
+                        <div class="col-sm-2">
+                            <form:input path="user.firstname"  readonly="true" class="form-control"/>
+                        </div>
+                        <label for="user">Prezime:</label>
+                        <div class="col-sm-2">
+                            <form:input path="user.lastname"  readonly="true" class="form-control"/>
+                        </div>
                     </div>
-                        
+                         <div class="form-group">
+                        <label for="marathonId">Id maratona: </label>
+                        <div class="col-sm-6">
+                            <form:input path="movieMarathonId" class="form-control"/>
+                        </div>
+                    </div>
                     <div class="col-sm-4" >
                         <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                     </div>
