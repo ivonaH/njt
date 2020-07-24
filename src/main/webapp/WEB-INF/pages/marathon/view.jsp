@@ -9,6 +9,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,46 +24,47 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
+            <div class="container" style="margin-top: 3%;margin-bottom: 3%;">
+                <h2><fmt:message key="viewMarathon.infoMessage"/></h2>
+                <hr>
 
-        <div class="container" style="margin-top: 3%;margin-bottom: 3%;">
-            <h2>Prikaz maratona</h2>
-            <hr>
-
-            <div class="form-group col-sm-6">
-                <label for="id">Id </label>
-                <input name="mm.id" value="${mm.id}" disabled="true" class="form-control"/>
-            </div>
-            <div class="form-group col-sm-6">
-                <label for="name">Naziv: </label>
-                <input name="mm.name" value="${mm.name}" disabled="true" class="form-control"/>
-            </div>
-            <h4 style="margin-top:3%;margin-bottom: 2%;">Projekcije na maratonu:</h4>
-            <table class="table table-dark" id='table1'>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Datum i Vreme</th>
-                        <th>Film</th>
-                        <th>Sala</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach
-                        items="${mm.showtimes}"
-                        var="showtime"
-                        varStatus="loop">
-                        <tr id="${showtime.id}">
-                            <td>${showtime.id}</td>
-                            <td>${showtime.dateTime}</td>
-                            <td>${showtime.movie}</td>
-                            <td>${showtime.hall}</td>
+                <div class="form-group col-sm-6">
+                    <label for="id"><fmt:message key="label.marathon.id"/> </label>
+                    <input name="mm.id" value="${mm.id}" disabled="true" class="form-control"/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="name"><fmt:message key="label.marathon.name"/> </label>
+                    <input name="mm.name" value="${mm.name}" disabled="true" class="form-control"/>
+                </div>
+                <h4 style="margin-top:3%;margin-bottom: 2%;"><fmt:message key="label.marathon.showtimes"/></h4>
+                <table class="table table-dark" id='table1'>
+                    <thead>
+                        <tr>
+                            <th><fmt:message key="label.marathon.id"/></th>
+                            <th><fmt:message key="label.dateTime"/></th>
+                            <th><fmt:message key="label.movie"/></th>
+                            <th><fmt:message key="label.Hall"/></th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-            <div>
+                    </thead>
+                    <tbody>
+                        <c:forEach
+                            items="${mm.showtimes}"
+                            var="showtime"
+                            varStatus="loop">
+                            <tr id="${showtime.id}">
+                                <td>${showtime.id}</td>
+                                <td>${showtime.dateTime}</td>
+                                <td>${showtime.movie}</td>
+                                <td>${showtime.hall}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <div>
 
-            </div>
-
+                </div>
+            </fmt:bundle>
     </body>
 </html>

@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -22,9 +23,10 @@
     <body>
         <%@include file="../template/menu.jsp" %>
 
-
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
         <div class="container">
-            <h2>Kreiraj novi film </h2>
+            <h2><fmt:message key="newMovie.infoMessage"/></h2>
             <hr>
             <div>
                 ${movieStatus}
@@ -32,44 +34,44 @@
             <div>
                 <form:form modelAttribute="movie" method="POST" action="${pageContext.request.contextPath}/movie/save" >
                     <div class="form-group" >
-                        <label for="name">Name: </label>
+                        <label for="name"><fmt:message key="label.movieName"/></label>
                         <div class="col-sm-6">
                             <form:input path="name" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="name">Genre: </label>
+                        <label for="name"><fmt:message key="label.movieGenre"/></label>
                         <div class="col-sm-6">
                             <form:select path="genre" class="custom-select">
-                                <option selected disabled>Odaberite zanr filma</option>
+                                <option selected disabled><fmt:message key="option.genre"/></option>
                                 <form:options items="${genres}"></form:options>
                             </form:select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="director">Director: </label>
+                        <label for="director"><fmt:message key="label.director"/></label>
                         <div class="col-sm-6">
                             <form:input path="director" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="year">Year: </label>
+                        <label for="year"><fmt:message key="label.year"/></label>
                         <div class="col-sm-6">
                             <form:input path="year" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="duration">Duration: </label>
+                        <label for="duration"><fmt:message key="label.duration"/></label>
                         <div class="col-sm-6">
                             <form:input path="duration" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-sm-6" >
-                        <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                        <input type="submit" value="<fmt:message key="button.saveMovie"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                     </div>
                 </form:form>
             </div>
         </div>
-
+     </fmt:bundle>
     </body>
 </html>

@@ -7,6 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 
 
 <!DOCTYPE html>
@@ -20,36 +23,41 @@
         <link href='${pageContext.request.contextPath}/resources/css/styles.css' rel="stylesheet"/>
     </head>
     <body>
-        <div class="container col-sm-3" style="position: fixed; top: 35%;left: 40%; ">
-            <h2>Login strana</h2>
-            <div class="row" >  
-                <c:if test="${not empty logoutMessage}">
-                    <div class="alert alert-success" role="alert">
-                        ${logoutMessage}
-                    </div>
-                </c:if>
-                <c:if test="${not empty errorMessage}">
-                    <div class="alert alert-danger" role="alert">
-                        ${errorMessage}
-                    </div> 
-                </c:if>
+
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
+            <div class="container col-sm-3" style="position: fixed; top: 35%;left: 40%; ">
+
+                <h2><fmt:message key="login.infoMessage"/></h2>
+                    <div class="row" >  
+                    <c:if test="${not empty logoutMessage}">
+                        <div class="alert alert-success" role="alert">
+                            ${logoutMessage}
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty errorMessage}">
+                        <div class="alert alert-danger" role="alert">
+                            ${errorMessage}
+                        </div> 
+                    </c:if>
 
                 </div>
                 <div class="row">
                     <form method="Post"  action="${pageContext.request.contextPath}/login/user">
-                    <div class="form-group col-sm-6">
-                        <label for="username">Username:</label>
-                        <input name="username"/>
-                    </div> 
-                    <div class="form-group col-sm-6">
-                        <label for="password">Password:</label>
-                        <input type="password" name="password"/>
-                    </div> 
-                    <div class="col-sm-6">
-                        <input type="submit" value="Login" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                        <div class="form-group col-sm-6">
+                            <label for="username"><fmt:message key="label.username"></fmt:message></label>
+                                <input name="username"/>
+                            </div> 
+                            <div class="form-group col-sm-6">
+                                <label for="password"><fmt:message key="label.password"></fmt:message></label>
+                                <input type="password" name="password"/>
+                            </div> 
+                            <div class="col-sm-6">
+                                <input type="submit" value="<fmt:message key="button.login"></fmt:message>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </div>
+                </div>
+        </fmt:bundle>
     </body>
 </html>

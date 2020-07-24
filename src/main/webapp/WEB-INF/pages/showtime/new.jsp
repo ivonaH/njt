@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,9 @@
     <body>
         <%@include file="../template/menu.jsp" %>
         <div class="container">
-            <h2>Kreiraj novu projekciju </h2>
+            <fmt:setLocale value="${sessionScope.lang}"/>
+            <fmt:bundle basename="i18n/config">
+            <h2><fmt:message key="newShowtime.infoMessage"/></h2>
             <hr>
             <div>
                 ${movieStatus}
@@ -33,12 +36,12 @@
                 <form:form modelAttribute="showtime" method="POST" action="${pageContext.request.contextPath}/showtime/save" >
 
                     <div class="form-group">
-                        <label for="movie">Film: </label>
+                        <label for="movie"><fmt:message key="label.movie"/> </label>
                         <div class="col-sm-6">
 
                             <form:select path="movie" class="custom-select">
                                 <c:if test="${empty selectedMovieId}">
-                                    <option selected disabled>Odaberite projekciju</option>
+                                    <option selected disabled><fmt:message key="option.movie"/> </option>
                                     <c:forEach items="${movies}" var="movie">
                                         <option value="${movie.id}" label="${movie.name}"/>
                                     </c:forEach>
@@ -52,26 +55,26 @@
                             </form:select>
                         </div>
                         <div class="form-group">
-                            <label for="hall">Sala: </label>
+                            <label for="hall"><fmt:message key="label.Hall"/>  </label>
                             <div class="col-sm-6">
                                 <form:select path="hall" class="custom-select">
-                                    <option selected disabled>Odaberite salu: </option>
+                                    <option selected disabled><fmt:message key="option.hall"/>  </option>
                                     <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
                                 </form:select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="dateTime">Datum i vreme projekcije: </label>
+                            <label for="dateTime"><fmt:message key="label.dateTime"/> </label>
                             <div class="col-sm-6">
                                 <form:input type="date" path="dateTime" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}"/>
                             </div>
                         </div>
                         <div class="col-sm-6" >
-                            <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                            <input type="submit" value="<fmt:message key="button.saveShowtime"/> " class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                         </div>
                     </form:form>
                 </div>
             </div>
-
+            </fmt:bundle>
     </body>
 </html>

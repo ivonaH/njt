@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -22,74 +23,77 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
-        <div class="container">
-            <h2>Prikaz projekcije </h2>
-            <hr>
-            <div>
-                <form:form modelAttribute="showtime" method="POST" action="${pageContext.request.contextPath}/showtime/update" >
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
+            <div class="container">
+                <h2><fmt:message key="viewShowtime.infoMessage"/></h2>
+                <hr>
+                <div>
+                    <form:form modelAttribute="showtime" method="POST" action="${pageContext.request.contextPath}/showtime/update" >
 
-                    <div class="form-group">
-                        <label for="id">Id: </label>
-                        <div class="col-sm-1">
-                            <form:input path="id" readonly="true" class="form-control"/>
-                        </div>
-                    </div>
                         <div class="form-group">
-                            <label for="movie">Film: </label>
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <input placeholder="${showtime.movie.name}" class="form-control col-sm-4" disabled="true"/>
-                                        <form:input path="movie.id"  readonly="true" class="form-control col-sm-1" style="visibility:hidden;"/>
-                                    </div>
+                            <label for="id"><fmt:message key="label.showtimeId"/></label>
+                            <div class="col-sm-1">
+                                <form:input path="id" readonly="true" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="movie"><fmt:message key="label.movie"/> </label>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <input placeholder="${showtime.movie.name}" class="form-control col-sm-4" disabled="true"/>
+                                    <form:input path="movie.id"  readonly="true" class="form-control col-sm-1" style="visibility:hidden;"/>
                                 </div>
+                            </div>
                         </div>
-                        
-                    <div class="form-group">
-                        <label for="hall">Sala: </label>
-                        <div class="col-sm-4">
-                            <form:select path="hall" class="custom-select">
-                                <option selected disabled>Odaberite salu: </option>
-                                <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
-                            </form:select>
+
+                        <div class="form-group">
+                            <label for="hall"><fmt:message key="label.Hall"/> </label>
+                            <div class="col-sm-4">
+                                <form:select path="hall" class="custom-select">
+                                    <option selected disabled><fmt:message key="select.hall"/></option>
+                                    <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
+                                </form:select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="dateTime">Datum i vreme projekcije: </label>
-                        <div class="col-sm-4">
-                            <form:input path="dateTime"  readonly="true" class="form-control"/>
+                        <div class="form-group">
+                            <label for="dateTime"><fmt:message key="label.dateTime"/></label>
+                            <div class="col-sm-4">
+                                <form:input path="dateTime"  readonly="true" class="form-control"/>
+                            </div>
                         </div>
-                    </div>
-                        <h4>Korisnik koji je uneo projekciju</h4>
-                    <div class="form-group row">
-                        <label for="user">Id korisnika:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.id"  readonly="true" class="form-control"/>
+                        <h4><fmt:message key="label.user"/></h4>
+                        <div class="form-group row">
+                            <label for="user"><fmt:message key="label.user.id"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.id"  readonly="true" class="form-control"/>
+                            </div>
+                            <label for="user"><fmt:message key="label.user.username"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.username"  readonly="true" class="form-control"/>
+                            </div>
+                            <label for="user"><fmt:message key="label.user.firstname"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.firstname"  readonly="true" class="form-control"/>
+                            </div>
+                            <label for="user"><fmt:message key="label.user.lastname"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.lastname"  readonly="true" class="form-control"/>
+                            </div>
                         </div>
-                        <label for="user">Korisnicko ime:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.username"  readonly="true" class="form-control"/>
+                        <div class="form-group">
+                            <label for="marathonId"><fmt:message key="label.marathon.id"/></label>
+                            <div class="col-sm-6">
+                                <form:input path="movieMarathonId" class="form-control"/>
+                            </div>
                         </div>
-                        <label for="user">Ime:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.firstname"  readonly="true" class="form-control"/>
+                        <div class="col-sm-4" >
+                            <input type="submit" value="<fmt:message key="button.showtime.update"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                         </div>
-                        <label for="user">Prezime:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.lastname"  readonly="true" class="form-control"/>
-                        </div>
-                    </div>
-                         <div class="form-group">
-                        <label for="marathonId">Id maratona: </label>
-                        <div class="col-sm-6">
-                            <form:input path="movieMarathonId" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="col-sm-4" >
-                        <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
-                    </div>
-                </form:form>
+                    </form:form>
+                </div>
             </div>
-        </div>
+        </fmt:bundle>
 
     </body>
 </html>

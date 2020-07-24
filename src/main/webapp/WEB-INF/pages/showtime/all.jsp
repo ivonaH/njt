@@ -4,9 +4,11 @@
     Author     : root
 --%>
 
-<%@page contentType="text/html" pageEncoding="windows-1252"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,23 +67,25 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
         <div class="container">
-            <h2>Pretraga projekcija</h2>
+            <h2><fmt:message key="showtimeSearch.infoMessage"/></h2>
             <hr>
             <form method="GET" action="${pageContext.request.contextPath}/showtime/find">
                 <div class="row">
                     <div class="form-group col-sm-4">
-                        <label for="name">Naziv filma:</label>
+                        <label for="name"><fmt:message key="label.movie"/></label>
                         <input type="text" name="movieName"  class="form-control"/>
                     </div>
                     <div class="form-group col-sm-4">
-                        <label for="dateTime">Datum i vreme: </label>
+                        <label for="dateTime"><fmt:message key="label.dateTime"/></label>
                         <input name="dateTime"  class="form-control"/>
                     </div>
                     <div class="form-group col-sm-4">
-                        <label for="hall">Sala: </label>
+                        <label for="hall"><fmt:message key="label.Hall"/> </label>
                             <select name="hallName" class="custom-select">
-                                <option selected disabled>Odaberite salu: </option>
+                                <option selected disabled><fmt:message key="option.hall"/></option>
                                 <c:forEach items="${halls}" var="hall">
                                     <option name="${hall.name}">${hall.name}</option>>
                                 </c:forEach>
@@ -90,25 +94,25 @@
                     </div>
                 </div>
                 <div class="btn-holder">
-                    <input type="submit" class="btn btnNadji"  " value="Pronadji"/>
+                    <input type="submit" class="btn btnNadji"  " value="<fmt:message key="button.search"/>"/>
                 </div>
 
             </form>
             <hr style="margin-bottom: 3%;">
 
-            <h2>Sve projekcije</h2>
+            <h2><fmt:message key="search.Result"/></h2>
             <hr>
             <p>${message}</p>
             <table class="table table-dark">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Film</th>
-                        <th>Datum i vreme</th>
-                        <th>Sala</th>
-                        <th>Korisnik</th>
+                        <th><fmt:message key="label.showtimeId"/></th>
+                        <th><fmt:message key="label.movie"/></th>
+                        <th><fmt:message key="label.dateTime"/></th>
+                        <th><fmt:message key="label.Hall"/></th>
+                        <th><fmt:message key="label.user"/></th>
                         <th>Slobodna mesta</th>
-                        <th>Akcija</th>
+                        <th><fmt:message key="label.action"/></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -129,19 +133,19 @@
                                 <ul class="navbar-nav mr-auto d-flex justify-content-end">
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            action
+                                            <fmt:message key="label.action"/>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/delete/">
 
-                                                </c:url>">Delete</a>
+                                                </c:url>"><fmt:message key="label.delete"/></a>
 
                                             <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/view/">
 
-                                                </c:url>">View</a>
+                                                </c:url>"><fmt:message key="label.view"/></a>
                                             <a class="dropdown-item" href="<c:url value = "/reservation/new?showtimeId=${showtime.id}">
 
-                                                </c:url>">Kreiraj rezervaciju</a>
+                                                </c:url>"><fmt:message key="label.createReservation"/></a>
                                         </div
                                     </div>
                                 </ul>
@@ -151,7 +155,7 @@
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-film" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0h8v6H4V1zm8 8H4v6h8V9zM1 1h2v2H1V1zm2 3H1v2h2V4zM1 7h2v2H1V7zm2 3H1v2h2v-2zm-2 3h2v2H1v-2zM15 1h-2v2h2V1zm-2 3h2v2h-2V4zm2 3h-2v2h2V7zm-2 3h2v2h-2v-2zm2 3h-2v2h2v-2z"/>
                                         </svg>
-                                        <span class="tooltiptextMM">Dodaj projekciju na filmski marathon</span>
+                                        <span class="tooltiptextMM"><fmt:message key="label.addToMarathon"/></span>
 
                                     </a>
                                 </td>
@@ -162,5 +166,6 @@
 
 
         </div>
+        </fmt:bundle>
     </body>
 </html>

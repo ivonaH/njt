@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -21,56 +22,60 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
-        <div class="container">
-            <h2>Kreiraj novu rezervaciju </h2>
-            <hr>
-            <div>
-                ${message}
-                ${selectedShowtimeId}
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
+
+            <div class="container">
+                <h2><fmt:message key="newReservation.infoMessage"/></h2>
+                <hr>
+                <div>
+                    ${message}
+                    ${selectedShowtimeId}
+                </div>
+                <div>
+                    <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/save" >
+
+                        <div class="form-group">
+                            <label for="showtime"><fmt:message key="label.showtime"/></label>
+                            <div class="col-sm-6">
+
+                                <form:select path="showtime" class="custom-select">
+                                    <c:if test="${not empty selectedShowtimeId}">
+                                        <c:forEach items="${showtimes}" var="showtime">
+                                            <option value="${showtime.id}" label="${showtime}"
+                                                    <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${empty selectedShowtimeId}">
+                                        <option selected disabled><fmt:message key="option.showtime"/></option>
+                                        <c:forEach items="${showtimes}" var="showtime">
+                                            <option value="${showtime.id}" label="${showtime}"/>
+                                        </c:forEach>
+                                    </c:if>
+                                </form:select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nameLastname"><fmt:message key="label.nameLastname"/></label>
+                            <div class="col-sm-6">
+                                <form:input path="nameLastname" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><fmt:message key="label.email"/> </label>
+                            <div class="col-sm-6">
+                                <form:input path="email" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" >
+                            <input type="submit" value="<fmt:message key="button.saveReservation"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                        </div>
+                    </form:form>
+                </div>
             </div>
-            <div>
-                <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/save" >
-
-                    <div class="form-group">
-                        <label for="showtime">Projekcija: </label>
-                        <div class="col-sm-6">
-
-                            <form:select path="showtime" class="custom-select">
-                                <c:if test="${not empty selectedShowtimeId}">
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"
-                                                <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
-                                    </c:forEach>
-                                </c:if>
-                                <c:if test="${empty selectedShowtimeId}">
-                                    <option selected disabled>Odaberite projekciju</option>
-                                    <c:forEach items="${showtimes}" var="showtime">
-                                        <option value="${showtime.id}" label="${showtime}"/>
-                                    </c:forEach>
-                                </c:if>
-                            </form:select>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nameLastname">Ime i prezime: </label>
-                        <div class="col-sm-6">
-                            <form:input path="nameLastname" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email: </label>
-                        <div class="col-sm-6">
-                            <form:input path="email" class="form-control"/>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6" >
-                        <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
-                    </div>
-                </form:form>
-            </div>
-        </div>
+        </fmt:bundle>
     </body>
 </html>

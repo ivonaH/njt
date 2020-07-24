@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -21,64 +22,67 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
-        <div class="container">
-            <h2>Pregled rezervacije</h2>
-            <hr>
-            <div>
-                ${message}
-            </div>
-            <div>
-                <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/edit" >
-                    <div class="form-group">
-                        <label for="id">Id: </label>
-                        <div class="col-sm-6">
-                            <form:input path="id" readonly="true" class="form-control"/>
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
+            <div class="container">
+                <h2><fmt:message key="viewReservation.infoMessage"/></h2>
+                <hr>
+                <div>
+                    ${message}
+                </div>
+                <div>
+                    <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/edit" >
+                        <div class="form-group">
+                            <label for="id"><fmt:message key="label.reservationId"/> </label>
+                            <div class="col-sm-6">
+                                <form:input path="id" readonly="true" class="form-control"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="showtime">Projekcija: </label>
-                        <div class="col-sm-6">
-                            <form:input path="showtime.id"  readonly="true" class="form-control"/>
+                        <div class="form-group">
+                            <label for="showtime"><fmt:message key="label.showtime"/> </label>
+                            <div class="col-sm-6">
+                                <form:input path="showtime.id"  readonly="true" class="form-control"/>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nameLastname">Ime i prezime: </label>
-                        <div class="col-sm-6">
-                            <form:input path="nameLastname"  readonly="true" class="form-control"/>
+                        <div class="form-group">
+                            <label for="nameLastname"><fmt:message key="label.nameLastname"/> </label>
+                            <div class="col-sm-6">
+                                <form:input path="nameLastname"  readonly="true" class="form-control"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email: </label>
-                        <div class="col-sm-6">
-                            <form:input path="email" class="form-control"/>
+                        <div class="form-group">
+                            <label for="email"><fmt:message key="label.email"/> </label>
+                            <div class="col-sm-6">
+                                <form:input path="email" class="form-control"/>
+                            </div>
                         </div>
-                    </div>
-                <h4>Korisnik koji je uneo projekciju</h4>
-                    <div class="form-group row">
-                        <label for="user">Id korisnika:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.id"  readonly="true" class="form-control"/>
+                        <h4><fmt:message key="label.user"/></h4>
+                        <div class="form-group row">
+                            <label for="user"><fmt:message key="label.user.id"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.id"  readonly="true" class="form-control"/>
+                            </div>
+                            <label for="user"><fmt:message key="label.user.username"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.username"  readonly="true" class="form-control"/>
+                            </div>
+                            <label for="user"><fmt:message key="label.user.firstname"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.firstname"  readonly="true" class="form-control"/>
+                            </div>
+                            <label for="user"><fmt:message key="label.user.lastname"/></label>
+                            <div class="col-sm-2">
+                                <form:input path="user.lastname"  readonly="true" class="form-control"/>
+                            </div>
                         </div>
-                        <label for="user">Korisnicko ime:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.username"  readonly="true" class="form-control"/>
+                        <div class="col-sm-6" >
+                            <input type="submit" value="<fmt:message key="button.updateReservation"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                         </div>
-                        <label for="user">Ime:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.firstname"  readonly="true" class="form-control"/>
-                        </div>
-                        <label for="user">Prezime:</label>
-                        <div class="col-sm-2">
-                            <form:input path="user.lastname"  readonly="true" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="col-sm-6" >
-                        <input type="submit" value="Save" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
-                    </div>
-                </form:form>
+                    </form:form>
+                </div>
             </div>
-        </div>
+        </fmt:bundle>
     </body>
 </html>
