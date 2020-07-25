@@ -13,7 +13,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-        <title>Pretraga projekcija</title>
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
+            <title><fmt:message key="showtimeSearch.infoMessage"/></title>
+        </fmt:bundle>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -67,23 +70,22 @@
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
-        <fmt:setLocale value="${sessionScope.lang}"/>
         <fmt:bundle basename="i18n/config">
-        <div class="container">
-            <h2><fmt:message key="showtimeSearch.infoMessage"/></h2>
-            <hr>
-            <form method="GET" action="${pageContext.request.contextPath}/showtime/find">
-                <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label for="name"><fmt:message key="label.movie"/></label>
-                        <input type="text" name="movieName"  class="form-control"/>
-                    </div>
-                    <div class="form-group col-sm-4">
-                        <label for="dateTime"><fmt:message key="label.dateTime"/></label>
-                        <input name="dateTime"  class="form-control"/>
-                    </div>
-                    <div class="form-group col-sm-4">
-                        <label for="hall"><fmt:message key="label.Hall"/> </label>
+            <div class="container">
+                <h2><fmt:message key="showtimeSearch.infoMessage"/></h2>
+                <hr>
+                <form method="GET" action="${pageContext.request.contextPath}/showtime/find">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="name"><fmt:message key="label.movie"/></label>
+                            <input type="text" name="movieName"  class="form-control"/>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="dateTime"><fmt:message key="label.dateTime"/></label>
+                            <input name="dateTime"  class="form-control"/>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="hall"><fmt:message key="label.Hall"/> </label>
                             <select name="hallName" class="custom-select">
                                 <option selected disabled><fmt:message key="option.hall"/></option>
                                 <c:forEach items="${halls}" var="hall">
@@ -91,81 +93,81 @@
                                 </c:forEach>
                             </select>
 
+                        </div>
                     </div>
-                </div>
-                <div class="btn-holder">
-                    <input type="submit" class="btn btnNadji"  " value="<fmt:message key="button.search"/>"/>
-                </div>
+                    <div class="btn-holder">
+                        <input type="submit" class="btn btnNadji"  " value="<fmt:message key="button.search"/>"/>
+                    </div>
 
-            </form>
-            <hr style="margin-bottom: 3%;">
+                </form>
+                <hr style="margin-bottom: 3%;">
 
-            <h2><fmt:message key="search.Result"/></h2>
-            <hr>
-            <p>${message}</p>
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th><fmt:message key="label.showtimeId"/></th>
-                        <th><fmt:message key="label.movie"/></th>
-                        <th><fmt:message key="label.dateTime"/></th>
-                        <th><fmt:message key="label.Hall"/></th>
-                        <th><fmt:message key="label.user"/></th>
-                        <th>Slobodna mesta</th>
-                        <th><fmt:message key="label.action"/></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach
-                        items="${showtimes}"
-                        var="showtime"
-                        varStatus="loop">
+                <h2><fmt:message key="search.Result"/></h2>
+                <hr>
+                <p>${message}</p>
+                <table class="table table-dark">
+                    <thead>
                         <tr>
-                            <td>${showtime.id}</td>
-                            <td>${showtime.movie.name}</td>
-                            <td>${showtime.dateTime}</td>
-                            <td>${showtime.hall}</td>
-                            <td>${showtime.user}</td>
-                            <td>${showtime.freeSeats}</td>
+                            <th><fmt:message key="label.showtimeId"/></th>
+                            <th><fmt:message key="label.movie"/></th>
+                            <th><fmt:message key="label.dateTime"/></th>
+                            <th><fmt:message key="label.Hall"/></th>
+                            <th><fmt:message key="label.user"/></th>
+                            <th>Slobodna mesta</th>
+                            <th><fmt:message key="label.action"/></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach
+                            items="${showtimes}"
+                            var="showtime"
+                            varStatus="loop">
+                            <tr>
+                                <td>${showtime.id}</td>
+                                <td>${showtime.movie.name}</td>
+                                <td>${showtime.dateTime}</td>
+                                <td>${showtime.hall}</td>
+                                <td>${showtime.user}</td>
+                                <td>${showtime.freeSeats}</td>
 
-                            <td>
-                                <ul class="navbar-nav mr-auto d-flex justify-content-end">
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <fmt:message key="label.action"/>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/delete/">
+                                <td>
+                                    <ul class="navbar-nav mr-auto d-flex justify-content-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <fmt:message key="label.action"/>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/delete/">
 
-                                                </c:url>"><fmt:message key="label.delete"/></a>
+                                                    </c:url>"><fmt:message key="label.delete"/></a>
 
-                                            <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/view/">
+                                                <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/view/">
 
-                                                </c:url>"><fmt:message key="label.view"/></a>
-                                            <a class="dropdown-item" href="<c:url value = "/reservation/new?showtimeId=${showtime.id}">
+                                                    </c:url>"><fmt:message key="label.view"/></a>
+                                                <a class="dropdown-item" href="<c:url value = "/reservation/new?showtimeId=${showtime.id}">
 
-                                                </c:url>"><fmt:message key="label.createReservation"/></a>
-                                        </div
-                                    </div>
-                                </ul>
-                            </td>
-                            <td>
-                                <a class="ikonica" href="<c:url value = "/mm/addShowtime/${showtime.id}"> </c:url>">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-film" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0h8v6H4V1zm8 8H4v6h8V9zM1 1h2v2H1V1zm2 3H1v2h2V4zM1 7h2v2H1V7zm2 3H1v2h2v-2zm-2 3h2v2H1v-2zM15 1h-2v2h2V1zm-2 3h2v2h-2V4zm2 3h-2v2h2V7zm-2 3h2v2h-2v-2zm2 3h-2v2h2v-2z"/>
-                                        </svg>
-                                        <span class="tooltiptextMM"><fmt:message key="label.addToMarathon"/></span>
+                                                    </c:url>"><fmt:message key="label.createReservation"/></a>
+                                            </div
+                                        </div>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <a class="ikonica" href="<c:url value = "/mm/addShowtime/${showtime.id}"> </c:url>">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-film" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0h8v6H4V1zm8 8H4v6h8V9zM1 1h2v2H1V1zm2 3H1v2h2V4zM1 7h2v2H1V7zm2 3H1v2h2v-2zm-2 3h2v2H1v-2zM15 1h-2v2h2V1zm-2 3h2v2h-2V4zm2 3h-2v2h2V7zm-2 3h2v2h-2v-2zm2 3h-2v2h2v-2z"/>
+                                            </svg>
+                                            <span class="tooltiptextMM"><fmt:message key="label.addToMarathon"/></span>
 
                                     </a>
                                 </td>
                             </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                        </c:forEach>
+                    </tbody>
+                </table>
 
 
-        </div>
+            </div>
         </fmt:bundle>
     </body>
 </html>

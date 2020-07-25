@@ -16,7 +16,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login page</title>
+        <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:bundle basename="i18n/config">
+            <title><fmt:message key="login.infoMessage"/></title>
+        </fmt:bundle>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/css/bootstrap.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/font-awesome/5.6.3/css/all.min.css'>
@@ -24,12 +27,26 @@
     </head>
     <body>
 
-        <fmt:setLocale value="${sessionScope.lang}"/>
         <fmt:bundle basename="i18n/config">
+
+
+            <nav class="navbar navbar-expand-sm justify-content-end" style="background-color:lightgreen;">
+                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav text-right">
+                        <li class="nav-item active">
+                            <a  class="nav-link active green" href="?sessionLocale=en_US">en_US</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link active green" href="?sessionLocale=sr_RS">sr_RS</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
             <div class="container col-sm-3" style="position: fixed; top: 35%;left: 40%; ">
 
                 <h2><fmt:message key="login.infoMessage"/></h2>
-                    <div class="row" >  
+                <div class="row" >  
                     <c:if test="${not empty logoutMessage}">
                         <div class="alert alert-success" role="alert">
                             ${logoutMessage}

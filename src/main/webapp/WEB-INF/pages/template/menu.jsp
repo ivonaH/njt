@@ -104,7 +104,7 @@
                 </c:if>
             </nav>    
 
-            <nav class="navbar navbar-expand-sm justify-content-end" style="background-color:lightgreen;">
+            <nav class="navbar navbar-expand-sm justify-content-end" style="background-color:lightgreen;margin-bottom: 3%;">
                 <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
                     <ul class="navbar-nav text-right">
                         <li class="nav-item active">
