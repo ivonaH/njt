@@ -43,7 +43,7 @@
 
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark" >
                 <!-- Brand -->
-                <a class="navbar-brand" href="#" style="color: lightgreen;padding-left:14%; font-size: 25px;">Bioskop</a>
+                <a class="navbar-brand" href="#" style="color: lightgreen;padding-left:14%; font-size: 35px;">Bioskop</a>
                 <c:if test="${not empty sessionScope.user}">
 
                     <!-- Links -->

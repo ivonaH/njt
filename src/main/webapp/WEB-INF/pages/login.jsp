@@ -60,19 +60,25 @@
 
                 </div>
                 <div class="row">
-                    <form method="Post"  action="${pageContext.request.contextPath}/login/user">
+                    <form:form method="Post" modelAttribute="user"  action="${pageContext.request.contextPath}/login/user">
                         <div class="form-group col-sm-6">
                             <label for="username"><fmt:message key="label.username"></fmt:message></label>
-                                <input name="username"/>
+                                <form:input path="username"/>
                             </div> 
+                            <div>
+                                <form:errors path="username"></form:errors>
+                            </div>
                             <div class="form-group col-sm-6">
                                 <label for="password"><fmt:message key="label.password"></fmt:message></label>
-                                <input type="password" name="password"/>
+                                <form:input type="password" path="password"/>
                             </div> 
+                             <div>
+                                <form:errors path="password"></form:errors>
+                            </div>
                             <div class="col-sm-6">
                                 <input type="submit" value="<fmt:message key="button.login"></fmt:message>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                             </div>
-                        </form>
+                        </form:form>
                     </div>
                 </div>
         </fmt:bundle>

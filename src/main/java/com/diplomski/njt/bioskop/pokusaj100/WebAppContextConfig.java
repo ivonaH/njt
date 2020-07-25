@@ -18,9 +18,11 @@ import com.diplomski.njt.bioskop.pokusaj100.service.UserService;
 import java.util.List;
 import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -76,17 +78,13 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
-//    @Bean
-//    public MessageSource messageSource() {
-//        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-//        messageSource.setBasenames("validation");
-//        return messageSource;
-//    }
-//
-//    @Override
-//    public void addFormatters(FormatterRegistry registry) {
-//        registry.addFormatter(new CountryDtoFormater(countryService));
-//    }
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("/i18n/config");
+        return messageSource;
+    }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new HallFormatter(hallService));
