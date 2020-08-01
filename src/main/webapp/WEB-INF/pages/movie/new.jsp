@@ -40,20 +40,29 @@
                             <div class="col-sm-6">
                                 <form:input path="name" class="form-control"/>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name"><fmt:message key="label.movieGenre"/></label>
+                            <div>
+                                <form:errors path="name"></form:errors>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><fmt:message key="label.movieGenre"/></label>
                             <div class="col-sm-6">
                                 <form:select path="genre" class="custom-select">
                                     <option selected disabled><fmt:message key="option.genre"/></option>
                                     <form:options items="${genres}"></form:options>
                                 </form:select>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="director"><fmt:message key="label.director"/></label>
+                                <div>
+                                    <form:errors path="genre"></form:errors>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="director"><fmt:message key="label.director"/></label>
                             <div class="col-sm-6">
                                 <form:input path="director" class="form-control"/>
+                            </div>
+                             <div>
+                                <form:errors path="director"></form:errors>
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,11 +70,17 @@
                             <div class="col-sm-6">
                                 <form:input path="year" class="form-control"/>
                             </div>
+                             <div>
+                                <form:errors path="year"></form:errors>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="duration"><fmt:message key="label.duration"/></label>
                             <div class="col-sm-6">
                                 <form:input path="duration" class="form-control"/>
+                            </div>
+                             <div>
+                                <form:errors path="duration"></form:errors>
                             </div>
                         </div>
                         <div class="col-sm-6" >

@@ -9,6 +9,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Genre;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
+import com.diplomski.njt.bioskop.pokusaj100.validator.MovieValidator;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -20,7 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,10 +43,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MovieController {
 
     MovieService movieService;
+    MovieValidator movieValidator;
 
     @Autowired
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, MovieValidator movieValidator) {
         this.movieService = movieService;
+        this.movieValidator = movieValidator;
     }
 
     @RequestMapping(value = "/new")
@@ -51,12 +58,22 @@ public class MovieController {
     }
 
     @PostMapping(value = "/save")
-    public String saveMovie(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, Movie movie, HttpSession session) {
-        movie.setUser((User) session.getAttribute("user"));
-        movie.setId(12121);
+    public String saveMovie(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, @Validated Movie movie, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "movie/new";
+        }
+
+        movie.setUser(
+                (User) session.getAttribute("user"));
+        movie.setId(
+                12121);
         movie.setUser(user);
+
         movieService.add(movie);
-        redirectAttributes.addFlashAttribute("movieStatus", "Film je sacuvan.");
+
+        redirectAttributes.addFlashAttribute(
+                "movieStatus", "Film je sacuvan.");
+
         return "redirect:/movie/new";
     }
 
@@ -72,8 +89,9 @@ public class MovieController {
         redirectAttributes.addFlashAttribute("message", "Movie " + id + " is deleted!");
         return modelAndView;
     }
+
     @GetMapping(value = "/{id}/view")
-    public String delete(@PathVariable(name = "id") int id,Model model) {
+    public String delete(@PathVariable(name = "id") int id, Model model) {
         model.addAttribute("movie", movieService.getById(id));
         return "/movie/view";
     }
@@ -106,6 +124,11 @@ public class MovieController {
     @ModelAttribute(name = "genres")
     private List<Genre> getGenres() {
         return java.util.Arrays.asList(Genre.values());
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(movieValidator);
     }
 
 }

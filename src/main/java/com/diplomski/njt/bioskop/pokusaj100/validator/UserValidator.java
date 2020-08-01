@@ -35,7 +35,6 @@ public class UserValidator implements Validator{
         
         if(user.getUsername().length()<2){
             errors.rejectValue("username","user.username.short", "");
-            errors.rejectValue("password","user.password.short", "Length for password must be greater than 1 charachter.");
         }
     
     }
