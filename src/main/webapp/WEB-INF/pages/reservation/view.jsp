@@ -33,6 +33,9 @@
                     ${message}
                 </div>
                 <div>
+                    ${errorMessage}
+                </div>
+                <div>
                     <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/edit" >
                         <div class="form-group">
                             <label for="id"><fmt:message key="label.reservationId"/> </label>
@@ -59,8 +62,11 @@
                             <div class="col-sm-6">
                                 <form:input path="email" class="form-control"/>
                             </div>
-                        </div>
-                        <h4><fmt:message key="label.user"/></h4>
+                            <div> GRESKA EMAILA:
+                                <form:errors path="email"></form:errors>
+                            </div>
+                            </div>
+                            <h4><fmt:message key="label.user"/></h4>
                         <div class="form-group row">
                             <label for="user"><fmt:message key="label.user.id"/></label>
                             <div class="col-sm-2">

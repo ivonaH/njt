@@ -10,6 +10,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
+import com.diplomski.njt.bioskop.pokusaj100.validator.ReservationValidator;
 import java.util.List;
 import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -19,7 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,23 +45,35 @@ public class ReservationController {
     ReservationService reservationService;
     ShowtimeService showtimeService;
 
+    ReservationValidator reservationValidator;
+
     @Autowired
-    public ReservationController(ReservationService reservationService, ShowtimeService showtimeService) {
+    public ReservationController(ReservationService reservationService, ShowtimeService showtimeService, ReservationValidator reservationValidator) {
         this.reservationService = reservationService;
         this.showtimeService = showtimeService;
+        this.reservationValidator = reservationValidator;
     }
 
     @RequestMapping(value = "/save")
-    public String save(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, Reservation reservation) {
+    public String save(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, @Validated Reservation reservation, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/reservation/new";
+        }
         reservation.setUser(user);
         reservationService.save(reservation);
         redirectAttributes.addFlashAttribute("message", "Rezervacija je sacuvana " + user + " res:us " + reservation.getUser());
         return "redirect:/reservation/all";
     }
+
     @PostMapping(value = "/edit")
-    public String save(RedirectAttributes redirectAttributes, Reservation reservation) {
+    public String save(RedirectAttributes redirectAttributes, @Validated Reservation reservation, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+           model.addAttribute("errorMessage", "Unesite email.");
+            model.addAttribute("reservation", reservationService.findById(reservation.getId()));
+            return "/reservation/view";
+        }
         reservationService.save(reservation);
-        redirectAttributes.addFlashAttribute("message", "Rezervacija je izmenjena." );
+        redirectAttributes.addFlashAttribute("message", "Rezervacija je izmenjena.");
         return "redirect:/reservation/all";
     }
 
@@ -119,6 +136,11 @@ public class ReservationController {
 
     private Showtime getShowtimeWithId(int showtimeId) {
         return showtimeService.findById(showtimeId);
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(reservationValidator);
     }
 
 }

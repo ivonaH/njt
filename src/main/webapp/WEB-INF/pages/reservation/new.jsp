@@ -56,7 +56,9 @@
                                     </c:if>
                                 </form:select>
                             </div>
-
+                              <div>
+                                <form:errors path="showtime"></form:errors>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -64,11 +66,17 @@
                             <div class="col-sm-6">
                                 <form:input path="nameLastname" class="form-control"/>
                             </div>
+                              <div>
+                                <form:errors path="nameLastname"></form:errors>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="email"><fmt:message key="label.email"/> </label>
                             <div class="col-sm-6">
                                 <form:input path="email" class="form-control"/>
+                            </div>
+                              <div>
+                                <form:errors path="email"></form:errors>
                             </div>
                         </div>
 

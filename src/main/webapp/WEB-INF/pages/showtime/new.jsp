@@ -56,6 +56,10 @@
                                     </c:if>
                                 </form:select>
                             </div>
+                            <div>
+                                    <form:errors path="movie"></form:errors>
+                                </div>
+                        </div>
                             <div class="form-group">
                                 <label for="hall"><fmt:message key="label.Hall"/>  </label>
                                 <div class="col-sm-6">
@@ -64,13 +68,19 @@
                                         <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
                                     </form:select>
                                 </div>
+                                <div>
+                                    <form:errors path="hall"></form:errors>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="dateTime"><fmt:message key="label.dateTime"/> </label>
                                 <div class="col-sm-6">
                                     <form:input type="date" path="dateTime" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}"/>
                                 </div>
-                            </div>
+                                <div>
+                                    <form:errors path="dateTime"></form:errors>
+                                </div>
+                                </div>
                             <div class="col-sm-6" >
                                 <input type="submit" value="<fmt:message key="button.saveShowtime"/> " class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                             </div>

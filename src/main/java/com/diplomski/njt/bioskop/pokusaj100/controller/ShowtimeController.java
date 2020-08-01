@@ -13,6 +13,7 @@ import com.diplomski.njt.bioskop.pokusaj100.service.HallService;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
+import com.diplomski.njt.bioskop.pokusaj100.validator.ShowtimeValidator;
 import java.util.List;
 import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -22,7 +23,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,12 +50,15 @@ public class ShowtimeController {
     ReservationService reservationService;
     HallService hallService;
 
+    ShowtimeValidator showtimeValidator;
+
     @Autowired
-    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService, ReservationService reservationService) {
+    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService, ReservationService reservationService, ShowtimeValidator showtimeValidator) {
         this.showtimeService = showtimeService;
         this.movieService = movieService;
         this.hallService = hallService;
         this.reservationService = reservationService;
+        this.showtimeValidator = showtimeValidator;
     }
 
     @RequestMapping(value = "/all")
@@ -76,9 +84,10 @@ public class ShowtimeController {
         redirectAttributes.addFlashAttribute("message", "Projekcija sa idijem: " + id + " je obrisana.");
         return modelAndView;
     }
+
     @GetMapping(value = "/{id}/view")
-    public String view(@PathVariable(name = "id") int id,Model model) {
-      model.addAttribute("showtime", showtimeService.findById(id));
+    public String view(@PathVariable(name = "id") int id, Model model) {
+        model.addAttribute("showtime", showtimeService.findById(id));
         return "/showtime/view";
     }
 
@@ -98,8 +107,14 @@ public class ShowtimeController {
     }
 
     @PostMapping(value = "/save")
-    public String saveShowtime(@SessionAttribute(name = "user") User user, Showtime showtime, RedirectAttributes redirectAttributes) {
-        System.out.println("Projekcija je:" + showtime);
+    public String saveShowtime(@SessionAttribute(name = "user") User user, @Validated Showtime showtime, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            System.out.println("Validacija neuspesna.");
+            return "showtime/new";
+        }else{
+            System.out.println("Prosao validaciju.");
+        }
+
         showtime.setId(1919);
         showtime.setUser(user);
         showtimeService.save(showtime);
@@ -107,15 +122,12 @@ public class ShowtimeController {
         return "redirect:/showtime/all";
 
     }
+
     @PostMapping(value = "/update")
-    public String updateShowtime(@SessionAttribute(name = "user") User user, Showtime showtime, RedirectAttributes redirectAttributes) {
-//        showtime.setUser(user);
-    System.out.println("///////////////USER JE "+showtime.getUser());
-    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
-    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
-    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
-    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
-    System.out.println("///////////////'''''''''''''''''''''''''''''''''''''");
+    public String updateShowtime(@Validated Showtime showtime,  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            return "";
+        }
         showtimeService.save(showtime);
         redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
         return "redirect:/showtime/all";
@@ -141,4 +153,10 @@ public class ShowtimeController {
     private Movie getMovieWithId(int id) {
         return movieService.getById(id);
     }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(showtimeValidator);
+    }
+
 }

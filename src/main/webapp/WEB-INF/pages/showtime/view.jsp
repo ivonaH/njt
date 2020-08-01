@@ -53,9 +53,12 @@
                             <label for="hall"><fmt:message key="label.Hall"/> </label>
                             <div class="col-sm-4">
                                 <form:select path="hall" class="custom-select">
-                                    <option selected disabled><fmt:message key="select.hall"/></option>
+                                    <option selected disabled><fmt:message key="option.hall"/></option>
                                     <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
                                 </form:select>
+                            </div>
+                            <div>
+                                <form:errors path="hall"></form:errors>
                             </div>
                         </div>
                         <div class="form-group">
@@ -63,6 +66,8 @@
                             <div class="col-sm-4">
                                 <form:input path="dateTime"  readonly="true" class="form-control"/>
                             </div>
+                            
+                                
                         </div>
                         <h4><fmt:message key="label.user"/></h4>
                         <div class="form-group row">
@@ -86,7 +91,7 @@
                         <div class="form-group">
                             <label for="marathonId"><fmt:message key="label.marathon.id"/></label>
                             <div class="col-sm-6">
-                                <form:input path="movieMarathonId" class="form-control"/>
+                                <form:input path="movieMarathonId" class="form-control" readonly="true"/>
                             </div>
                         </div>
                         <div class="col-sm-4" >
