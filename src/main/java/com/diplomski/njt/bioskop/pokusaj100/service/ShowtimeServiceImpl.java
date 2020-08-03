@@ -8,6 +8,8 @@ package com.diplomski.njt.bioskop.pokusaj100.service;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ReservationRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ShowtimeRepository;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -65,6 +67,16 @@ public class ShowtimeServiceImpl implements ShowtimeService {
             showtime.setFreeSeats(showtime.getHall().getCapacity() - numberOfReservations);
             System.out.println("FREE SEATS: " + showtime.getFreeSeats());
         }
+    }
+
+    @Override
+    public List<Showtime> findByDateTimeAndHallId(Date dateTime, int hallId) {
+        return showtimeRepository.findByDateTimeAndHallId(dateTime, hallId);
+    }
+
+    @Override
+    public List<Showtime> findByHallIdAndDateTimeBetween(int id, Date dateTime, Date endDateTime) {
+        return showtimeRepository.findByHallIdAndDateTimeBetween(id, dateTime, endDateTime);
     }
 
 }

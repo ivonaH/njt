@@ -42,9 +42,33 @@
                         <div class="form-group">
                             <label for="movie"><fmt:message key="label.movie"/> </label>
                             <div class="col-sm-6">
-                                <div class="row">
-                                    <input placeholder="${showtime.movie.name}" class="form-control col-sm-4" disabled="true"/>
-                                    <form:input path="movie.id"  readonly="true" class="form-control col-sm-1" style="visibility:hidden;"/>
+                                <div class="form-group row">
+                                    <label for="id"><fmt:message key="label.movieId"/></label>
+                                    <div class="col-sm-2">
+                                        <form:input path="movie.id"  readonly="true" class="form-control"/>                                   
+                                    </div>
+                                    <label for="name"><fmt:message key="label.movieName"/></label>
+                                    <div class="col-sm-2">
+                                        <form:input path="movie.name"  readonly="true" class="form-control"/>
+                                    </div>
+                                    <label for="genre"><fmt:message key="label.movieGenre"/></label>
+                                    <div class="col-sm-3">
+                                        <form:input path="movie.genre"  readonly="true" class="form-control "/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="year"><fmt:message key="label.year"/></label>
+                                    <div class="col-sm-2">
+                                        <form:input path="movie.year"  readonly="true" class="form-control "/>
+                                    </div>
+                                    <label for="director"><fmt:message key="label.director"/></label>
+                                    <div class="col-sm-4">
+                                    <form:input path="movie.director"  readonly="true" class="form-control"/>
+                                    </div>
+                                    <label for="duration"><fmt:message key="label.duration"/></label>
+                                    <div class="col-sm-2">
+                                        <form:input path="movie.duration"  readonly="true" class="form-control"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -56,18 +80,19 @@
                                     <option selected disabled><fmt:message key="option.hall"/></option>
                                     <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
                                 </form:select>
+
                             </div>
                             <div>
                                 <form:errors path="hall"></form:errors>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="dateTime"><fmt:message key="label.dateTime"/></label>
+                            <div class="form-group">
+                                <label for="dateTime"><fmt:message key="label.dateTime"/></label>
                             <div class="col-sm-4">
                                 <form:input path="dateTime"  readonly="true" class="form-control"/>
                             </div>
-                            
-                                
+
+
                         </div>
                         <h4><fmt:message key="label.user"/></h4>
                         <div class="form-group row">
@@ -90,7 +115,7 @@
                         </div>
                         <div class="form-group">
                             <label for="marathonId"><fmt:message key="label.marathon.id"/></label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-1">
                                 <form:input path="movieMarathonId" class="form-control" readonly="true"/>
                             </div>
                         </div>

@@ -6,6 +6,8 @@
 package com.diplomski.njt.bioskop.pokusaj100.service;
 
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -24,6 +26,11 @@ public interface ShowtimeService {
     public void save(Showtime showtime);
 
     public List<Showtime> findAll(Specification<Showtime> specification);
+    
+    public List<Showtime> findByDateTimeAndHallId(Date dateTime,int hallId);
 
+    public List<Showtime> findByHallIdAndDateTimeBetween(int id, Date dateTime, Date endDateTime);
+
+    
 
 }

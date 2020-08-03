@@ -108,10 +108,10 @@ public class ShowtimeController {
 
     @PostMapping(value = "/save")
     public String saveShowtime(@SessionAttribute(name = "user") User user, @Validated Showtime showtime, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             System.out.println("Validacija neuspesna.");
             return "showtime/new";
-        }else{
+        } else {
             System.out.println("Prosao validaciju.");
         }
 
@@ -124,9 +124,9 @@ public class ShowtimeController {
     }
 
     @PostMapping(value = "/update")
-    public String updateShowtime(@Validated Showtime showtime,  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if(bindingResult.hasErrors()){
-            return "";
+    public String updateShowtime(@Validated Showtime showtime, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/showtime/view";
         }
         showtimeService.save(showtime);
         redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
