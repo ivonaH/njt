@@ -6,6 +6,7 @@
 package com.diplomski.njt.bioskop.pokusaj100.validator;
 
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
+import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -29,10 +30,12 @@ import org.springframework.validation.Validator;
 public class ShowtimeValidator implements Validator {
 
     private final ShowtimeService showtimeService;
+    private final ReservationService reservationService;
 
     @Autowired
-    public ShowtimeValidator(ShowtimeService showtimeService) {
+    public ShowtimeValidator(ShowtimeService showtimeService, ReservationService reservationService) {
         this.showtimeService = showtimeService;
+        this.reservationService = reservationService;
     }
 
     @Override
@@ -69,9 +72,23 @@ public class ShowtimeValidator implements Validator {
         calendar.add(Calendar.MINUTE, showtime.getMovie().getDuration());
         List<Showtime> showtimes = showtimeService.findByHallIdAndDateTimeBetween(showtime.getHall().getId(), showtime.getDateTime(), (Date) calendar.getTime());
         if (!showtimes.isEmpty()) {
-            errors.rejectValue("dateTime", "showtime.hall.occupied", "");
+            errors.rejectValue("hall", "showtime.hall.occupied", "");
         }
-         if (errors.hasErrors()) {
+        if (errors.hasErrors()) {
+            return;
+        }
+
+//            Validation for checking capacity of Hall when updating Showtime
+        System.out.println("SHOWTIME ID IS: " + showtime.getId());
+
+        if (showtime.getId() != 0) {//only for Showtime update
+            int numberOfReservations = reservationService.countByShowtimeId(showtime.getId());
+            System.out.println("NUMBER OF RESERVATIONS IS: " + numberOfReservations);
+            if (numberOfReservations >= showtime.getHall().getCapacity()) {
+                errors.rejectValue("hall", "showtime.hall.tooSmall", "");
+            }
+        }
+        if (errors.hasErrors()) {
             return;
         }
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -87,6 +104,11 @@ public class ShowtimeValidator implements Validator {
                     return;
                 }
             }
+
+            if (errors.hasErrors()) {
+                return;
+            }
+
         }
     }
 
