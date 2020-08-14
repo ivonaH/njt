@@ -9,6 +9,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
 import com.diplomski.njt.bioskop.pokusaj100.repository.MovieMarathonRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
 
     @Override
     public List<MovieMarathon> findAll() {
-        return movieMarathonRepository.findAll();
+        return movieMarathonRepository.findAllByOrderByNameAsc();
     }
 
     @Override
@@ -44,7 +45,7 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
 
     @Override
     public List<MovieMarathon> findAll(Specification<MovieMarathon> specification) {
-        return movieMarathonRepository.findAll(specification);
+        return movieMarathonRepository.findAll(specification, new Sort(Sort.Direction.ASC, "Name"));
     }
 
 }

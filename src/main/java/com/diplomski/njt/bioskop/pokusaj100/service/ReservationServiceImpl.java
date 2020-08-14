@@ -9,6 +9,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ReservationRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> findAll() {
-        return reservationRepository.findAll();
+        return reservationRepository.findAllByOrderByShowtimeDateTimeAscShowtimeIdAscNameLastnameAsc();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Object findAll(Specification<Reservation> specification) {
-        return reservationRepository.findAll(specification);
+        return reservationRepository.findAll(specification,new Sort(Sort.Direction.ASC, "Showtime.DateTime").and(new Sort(Sort.Direction.ASC, "Showtime.Id").and(new Sort(Sort.Direction.ASC, "nameLastname"))));
     }
 
     @Override

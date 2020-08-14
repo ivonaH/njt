@@ -5,12 +5,8 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100.service;
 
-import com.diplomski.njt.bioskop.pokusaj100.domain.Genre;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
-import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.repository.MovieRepository;
-import com.diplomski.njt.bioskop.pokusaj100.repository.UserRepository;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -52,14 +48,18 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.deleteById(id);
     }
 
-    @Override
-    public List<Movie> findAll() {
-        return movieRepository.findAll(Sort.by(Sort.Direction.DESC, "Year"));
-    }
+    
+  
 
     @Override
     public List<Movie> findAll(Specification<Movie> specification) {
-        return movieRepository.findAll(specification,Sort.by(Sort.Direction.DESC, "Year"));
+        return movieRepository.findAll(specification,new Sort(Sort.Direction.DESC, "id")
+                .and(new Sort(Sort.Direction.ASC, "name")));
+    }
+
+    @Override
+    public List<Movie> findAll() {
+        return movieRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
 }

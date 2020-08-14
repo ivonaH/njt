@@ -8,14 +8,9 @@ package com.diplomski.njt.bioskop.pokusaj100.validator;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -51,6 +46,7 @@ public class ShowtimeValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hall", "showtime.hall.empty", "");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateTime", "showtime.dateTime.empty", "");
 
+        
         if (errors.hasErrors()) {
             return;
         }
@@ -72,7 +68,11 @@ public class ShowtimeValidator implements Validator {
         calendar.add(Calendar.MINUTE, showtime.getMovie().getDuration());
         List<Showtime> showtimes = showtimeService.findByHallIdAndDateTimeBetween(showtime.getHall().getId(), showtime.getDateTime(), (Date) calendar.getTime());
         if (!showtimes.isEmpty()) {
-            errors.rejectValue("hall", "showtime.hall.occupied", "");
+            if (showtimes.get(0).getId() != showtime.getId() && showtimes.size() != 1) {
+                //when updating
+                errors.rejectValue("hall", "showtime.hall.occupied", "");
+            }
+
         }
         if (errors.hasErrors()) {
             return;
@@ -97,11 +97,13 @@ public class ShowtimeValidator implements Validator {
         showtimes = showtimeService.findByHallIdAndDateTimeBetween(showtime.getHall().getId(), (Date) calendar.getTime(), showtime.getDateTime());
         if (!showtimes.isEmpty()) {
             for (Showtime s : showtimes) {
-                calendar.setTime(s.getDateTime());
-                calendar.add(Calendar.MINUTE, s.getMovie().getDuration());
-                if (((Date) calendar.getTime()).after(showtime.getDateTime())) {
-                    errors.rejectValue("hall", "showtime.hall.occupied", "");
-                    return;
+                if (showtime.getId() != s.getId()) {
+                    calendar.setTime(s.getDateTime());
+                    calendar.add(Calendar.MINUTE, s.getMovie().getDuration());
+                    if (((Date) calendar.getTime()).after(showtime.getDateTime())) {
+                        errors.rejectValue("hall", "showtime.hall.occupied", "");
+                        return;
+                    }
                 }
             }
 

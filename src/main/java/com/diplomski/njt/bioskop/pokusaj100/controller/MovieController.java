@@ -79,6 +79,7 @@ public class MovieController {
 
     @RequestMapping(value = "/all")
     public String allMovies(Model model) {
+        model.addAttribute("movies", movieService.getAll());
         return "movie/all";
     }
 

@@ -6,6 +6,8 @@
 package com.diplomski.njt.bioskop.pokusaj100.repository;
 
 import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
+import java.util.List;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MovieMarathonRepository extends JpaRepository<MovieMarathon, Integer>, JpaSpecificationExecutor<MovieMarathon> {
+
+    public List<MovieMarathon> findAllByOrderByNameAsc();
 
 }

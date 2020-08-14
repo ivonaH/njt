@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +35,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 
     @Override
     public List<Showtime> findAll() {
-        List<Showtime> showtimes = showtimeRepository.findAll();
+        List<Showtime> showtimes = showtimeRepository.findAll(Sort.by(Sort.Direction.ASC,"DateTime"));
         calculateFreeSeats(showtimes);
         return showtimes;
     }
@@ -56,7 +57,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 
     @Override
     public List<Showtime> findAll(Specification<Showtime> specification) {
-        List<Showtime> showtimes = showtimeRepository.findAll(specification);
+        List<Showtime> showtimes = showtimeRepository.findAll(specification, new Sort(Sort.Direction.ASC, "DateTime"));
         calculateFreeSeats(showtimes);
         return showtimes;
     }
