@@ -57,36 +57,38 @@
                                 </form:select>
                             </div>
                             <div>
-                                    <form:errors path="movie"></form:errors>
+                                <form:errors path="movie"></form:errors>
                                 </div>
-                        </div>
+                            </div>
                             <div class="form-group">
                                 <label for="hall"><fmt:message key="label.Hall"/>  </label>
-                                <div class="col-sm-6">
-                                    <form:select path="hall" class="custom-select">
-                                        <option selected disabled><fmt:message key="option.hall"/>  </option>
-                                        <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
-                                    </form:select>
-                                </div>
-                                <div>
-                                    <form:errors path="hall"></form:errors>
+                            <div class="col-sm-6">
+                                <form:select path="hall" class="custom-select">
+                                    <option selected disabled><fmt:message key="option.hall"/>  </option>
+                                    <form:options items="${halls}" itemLabel="name" itemValue="id" ></form:options>
+                                </form:select>
+                            </div>
+                            <div>
+                                <form:errors path="hall"></form:errors>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="dateTime"><fmt:message key="label.dateTime"/> </label>
-                                <div class="col-sm-6">
-                                    <form:input type="date" path="dateTime" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}"/>
+                            <div class="col-sm-6">
+                                <form:input type="date" path="dateTime" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}"/>
+                            </div>
+                            <div>
+                                <form:errors path="dateTime"></form:errors>
                                 </div>
-                                <div>
-                                    <form:errors path="dateTime"></form:errors>
-                                </div>
-                                </div>
+                            </div>
                             <div class="col-sm-6" >
                                 <input type="submit" value="<fmt:message key="button.saveShowtime"/> " class="btn btn-outline-dark " style="background-color:lightgreen;"/>
-                            </div>
-                        </form:form>
-                    </div>
+                        </div>
+                    </form:form>
                 </div>
-            </fmt:bundle>
+            </div>
+        </fmt:bundle>
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
+
     </body>
 </html>

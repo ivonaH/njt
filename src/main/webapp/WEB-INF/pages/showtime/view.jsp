@@ -63,7 +63,7 @@
                                     </div>
                                     <label for="director"><fmt:message key="label.director"/></label>
                                     <div class="col-sm-4">
-                                    <form:input path="movie.director"  readonly="true" class="form-control"/>
+                                        <form:input path="movie.director"  readonly="true" class="form-control"/>
                                     </div>
                                     <label for="duration"><fmt:message key="label.duration"/></label>
                                     <div class="col-sm-2">
@@ -126,6 +126,7 @@
                 </div>
             </div>
         </fmt:bundle>
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
 
     </body>
 </html>

@@ -74,6 +74,6 @@
                 </div>
             </div>
         </fmt:bundle>
-
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
     </body>
 </html>

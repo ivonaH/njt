@@ -56,36 +56,38 @@
                                     </c:if>
                                 </form:select>
                             </div>
-                              <div>
+                            <div>
                                 <form:errors path="showtime"></form:errors>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="nameLastname"><fmt:message key="label.nameLastname"/></label>
+                            <div class="form-group">
+                                <label for="nameLastname"><fmt:message key="label.nameLastname"/></label>
                             <div class="col-sm-6">
                                 <form:input path="nameLastname" class="form-control"/>
                             </div>
-                              <div>
+                            <div>
                                 <form:errors path="nameLastname"></form:errors>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><fmt:message key="label.email"/> </label>
+                            <div class="form-group">
+                                <label for="email"><fmt:message key="label.email"/> </label>
                             <div class="col-sm-6">
                                 <form:input path="email" class="form-control"/>
                             </div>
-                              <div>
+                            <div>
                                 <form:errors path="email"></form:errors>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-6" >
-                            <input type="submit" value="<fmt:message key="button.saveReservation"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                            <div class="col-sm-6" >
+                                <input type="submit" value="<fmt:message key="button.saveReservation"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                         </div>
                     </form:form>
                 </div>
             </div>
         </fmt:bundle>
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
+
     </body>
 </html>

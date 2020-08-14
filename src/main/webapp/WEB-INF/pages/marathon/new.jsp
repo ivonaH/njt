@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <fmt:setLocale value="${sessionScope.lang}"/>
+        <fmt:setLocale value="${sessionScope.lang}"/>
         <fmt:bundle basename="i18n/config">
             <title><fmt:message key="newMarathon.infoMessage"/></title>
         </fmt:bundle>        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -64,7 +64,7 @@
                                 <td>${showtime.movie}</td>
                                 <td>${showtime.hall}</td>
                                 <c:set var="contains" value="false" />
-                                <c:forEach var="item" items="${addedShowtimes}">
+                                <c:forEach var="item" items="${mm.showtimes}">
                                     <c:if test="${item.id eq showtime.id}">
                                         <c:set var="contains" value="true" />
                                     </c:if>
@@ -107,9 +107,9 @@
                             <th><fmt:message key="label.action"/></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody path>
                         <c:forEach
-                            items="${addedShowtimes}"
+                            items="${mm.showtimes}"
                             var="showtime"
                             varStatus="loop">
                             <tr id="${showtime.id}">
@@ -124,17 +124,19 @@
                     </tbody>
                 </table>
                 <div>
-                    <form action="${pageContext.request.contextPath}/mm/save" method="POST" modelAttribute="mm">
+                    <form:form action="${pageContext.request.contextPath}/mm/save" method="POST" modelAttribute="movieMarathon">
                         <div class="form-group">
                             <label for="name"><fmt:message key="label.marathon.name"/> </label>
-                            <input type="text" name="name"/>
-                        </div>
-                        <input type="submit" value="<fmt:message key="button.saveMarathon"/>" class="btn btn-outline-dark " style="background-color:lightgreen;" />
-                    </form>
+                            <form:input path="name"/>
+                            <form:errors path="name" ></form:errors> 
+                            </div>
+                            <input type="submit" value="<fmt:message key="button.saveMarathon"/>" class="btn btn-outline-dark " style="background-color:lightgreen;" />
+                    </form:form>
                 </div>
             </div>
 
         </fmt:bundle>
-
+        
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
     </body>
 </html>

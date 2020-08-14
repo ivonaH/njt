@@ -52,8 +52,8 @@
                                     <form:options items="${genres}"></form:options>
                                 </form:select>
                             </div>
-                                <div>
-                                    <form:errors path="genre"></form:errors>
+                            <div>
+                                <form:errors path="genre"></form:errors>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -61,34 +61,35 @@
                             <div class="col-sm-6">
                                 <form:input path="director" class="form-control"/>
                             </div>
-                             <div>
+                            <div>
                                 <form:errors path="director"></form:errors>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="year"><fmt:message key="label.year"/></label>
+                            <div class="form-group">
+                                <label for="year"><fmt:message key="label.year"/></label>
                             <div class="col-sm-6">
                                 <form:input path="year" class="form-control"/>
                             </div>
-                             <div>
+                            <div>
                                 <form:errors path="year"></form:errors>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="duration"><fmt:message key="label.duration"/></label>
+                            <div class="form-group">
+                                <label for="duration"><fmt:message key="label.duration"/></label>
                             <div class="col-sm-6">
                                 <form:input path="duration" class="form-control"/>
                             </div>
-                             <div>
+                            <div>
                                 <form:errors path="duration"></form:errors>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6" >
-                            <input type="submit" value="<fmt:message key="button.saveMovie"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
+                            <div class="col-sm-6" >
+                                <input type="submit" value="<fmt:message key="button.saveMovie"/>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                         </div>
                     </form:form>
                 </div>
             </div>
         </fmt:bundle>
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
     </body>
 </html>

@@ -64,7 +64,7 @@
                             </div>
                             <div> GRESKA EMAILA:
                                 <form:errors path="email"></form:errors>
-                            </div>
+                                </div>
                             </div>
                             <h4><fmt:message key="label.user"/></h4>
                         <div class="form-group row">
@@ -92,5 +92,7 @@
                 </div>
             </div>
         </fmt:bundle>
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
+
     </body>
 </html>

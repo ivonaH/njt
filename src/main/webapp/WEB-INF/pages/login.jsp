@@ -24,27 +24,34 @@
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/font-awesome/5.6.3/css/all.min.css'>
         <link href='${pageContext.request.contextPath}/resources/css/styles.css' rel="stylesheet"/>
+
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                background: url(../img/pozadina.jpg) no-repeat;
+                background-size: cover;
+            }
+            .login-box{
+                width: 280px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+
+            }
+        </style>
     </head>
     <body>
 
+        <%@include file="/WEB-INF/pages/template/menu.jsp" %>
         <fmt:bundle basename="i18n/config">
 
 
-            <nav class="navbar navbar-expand-sm justify-content-end" style="background-color:lightgreen;">
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-                    <ul class="navbar-nav text-right">
-                        <li class="nav-item active">
-                            <a  class="nav-link active green" href="?sessionLocale=en_US">en_US</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link active green" href="?sessionLocale=sr_RS">sr_RS</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
-            <div class="container col-sm-3" style="position: fixed; top: 35%;left: 40%; ">
-
+            <!--<div class="col-sm-3" style="position: fixed; top: 35%;left: 40%; ">-->
+            <div class="login-box container ">
                 <h2><fmt:message key="login.infoMessage"/></h2>
                 <div class="row" >  
                     <c:if test="${not empty logoutMessage}">
@@ -63,24 +70,27 @@
                     <form:form method="Post" modelAttribute="user"  action="${pageContext.request.contextPath}/login/user">
                         <div class="form-group col-sm-6">
                             <label for="username"><fmt:message key="label.username"></fmt:message></label>
-                                <form:input path="username"/>
-                            </div> 
-                            <div>
-                                <form:errors path="username"></form:errors>
+                            <form:input path="username"/>
+                        </div> 
+                        <div>
+                            <form:errors path="username"></form:errors>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="password"><fmt:message key="label.password"></fmt:message></label>
-                                <form:input type="password" path="password"/>
-                            </div> 
-                             <div>
-                                <form:errors path="password"></form:errors>
+                            <form:input type="password" path="password"/>
+                        </div> 
+                        <div>
+                            <form:errors path="password"></form:errors>
                             </div>
                             <div class="col-sm-6">
                                 <input type="submit" value="<fmt:message key="button.login"></fmt:message>" class="btn btn-outline-dark " style="background-color:lightgreen;"/>
                             </div>
-                        </form:form>
-                    </div>
+                    </form:form>
                 </div>
+            </div>
         </fmt:bundle>
+
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
+
     </body>
 </html>
