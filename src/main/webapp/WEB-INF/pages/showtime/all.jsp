@@ -65,6 +65,24 @@
                 background-color:#6C757D ;
                 color: lightgreen;
             }
+            .linkAdd{
+                background-color: #6C757D;
+
+            }
+            .green{
+                background-color: lightgreen;
+
+            }
+            .linkAdd:hover{
+                text-decoration: none;
+                background-color:  #6C757D;
+                color: white;
+            }
+            .green:hover{
+                text-decoration: none;
+                background-color:  #6C757D;
+                color: white;
+            }
         </style>
 
     </head>
@@ -105,6 +123,7 @@
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
                 <p>${message}</p>
+                <p>${mmMessage}</p>
                 <table class="table table-dark">
                     <thead>
                         <tr>
@@ -113,7 +132,7 @@
                             <th><fmt:message key="label.dateTime"/></th>
                             <th><fmt:message key="label.Hall"/></th>
                             <th><fmt:message key="label.user"/></th>
-                            <th>Slobodna mesta</th>
+                            <th><fmt:message key="label.freeSeats"/></th>
                             <th><fmt:message key="label.action"/></th>
                             <th></th>
                         </tr>
@@ -128,7 +147,7 @@
                                 <td>${showtime.movie.name}</td>
                                 <td>${showtime.dateTime}</td>
                                 <td>${showtime.hall}</td>
-                                <td>${showtime.user}</td>
+                                <td>${showtime.user.username}</td>
                                 <td>${showtime.freeSeats}</td>
 
                                 <td>
@@ -152,15 +171,37 @@
                                         </div>
                                     </ul>
                                 </td>
-                                <td>
-                                    <a class="ikonica" href="<c:url value = "/mm/addShowtime/${showtime.id}"> </c:url>">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-film" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                           
+
+
+                                <c:set var="contains" value="false" />
+                                <c:forEach var="item" items="${mm.showtimes}">
+                                    <c:if test="${item.id eq showtime.id}">
+                                        <c:set var="contains" value="true" />
+                                    </c:if>
+                                </c:forEach>
+
+                                <c:if test="${!contains}">
+                                    <td>
+                                        <a class="green btn" href="<c:url value = "/mm/addShowtime/${showtime.id}" >
+                                           </c:url>">
+                                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-film" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0h8v6H4V1zm8 8H4v6h8V9zM1 1h2v2H1V1zm2 3H1v2h2V4zM1 7h2v2H1V7zm2 3H1v2h2v-2zm-2 3h2v2H1v-2zM15 1h-2v2h2V1zm-2 3h2v2h-2V4zm2 3h-2v2h2V7zm-2 3h2v2h-2v-2zm2 3h-2v2h2v-2z"/>
                                             </svg>
-                                            <span class="tooltiptextMM"><fmt:message key="label.addToMarathon"/></span>
+                                           <fmt:message key="label.addToMarathon"/>
+                                            
+                                        </a>
+                                    </td>
+                                </c:if>
+                                <c:if test="${contains}">
+                                    <td>
+                                        <a class="linkAdd btn" href="<c:url value = "/mm/removeShowtime/${showtime.id}" >
+                                           </c:url>"><fmt:message key="label.removeShowtime"/></a>
+                                    </td>
+                                </c:if>
 
-                                    </a>
-                                </td>
+
+
                             </tr>
                         </c:forEach>
                     </tbody>

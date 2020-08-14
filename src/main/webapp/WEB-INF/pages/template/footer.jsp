@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>JSP Page</title>
         <style>
+            
             .footer {
                 position: fixed;
                 left: 0;
@@ -21,8 +22,9 @@
                 text-align: center;
                 font-size: 15px;
                 padding-top: 1%;
-                
+
             }
+          
         </style>
     </head>
 
