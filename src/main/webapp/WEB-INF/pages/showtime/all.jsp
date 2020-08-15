@@ -58,8 +58,7 @@
                 text-align: center;
             }
             .btnNadji{
-                background-color: lightgreen;
-                color:white;
+                color:lightgreen;
             }
             .btnNadji:hover{
                 background-color:#6C757D ;
@@ -87,6 +86,26 @@
             }
             body{
                 padding-bottom: 5%;
+            }
+            .container {
+                background-color: #f2f2f2;
+                padding: 5px 20px 15px 20px;
+                border: 1px solid lightgrey;
+                border-radius: 3px;
+            }
+            .pageNavigation{
+                text-align: center;
+                color:#6C757D;
+                font-size: 20px;
+
+            }
+
+            .pageNavigation a{
+                color:black;
+            }
+            .pageNavigation a:hover{
+                color:lightgreen;
+                text-decoration: none;
             }
         </style>
 
@@ -119,7 +138,7 @@
                         </div>
                     </div>
                     <div class="btn-holder">
-                        <input type="submit" class="btn btnNadji"  " value="<fmt:message key="button.search"/>"/>
+                        <input type="submit" class="btn btnNadji btn-dark"  " value="<fmt:message key="button.search"/>"/>
                     </div>
 
                 </form>
@@ -223,7 +242,7 @@
                     </tbody>
                 </table>
 
-                <span>
+                <div class="pageNavigation">
                     <c:forEach begin="1" end="${totalPages}" step="1" var="i">
                         <c:if test="${currentPage!=i}">
                             <c:if test="${empty paramValues}">
@@ -237,10 +256,10 @@
                                 </a>
                             </c:if>
                             <c:if test="${currentPage==i}">
-                                <c:out value = "${i}"/>
+                                <u><c:out value = "${i}"/></u>  
                             </c:if>
                         </c:forEach>
-                </span>
+                </div>
             </div>
         </fmt:bundle>
 

@@ -33,8 +33,16 @@
                 background-color:  #6C757D;
                 color: white;
             }
+            body{
+                padding-bottom: 5%;
+            }
+            .container {
+                background-color: #f2f2f2;
+                padding: 5px 20px 15px 20px;
+                border: 1px solid lightgrey;
+                border-radius: 3px;
+            }
         </style>
-
     </head>
     <body>
         <%@include file="../template/menu.jsp" %>
@@ -44,7 +52,7 @@
                 <hr>
 
                 
-                <br> <h1><fmt:message key="label.addedShowtimes"/></h1>
+                <br> <h3><fmt:message key="label.addedShowtimes"/></h3>
                 <br><hr>
                 <br>
                 <br>

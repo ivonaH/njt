@@ -26,6 +26,12 @@
             body{
                 padding-bottom: 5%;
             }
+            .container {
+                background-color: #f2f2f2;
+                padding: 5px 20px 15px 20px;
+                border: 1px solid lightgrey;
+                border-radius: 3px;
+            }
         </style>
     </head>
     <body>
@@ -61,63 +67,68 @@
                                 </div>
 
                                 <div class="col"><h4><fmt:message key="label.user"/></h4>
-                                    <div class="form-group ">
-                                        <label for="user"><fmt:message key="label.user.id"/></label>
+                                    <div class="row ">
+                                        <div class="form-group col-sm-5 ">
+                                            <label for="user"><fmt:message key="label.user.id"/></label>
 
-                                        <form:input path="user.id"  readonly="true" class="form-control"/>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="user"><fmt:message key="label.user.username"/></label>
+                                            <form:input path="user.id"  readonly="true" class="form-control"/>
+                                        </div>
+                                        <div class="form-group col-sm-5">
+                                            <label for="user"><fmt:message key="label.user.username"/></label>
 
-                                        <form:input path="user.username"  readonly="true" class="form-control"/>
-                                    </div><div class="form-group ">
-                                        <label for="user"><fmt:message key="label.user.firstname"/></label>
+                                            <form:input path="user.username"  readonly="true" class="form-control"/>
+                                        </div>
+                                    </div>   
+                                    <div class="row ">
+                                        <div class="form-group col-sm-5">
+                                            <label for="user"><fmt:message key="label.user.firstname"/></label>
 
-                                        <form:input path="user.firstname"  readonly="true" class="form-control"/>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="user"><fmt:message key="label.user.lastname"/></label>
+                                            <form:input path="user.firstname"  readonly="true" class="form-control"/>
+                                        </div>
+                                        <div class="form-group col-sm-5">
+                                            <label for="user"><fmt:message key="label.user.lastname"/></label>
 
-                                        <form:input path="user.lastname"  readonly="true" class="form-control"/>
+                                            <form:input path="user.lastname"  readonly="true" class="form-control"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col">
-                                  <label for="movie"><fmt:message key="label.movie"/> </label>
+                                <label for="movie"><fmt:message key="label.movie"/> </label>
                                 <div class="form-group">
                                     <label for="id"><fmt:message key="label.movieId"/></label>
-                                    <div class="col-sm-6">
-                                        <form:input path="id" readonly="true" class="form-control"/>
+                                    <div class="col-sm-10">
+                                        <form:input path="movie.id" readonly="true" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group" >
                                     <label for="name"><fmt:message key="label.movieName"/></label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-10">
                                         <form:input path="movie.name" readonly="true"  class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="name"><fmt:message key="label.movieGenre"/></label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-10">
                                         <form:input path="movie.genre"  readonly="true" class="form-control "/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="director"><fmt:message key="label.director"/></label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-10">
                                         <form:input path="movie.director" readonly="true"  class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="year"><fmt:message key="label.year"/></label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-10">
                                         <form:input path="movie.year"  readonly="true"  class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="duration"><fmt:message key="label.duration"/></label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-10">
                                         <form:input path="movie.duration"  readonly="true"  class="form-control"/>
                                     </div>
                                 </div>
