@@ -7,6 +7,7 @@ package com.diplomski.njt.bioskop.pokusaj100.service;
 
 import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -15,12 +16,12 @@ import org.springframework.data.jpa.domain.Specification;
  */
 public interface MovieMarathonService {
 
-    public List<MovieMarathon> findAll();
+    public Page<MovieMarathon> findAll(int pageNum);
 
     public MovieMarathon findById(int id);
 
     public void save(MovieMarathon movieMarathon);
 
-    public List<MovieMarathon> findAll(Specification<MovieMarathon> specification);
+    public Page<MovieMarathon> findAll(Specification<MovieMarathon> specification, int pageNum);
 
 }

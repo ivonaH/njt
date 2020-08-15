@@ -94,7 +94,7 @@ public class MovieController {
     @GetMapping(value = "/{id}/delete")
     public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
         movieService.delete(id);
-        ModelAndView modelAndView = new ModelAndView("redirect:/movie/all");
+        ModelAndView modelAndView = new ModelAndView("redirect:/movie/all/1");
         redirectAttributes.addFlashAttribute("message", "Movie " + id + " is deleted!");
         return modelAndView;
     }

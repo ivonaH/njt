@@ -24,6 +24,7 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -124,24 +125,36 @@ public class MovieMarathonController {
         movieMarathonService.save(movieMarathon);
         redirectAttributes.addFlashAttribute("mmStatus", "Maraton je sacuvan sa projekcijama..." + movieMarathon.getShowtimes());
         session.setAttribute("mm", null);
-        return "redirect:/mm/all";
+        return "redirect:/mm/all/1";
     }
 
-    @GetMapping(value = "/find")
+    @GetMapping(value = "/find/{pageNum}")
     public String findMM(
+            @PathVariable(name = "pageNum") int pageNum,
             @Join(path = "showtimes", alias = "s")
             @And({
         @Spec(path = "name", params = "name", spec = Like.class),
         @Spec(path = "s.movie.name", params = "movieName", spec = Like.class),
         @Spec(path = "s.dateTime", params = "dateTime", spec = GreaterThanOrEqual.class)
     }) Specification<MovieMarathon> specification, Model model) {
-        List<MovieMarathon> mms = movieMarathonService.findAll(specification);
+
+        Page<MovieMarathon> page = movieMarathonService.findAll(specification, pageNum - 1);
+        List<MovieMarathon> mms = page.getContent();
         model.addAttribute("marathons", mms);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "marathon/all";
     }
 
-    @RequestMapping(value = "/all")
-    public String allMovies(Model model) {
+    @RequestMapping(value = "/all/{pageNum}")
+    public String allMovies(@PathVariable(name = "pageNum") int pageNum, Model model) {
+        Page<MovieMarathon> page = movieMarathonService.findAll(pageNum - 1);
+        List<MovieMarathon> mms = page.getContent();
+        model.addAttribute("marathons", mms);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "marathon/all";
     }
 
@@ -149,11 +162,6 @@ public class MovieMarathonController {
     public String delete(@PathVariable(name = "id") int id, Model model) {
         model.addAttribute("mm", movieMarathonService.findById(id));
         return "/marathon/view";
-    }
-
-    @ModelAttribute(name = "marathons")
-    private List<MovieMarathon> getMM() {
-        return movieMarathonService.findAll();
     }
 
     @ModelAttribute(name = "showtimes")

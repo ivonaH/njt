@@ -43,6 +43,9 @@
                 background-color:lightgreen;
                 color:black ;
             }
+            body{
+                padding-bottom: 5%;
+            }
         </style>
     </head>
     <body>
@@ -54,20 +57,20 @@
 
                 <h2><fmt:message key="searchMarathon.infoMessage"/></h2>
                 <hr>
-                <form method="GET" action="${pageContext.request.contextPath}/mm/find">
+                <form method="GET" action="${pageContext.request.contextPath}/mm/find/1">
                     <div class="row">
                         <div class="form-group col-sm-4">
                             <label for="name"><fmt:message key="label.marathon.name"/></label>
-                            <input type="text" name="name"  class="form-control"/>
+                            <input type="text" name="name" value="${param.name}" class="form-control"/>
                         </div>
 
                         <div class="form-group col-sm-4">
                             <label for="dateTime"><fmt:message key="label.dateTime"/> </label>
-                            <input name="dateTime"  class="form-control"/>
+                            <input name="dateTime" value="${param.dateTime}" class="form-control"/>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="movie"><fmt:message key="label.movie"/> </label>
-                            <input name="movie.name"  class="form-control"/>
+                            <input name="movie.name" value="${param.movie.name}" class="form-control"/>
                         </div>
 
                     </div>
@@ -106,6 +109,26 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                        
+                         <span>
+                <c:forEach begin="1" end="${totalPages}" step="1" var="i">
+                    <c:if test="${currentPage!=i}">
+                        <c:if test="${empty paramValues}">
+                            <a  href="${pageContext.request.contextPath}/mm/all/${i}">
+                                <c:out value = "${i}"/>
+                            </c:if>
+                            <c:if test="${not empty paramValues}">
+                                <a  href="${pageContext.request.contextPath}/mm/find/${i}?name=${param.name}&dateTime=${param.dateTime}&movie.name=${param.movie.name}">
+                                    <c:out value = "${i}"/>
+                                </c:if>
+                            </a>
+                        </c:if>
+                        <c:if test="${currentPage==i}">
+                            <c:out value = "${i}"/>
+                        </c:if>
+                    </c:forEach>
+            </span>
+                        
             </div>
         </fmt:bundle>
 

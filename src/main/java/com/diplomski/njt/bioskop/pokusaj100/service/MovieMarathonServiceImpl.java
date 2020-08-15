@@ -9,6 +9,9 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
 import com.diplomski.njt.bioskop.pokusaj100.repository.MovieMarathonRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -29,8 +32,9 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
     }
 
     @Override
-    public List<MovieMarathon> findAll() {
-        return movieMarathonRepository.findAllByOrderByNameAsc();
+    public Page<MovieMarathon> findAll(int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "Name"));
+        return movieMarathonRepository.findAll(pageable);
     }
 
     @Override
@@ -44,8 +48,10 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
     }
 
     @Override
-    public List<MovieMarathon> findAll(Specification<MovieMarathon> specification) {
-        return movieMarathonRepository.findAll(specification, new Sort(Sort.Direction.ASC, "Name"));
+    public Page<MovieMarathon> findAll(Specification<MovieMarathon> specification, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "Name"));
+
+        return movieMarathonRepository.findAll(specification, pageable);
     }
 
 }

@@ -96,7 +96,7 @@ public class ShowtimeController {
     @GetMapping(value = "/{id}/delete")
     public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
         showtimeService.delete(id);
-        ModelAndView modelAndView = new ModelAndView("redirect:/showtime/all");
+        ModelAndView modelAndView = new ModelAndView("redirect:/showtime/all/1");
         redirectAttributes.addFlashAttribute("message", "Projekcija sa idijem: " + id + " je obrisana.");
         return modelAndView;
     }
@@ -135,7 +135,7 @@ public class ShowtimeController {
         showtime.setUser(user);
         showtimeService.save(showtime);
         redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
-        return "redirect:/showtime/all";
+        return "redirect:/showtime/all/1";
 
     }
 
@@ -146,7 +146,7 @@ public class ShowtimeController {
         }
         showtimeService.save(showtime);
         redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
-        return "redirect:/showtime/all";
+        return "redirect:/showtime/all/1";
 
     }
 

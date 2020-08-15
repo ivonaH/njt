@@ -125,7 +125,7 @@ public class ReservationController {
     @GetMapping(value = "/{id}/delete")
     public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
         reservationService.delete(id);
-        ModelAndView modelAndView = new ModelAndView("redirect:/reservation/all");
+        ModelAndView modelAndView = new ModelAndView("redirect:/reservation/all/1");
         redirectAttributes.addFlashAttribute("message", "Rezervacija sa idijem: " + id + " je obrisana.");
         return modelAndView;
     }
