@@ -38,6 +38,9 @@
                 background-color:#6C757D ;
                 color: lightgreen;
             }
+            body{
+                padding-bottom: 5%;
+            }
         </style>
     </head>
     <body>
@@ -47,26 +50,26 @@
 
                 <h2><fmt:message key="movieSearch.infoMessage"/></h2>
                 <hr>
-                <form method="GET"  action="${pageContext.request.contextPath}/movie/find">
+                <form method="GET"  action="${pageContext.request.contextPath}/movie/find/1">
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label for="name"><fmt:message key="label.movieName"/></label>
-                            <input type="text" name="name"  class="form-control"/>
+                            <input type="text" name="name" value="${param.name}" class="form-control"/>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="director"><fmt:message key="label.director"/></label>
-                            <input name="director"  class="form-control"/>
+                            <input name="director" value="${param.director}" class="form-control"/>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="year"><fmt:message key="label.year"/></label>
-                            <input name="year"  class="form-control"/>
+                            <input name="year" value="${param.year}" class="form-control"/>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="genre"><fmt:message key="label.movieGenre"/></label>
                             <select name="genre" class="custom-select">
-                                <option selected disabled><fmt:message key="option.genre"/></option>
+                                <option disabled selected="true"><fmt:message key="option.genre"/></option>
                                 <c:forEach items="${genres}" var="genre">
-                                    <option value="${genre}">${genre}</option>
+                                    <option value="${genre}" <c:if test="${param.genre eq genre}">selected</c:if>>${genre}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -77,7 +80,7 @@
 
                 </form>
                 <hr style="padding-bottom: 3%;">
-
+                
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
                 <div>
@@ -106,7 +109,7 @@
                                         <td>${movie.name}</td>
                                         <td>${movie.director}</td>
                                         <td>${movie.genre}</td>
-                                        <td>${movie.user}</td>
+                                        <td>${movie.user.username}</td>
                                         <td>${movie.year}</td>
                                         <td>${movie.duration}</td>
                                         <td>
@@ -134,6 +137,26 @@
                     </div>
                 </div>
             </fmt:bundle>
+
+
+            <span>
+                <c:forEach begin="1" end="${totalPages}" step="1" var="i">
+                    <c:if test="${currentPage!=i}">
+                        <c:if test="${empty paramValues}">
+                            <a  href="${pageContext.request.contextPath}/movie/all/${i}">
+                                <c:out value = "${i}"/>
+                            </c:if>
+                            <c:if test="${not empty paramValues}">
+                                <a  href="${pageContext.request.contextPath}/movie/find/${i}?name=${param.name}&year=${param.year}&director=${param.director}&genre=${param.genre}">
+                                    <c:out value = "${i}"/>
+                                </c:if>
+                            </a>
+                        </c:if>
+                        <c:if test="${currentPage==i}">
+                            <c:out value = "${i}"/>
+                        </c:if>
+                    </c:forEach>
+            </span>
 
             <%@include file="/WEB-INF/pages/template/footer.jsp" %>
 

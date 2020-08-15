@@ -9,6 +9,9 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import com.diplomski.njt.bioskop.pokusaj100.repository.MovieRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,8 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getAll() {
         return movieRepository.findAll();
     }
-
+    
+    
     @Override
     public Movie getById(int id) {
         return movieRepository.findById(id).get();
@@ -48,18 +52,19 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.deleteById(id);
     }
 
-    
-  
-
     @Override
-    public List<Movie> findAll(Specification<Movie> specification) {
-        return movieRepository.findAll(specification,new Sort(Sort.Direction.DESC, "id")
+    public Page<Movie> findAll(Specification<Movie> specification, int pageNum) {
+        Pageable p = PageRequest.of(pageNum, 2, new Sort(Sort.Direction.DESC, "id")
                 .and(new Sort(Sort.Direction.ASC, "name")));
+
+        return movieRepository.findAll(specification, p);
+
     }
 
     @Override
-    public List<Movie> findAll() {
-        return movieRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
+    public Page<Movie> findAll(int pageNum) {
+        Pageable p = PageRequest.of(pageNum,5,new Sort(Sort.Direction.DESC, "id"));
+        return movieRepository.findAll(p);
     }
 
 }

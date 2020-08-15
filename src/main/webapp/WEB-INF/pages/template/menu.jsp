@@ -58,7 +58,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/new"><fmt:message key="link.newMovie"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/all"><fmt:message key="link.searchMovie"/></a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/all/1"><fmt:message key="link.searchMovie"/></a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -67,7 +67,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/newS"><fmt:message key="link.newShowtime"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/all"><fmt:message key="link.searchShowtime"/></a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/all/1"><fmt:message key="link.searchShowtime"/></a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

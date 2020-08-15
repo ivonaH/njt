@@ -85,6 +85,9 @@
                 background-color:  #6C757D;
                 color: white;
             }
+            body{
+                padding-bottom: 5%;
+            }
         </style>
 
     </head>
@@ -94,22 +97,22 @@
             <div class="container">
                 <h2><fmt:message key="showtimeSearch.infoMessage"/></h2>
                 <hr>
-                <form method="GET" action="${pageContext.request.contextPath}/showtime/find">
+                <form method="GET" action="${pageContext.request.contextPath}/showtime/find/1">
                     <div class="row">
                         <div class="form-group col-sm-4">
                             <label for="name"><fmt:message key="label.movie"/></label>
-                            <input type="text" name="movieName"  class="form-control"/>
+                            <input type="text" name="movieName"  class="form-control" value="${param.movieName}"/>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="dateTime"><fmt:message key="label.dateTime"/></label>
-                            <input name="dateTime"  class="form-control"/>
+                            <input name="dateTime"  class="form-control" value="${param.dateTime}"/>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="hall"><fmt:message key="label.Hall"/> </label>
                             <select name="hallName" class="custom-select">
                                 <option selected disabled><fmt:message key="option.hall"/></option>
                                 <c:forEach items="${halls}" var="hall">
-                                    <option name="${hall.name}">${hall.name}</option>>
+                                    <option name="${hall.name}" <c:if test="${param.hallName eq hall.name}">selected</c:if>>${hall.name}</option>>
                                 </c:forEach>
                             </select>
 
@@ -134,7 +137,6 @@
                             <th><fmt:message key="label.dateTime"/></th>
                             <th><fmt:message key="label.Hall"/></th>
                             <th><fmt:message key="label.user"/></th>
-                            <th><fmt:message key="label.freeSeats"/></th>
                             <th><fmt:message key="label.action"/></th>
                             <th><fmt:message key="link.marathon"/></th>
                             <th></th>
@@ -151,7 +153,6 @@
                                 <td>${showtime.dateTime}</td>
                                 <td>${showtime.hall}</td>
                                 <td>${showtime.user.username}</td>
-                                <td>${showtime.freeSeats}</td>
 
                                 <td>
                                     <ul class="navbar-nav mr-auto d-flex justify-content-end">
@@ -211,20 +212,42 @@
 
 
                                 </c:if>
-                                        <c:if test="${showtime.movieMarathonId != 0}">
-                                            <td>
-                                                ${showtime.movieMarathonId}
-                                            </td>    
-                                        </c:if>
+                                <c:if test="${showtime.movieMarathonId != 0}">
+                                    <td>
+                                        ${showtime.movieMarathonId}
+                                    </td>    
+                                </c:if>
 
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
 
-
+                <span>
+                    <c:forEach begin="1" end="${totalPages}" step="1" var="i">
+                        <c:if test="${currentPage!=i}">
+                            <c:if test="${empty paramValues}">
+                                <a  href="${pageContext.request.contextPath}/showtime/all/${i}">
+                                    <c:out value = "${i}"/>
+                                </c:if>
+                                <c:if test="${not empty paramValues}">
+                                    <a  href="${pageContext.request.contextPath}/showtime/find/${i}?movieName=${param.movieName}&dateTime=${param.dateTime}&hallName=${param.hallName}">
+                                        <c:out value = "${i}"/>
+                                    </c:if>
+                                </a>
+                            </c:if>
+                            <c:if test="${currentPage==i}">
+                                <c:out value = "${i}"/>
+                            </c:if>
+                        </c:forEach>
+                </span>
             </div>
         </fmt:bundle>
+
+
+
+
+
         <%@include file="/WEB-INF/pages/template/footer.jsp" %>
 
     </body>

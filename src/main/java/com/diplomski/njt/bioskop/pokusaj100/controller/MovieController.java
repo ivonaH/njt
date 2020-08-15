@@ -18,6 +18,7 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,9 +78,16 @@ public class MovieController {
         return "redirect:/movie/new";
     }
 
-    @RequestMapping(value = "/all")
-    public String allMovies(Model model) {
-        model.addAttribute("movies", movieService.getAll());
+    @RequestMapping(value = "/all/{pageNum}")
+    public String allMovies(@PathVariable(name = "pageNum") int pageNum,Model model) {
+        Page<Movie> page = movieService.findAll(pageNum-1);
+        List<Movie> movies = page.getContent();
+
+        model.addAttribute("currentPage", pageNum);
+        
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("movies", movies);
         return "movie/all";
     }
 
@@ -97,8 +105,9 @@ public class MovieController {
         return "/movie/view";
     }
 
-    @GetMapping(value = "/find")
+    @GetMapping(value = "/find/{pageNum}")
     public String findC(
+          @PathVariable(name = "pageNum") int pageNum,
             @And({
         @Spec(path = "name", params = "name", spec = Like.class),
         @Spec(path = "director", params = "director", spec = Like.class),
@@ -106,8 +115,16 @@ public class MovieController {
         @Spec(path = "year", params = "year", spec = In.class)
     }) Specification<Movie> specification, Model model) {
 
-        List<Movie> movies = movieService.findAll(specification);
+        Page<Movie> page = movieService.findAll(specification, pageNum-1);
+        List<Movie> movies = page.getContent();
+
+        model.addAttribute("currentPage", pageNum);
+        
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("movies", movies);
+        
+        
         return "movie/all";
     }
 

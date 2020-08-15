@@ -7,6 +7,7 @@ package com.diplomski.njt.bioskop.pokusaj100.service;
 
 import com.diplomski.njt.bioskop.pokusaj100.domain.Movie;
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -24,8 +25,8 @@ public interface MovieService {
     void delete(int id);
 
 
-    public List<Movie> findAll();
+    public Page<Movie> findAll(int pageNum);
 
-    public List<Movie> findAll(Specification<Movie> specification);
+    public Page<Movie> findAll(Specification<Movie> specification, int pageNum);
 
 }

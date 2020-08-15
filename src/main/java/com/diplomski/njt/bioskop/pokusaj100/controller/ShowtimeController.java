@@ -20,6 +20,7 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,19 +62,34 @@ public class ShowtimeController {
         this.showtimeValidator = showtimeValidator;
     }
 
-    @RequestMapping(value = "/all")
-    public String allShowtimes(Model model) {
+    @RequestMapping(value = "/all/{pageNum}")
+    public String allShowtimes(@PathVariable(name = "pageNum") int pageNum, Model model) {
+        Page<Showtime> page = showtimeService.findAll(pageNum-1);
+        List<Showtime> showtimes = page.getContent();
+        model.addAttribute("showtimes", showtimes);
+        model.addAttribute("currentPage", pageNum);
+
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "showtime/all";
     }
 
-    @GetMapping(value = "/find")
+    @GetMapping(value = "/find/{pageNum}")
     public String findShowtimes(
+            @PathVariable(name = "pageNum") int pageNum,
             @And({
         @Spec(path = "movie.name", params = "movieName", spec = Like.class),
         @Spec(path = "dateTime", params = "dateTime", spec = GreaterThanOrEqual.class),
         @Spec(path = "hall.name", params = "hallName", spec = Like.class)
     }) Specification<Showtime> specification, Model model) {
-        model.addAttribute("showtimes", showtimeService.findAll(specification));
+
+       Page<Showtime> page = showtimeService.findAll(specification,pageNum-1);
+        List<Showtime> showtimes = page.getContent();
+        model.addAttribute("showtimes", showtimes);
+        model.addAttribute("currentPage", pageNum);
+
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "showtime/all";
     }
 
@@ -134,12 +150,10 @@ public class ShowtimeController {
 
     }
 
-    @ModelAttribute(name = "showtimes")
-    private List<Showtime> getShowtimes() {
-        List<Showtime> showtimes = showtimeService.findAll();
-        return showtimes;
-    }
-
+//    @ModelAttribute(name = "showtimes")
+//    private List<Showtime> getShowtimes() {
+//        return showtimes;
+//    }
     @ModelAttribute(name = "movies")
     private List<Movie> getMovies() {
         return movieService.getAll();

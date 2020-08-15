@@ -12,6 +12,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -35,9 +38,14 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 
     @Override
     public List<Showtime> findAll() {
-        List<Showtime> showtimes = showtimeRepository.findAll(Sort.by(Sort.Direction.ASC,"DateTime"));
-        calculateFreeSeats(showtimes);
+        List<Showtime> showtimes = showtimeRepository.findAll(Sort.by(Sort.Direction.ASC, "DateTime"));
         return showtimes;
+    }
+
+    @Override
+    public Page<Showtime> findAll(int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "DateTime"));
+       return showtimeRepository.findAll(pageable);
     }
 
     @Override
@@ -55,20 +63,13 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         showtimeRepository.save(showtime);
     }
 
-    @Override
-    public List<Showtime> findAll(Specification<Showtime> specification) {
-        List<Showtime> showtimes = showtimeRepository.findAll(specification, new Sort(Sort.Direction.ASC, "DateTime"));
-        calculateFreeSeats(showtimes);
-        return showtimes;
-    }
 
-    public void calculateFreeSeats(List<Showtime> showtimes) {
-        for (Showtime showtime : showtimes) {
-            int numberOfReservations = reservationRepository.countByShowtimeId(showtime.getId());
-            showtime.setFreeSeats(showtime.getHall().getCapacity() - numberOfReservations);
-            System.out.println("FREE SEATS: " + showtime.getFreeSeats());
-        }
+      @Override
+    public Page<Showtime>findAll(Specification<Showtime> specification,int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "DateTime"));
+         return showtimeRepository.findAll(specification,pageable);
     }
+    
 
     @Override
     public List<Showtime> findByDateTimeAndHallId(Date dateTime, int hallId) {
