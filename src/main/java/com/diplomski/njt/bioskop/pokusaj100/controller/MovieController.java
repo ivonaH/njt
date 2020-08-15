@@ -11,6 +11,7 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
 import com.diplomski.njt.bioskop.pokusaj100.validator.MovieValidator;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
@@ -18,6 +19,8 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -45,11 +48,14 @@ public class MovieController {
 
     MovieService movieService;
     MovieValidator movieValidator;
+    
+    MessageSource messageSource;
 
     @Autowired
-    public MovieController(MovieService movieService, MovieValidator movieValidator) {
+    public MovieController(MovieService movieService, MovieValidator movieValidator,MessageSource messageSource) {
         this.movieService = movieService;
         this.movieValidator = movieValidator;
+        this.messageSource=messageSource;
     }
 
     @RequestMapping(value = "/new")
@@ -71,9 +77,9 @@ public class MovieController {
         movie.setUser(user);
 
         movieService.add(movie);
-
+        String movieStatus=messageSource.getMessage("message.movieStatus.created", null, LocaleContextHolder.getLocale());
         redirectAttributes.addFlashAttribute(
-                "movieStatus", "Film je sacuvan.");
+                "movieStatus", movieStatus);
 
         return "redirect:/movie/new";
     }
