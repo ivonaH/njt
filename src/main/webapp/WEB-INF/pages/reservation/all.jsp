@@ -37,6 +37,9 @@
                 background-color:#6C757D ;
                 color: lightgreen;
             }
+            body{
+                padding-bottom: 5%;
+            }
         </style>
 
     </head>
@@ -46,23 +49,23 @@
             <div class="container">
                 <h2><fmt:message key="link.searchReservation"/></h2>
                 <hr>
-                <form  method="GET" action="${pageContext.request.contextPath}/reservation/find">
+                <form  method="GET" action="${pageContext.request.contextPath}/reservation/find/1">
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label for="name"><fmt:message key="label.nameLastname"/> </label>
-                            <input type="text" name="nameLastname"  class="form-control"/>
+                            <input type="text" name="nameLastname" value="${param.nameLastname}"  class="form-control"/>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="email"><fmt:message key="label.email"/> </label>
-                            <input type="text" name="email"  class="form-control"/>
+                            <input type="text" name="email" value="${param.email}" class="form-control"/>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="name"><fmt:message key="label.movie"/></label>
-                            <input type="text" name="movieName"  class="form-control"/>
+                            <input type="text" name="movieName" value="${param.movieName}" class="form-control"/>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="dateTime"><fmt:message key="label.dateTime"/></label>
-                            <input name="dateTime"  class="form-control"/>
+                            <input name="dateTime" value="${param.dateTime}" class="form-control"/>
                         </div>
 
                     </div>
@@ -95,7 +98,7 @@
                             varStatus="loop">
                             <tr>
                                 <td>${reservation.id}</td>
-                                <td>${reservation.showtime}</td>
+                                <td>${reservation.showtime.dateTime}<br> Film: ${reservation.showtime.movie.name}<br> Salla: ${reservation.showtime.hall.name}</td>
                                 <td>${reservation.nameLastname}</td>
                                 <td>${reservation.email}</td>
                                 <td>${reservation.user}</td>
@@ -122,6 +125,25 @@
                         </c:forEach>
                     </tbody>
                 </table>
+
+                <span>
+                    <c:forEach begin="1" end="${totalPages}" step="1" var="i">
+                        <c:if test="${currentPage!=i}">
+                            <c:if test="${empty paramValues}">
+                                <a  href="${pageContext.request.contextPath}/reservation/all/${i}">
+                                    <c:out value = "${i}"/>
+                                </c:if>
+                                <c:if test="${not empty paramValues}">
+                                    <a  href="${pageContext.request.contextPath}/reservation/find/${i}?nameLastname=${param.nameLastname}&email=${param.email}&dateTime=${param.dateTime}&movieName=${param.movieName}">
+                                        <c:out value = "${i}"/>
+                                    </c:if>
+                                </a>
+                            </c:if>
+                            <c:if test="${currentPage==i}">
+                                <c:out value = "${i}"/>
+                            </c:if>
+                        </c:forEach>
+                </span>
             </div>
         </fmt:bundle>
 

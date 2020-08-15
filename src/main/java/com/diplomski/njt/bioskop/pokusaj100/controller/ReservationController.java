@@ -17,6 +17,7 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,12 +75,17 @@ public class ReservationController {
         }
         reservationService.save(reservation);
         redirectAttributes.addFlashAttribute("message", "Rezervacija je izmenjena.");
-        return "redirect:/reservation/all";
+        return "redirect:/reservation/all/1";
     }
 
-    @RequestMapping(value = "/all")
-    public String all() {
-
+    @RequestMapping(value = "/all/{pageNum}")
+    public String all(@PathVariable(name = "pageNum") int pageNum, Model model) {
+        Page<Reservation> page = reservationService.findAll(pageNum-1);
+        List<Reservation> reservations = page.getContent();
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "/reservation/all";
     }
 
@@ -97,8 +103,9 @@ public class ReservationController {
         return "reservation/new";
     }
 
-    @GetMapping(value = "/find")
+    @GetMapping(value = "/find/{pageNum}")
     public String findReservations(
+            @PathVariable(name = "pageNum") int pageNum,
             @And({
         @Spec(path = "nameLastname", params = "nameLastname", spec = Like.class),
         @Spec(path = "email", params = "email", spec = Like.class),
@@ -106,7 +113,12 @@ public class ReservationController {
         @Spec(path = "showtime.dateTime", params = "dateTime", spec = GreaterThanOrEqual.class),
         @Spec(path = "showtime.movie.name", params = "movieName", spec = Like.class)
     }) Specification<Reservation> specification, Model model) {
-        model.addAttribute("reservations", reservationService.findAll(specification));
+        Page<Reservation> page = reservationService.findAll(specification,pageNum-1);
+        List<Reservation> reservations = page.getContent();
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "reservation/all";
     }
 
@@ -129,10 +141,6 @@ public class ReservationController {
         return showtimeService.findAll();
     }
 
-    @ModelAttribute(name = "reservations")
-    private List<Reservation> getReservations() {
-        return reservationService.findAll();
-    }
 
     private Showtime getShowtimeWithId(int showtimeId) {
         return showtimeService.findById(showtimeId);

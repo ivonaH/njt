@@ -9,6 +9,9 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.Reservation;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ReservationRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public Page<Reservation> findAll(int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "Showtime.DateTime").and(new Sort(Sort.Direction.ASC, "Showtime.Id").and(new Sort(Sort.Direction.ASC, "nameLastname"))));
+        return reservationRepository.findAll(pageable);
+    }
+
+    @Override
     public Reservation findById(int id) {
         return reservationRepository.findById(id).get();
     }
@@ -49,8 +58,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Object findAll(Specification<Reservation> specification) {
-        return reservationRepository.findAll(specification,new Sort(Sort.Direction.ASC, "Showtime.DateTime").and(new Sort(Sort.Direction.ASC, "Showtime.Id").and(new Sort(Sort.Direction.ASC, "nameLastname"))));
+    public Page<Reservation> findAll(Specification<Reservation> specification, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "Showtime.DateTime").and(new Sort(Sort.Direction.ASC, "Showtime.Id").and(new Sort(Sort.Direction.ASC, "nameLastname"))));
+        return reservationRepository.findAll(specification, pageable);
     }
 
     @Override

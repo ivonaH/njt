@@ -39,8 +39,6 @@ public class Showtime {
     @ManyToOne
     @JoinColumn(name = "movieId")
     private Movie movie;
-    @Transient
-    private int freeSeats;
     @Column(name = "marathonId")
     int movieMarathonId;
 
@@ -99,19 +97,6 @@ public class Showtime {
         return movieMarathonId;
     }
     
-    @Override
-    public String toString() {
-        return "Showtime{" + "id=" + id + ", dateTime=" + dateTime + ", hall=" + hall + ", user=" + user + ", movie=" + movie + '}' + freeSeats;
-    }
-
-    public int getFreeSeats() {
-        return freeSeats;
-    }
-
-    public void setFreeSeats(int freeSeats) {
-        this.freeSeats = freeSeats;
-    }
-
     public void setMovieMarathonId(int movieMarathonId) {
         this.movieMarathonId = movieMarathonId;
     }

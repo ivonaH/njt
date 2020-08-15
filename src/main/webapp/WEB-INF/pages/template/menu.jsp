@@ -76,7 +76,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/newR"><fmt:message key="link.newReservation"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/all"><fmt:message key="link.searchReservation"/></a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/all/1"><fmt:message key="link.searchReservation"/></a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -85,7 +85,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/mm/new"><fmt:message key="link.newMarathon"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/mm/all"><fmt:message key="link.searchMarathon"/></a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/mm/all/1"><fmt:message key="link.searchMarathon"/></a>
                             </div>
                         </li>
 
