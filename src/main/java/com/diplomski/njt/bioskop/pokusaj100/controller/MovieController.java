@@ -11,7 +11,6 @@ import com.diplomski.njt.bioskop.pokusaj100.domain.User;
 import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
 import com.diplomski.njt.bioskop.pokusaj100.validator.MovieValidator;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
@@ -48,14 +47,14 @@ public class MovieController {
 
     MovieService movieService;
     MovieValidator movieValidator;
-    
+
     MessageSource messageSource;
 
     @Autowired
-    public MovieController(MovieService movieService, MovieValidator movieValidator,MessageSource messageSource) {
+    public MovieController(MovieService movieService, MovieValidator movieValidator, MessageSource messageSource) {
         this.movieService = movieService;
         this.movieValidator = movieValidator;
-        this.messageSource=messageSource;
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(value = "/new")
@@ -75,9 +74,9 @@ public class MovieController {
         movie.setId(
                 12121);
         movie.setUser(user);
-
         movieService.add(movie);
-        String movieStatus=messageSource.getMessage("message.movieStatus.created", null, LocaleContextHolder.getLocale());
+        
+        String movieStatus = messageSource.getMessage("message.movieStatus.created", null, LocaleContextHolder.getLocale());
         redirectAttributes.addFlashAttribute(
                 "movieStatus", movieStatus);
 
@@ -85,12 +84,12 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/all/{pageNum}")
-    public String allMovies(@PathVariable(name = "pageNum") int pageNum,Model model) {
-        Page<Movie> page = movieService.findAll(pageNum-1);
+    public String allMovies(@PathVariable(name = "pageNum") int pageNum, Model model) {
+        Page<Movie> page = movieService.findAll(pageNum - 1);
         List<Movie> movies = page.getContent();
 
         model.addAttribute("currentPage", pageNum);
-        
+
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("movies", movies);
@@ -101,7 +100,9 @@ public class MovieController {
     public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
         movieService.delete(id);
         ModelAndView modelAndView = new ModelAndView("redirect:/movie/all/1");
-        redirectAttributes.addFlashAttribute("message", "Movie " + id + " is deleted!");
+        String movieStatus = messageSource.getMessage("message.movieStatus.deleted", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute(
+                "movieStatus", movieStatus);
         return modelAndView;
     }
 
@@ -113,7 +114,7 @@ public class MovieController {
 
     @GetMapping(value = "/find/{pageNum}")
     public String findC(
-          @PathVariable(name = "pageNum") int pageNum,
+            @PathVariable(name = "pageNum") int pageNum,
             @And({
         @Spec(path = "name", params = "name", spec = Like.class),
         @Spec(path = "director", params = "director", spec = Like.class),
@@ -121,16 +122,15 @@ public class MovieController {
         @Spec(path = "year", params = "year", spec = In.class)
     }) Specification<Movie> specification, Model model) {
 
-        Page<Movie> page = movieService.findAll(specification, pageNum-1);
+        Page<Movie> page = movieService.findAll(specification, pageNum - 1);
         List<Movie> movies = page.getContent();
 
         model.addAttribute("currentPage", pageNum);
-        
+
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("movies", movies);
-        
-        
+
         return "movie/all";
     }
 

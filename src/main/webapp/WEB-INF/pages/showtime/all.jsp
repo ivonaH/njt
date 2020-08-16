@@ -147,7 +147,8 @@
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
                 <p>${message}</p>
-                <p>${mmMessage}</p>
+                <p>${mmError}</p>
+                <p>${mmSuccess}</p>
                 <table class="table table-dark">
                     <thead>
                         <tr>

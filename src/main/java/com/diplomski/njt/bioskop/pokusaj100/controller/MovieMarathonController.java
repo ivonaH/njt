@@ -24,6 +24,8 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -52,12 +54,15 @@ public class MovieMarathonController {
     ShowtimeService showtimeService;
 
     MovieMarathonValidator marathonValidator;
+    MessageSource messageSource;
 
     @Autowired
-    public MovieMarathonController(MovieMarathonService movieMarathonService, ShowtimeService showtimeService, MovieMarathonValidator mv) {
+    public MovieMarathonController(MovieMarathonService movieMarathonService, ShowtimeService showtimeService, MovieMarathonValidator mv, MessageSource messageSource) {
         this.movieMarathonService = movieMarathonService;
         this.showtimeService = showtimeService;
         this.marathonValidator = mv;
+        this.messageSource = messageSource;
+
     }
 
     @RequestMapping(value = "/new")
@@ -82,9 +87,9 @@ public class MovieMarathonController {
         Showtime toAdd = showtimeService.findById(showtimeId);
         if (validate(toAdd, model, showtimes)) {
             showtimes.add(toAdd);
-            model.addAttribute("mmMessage", "Projekcija je dodata.");
+            String mmStatus = messageSource.getMessage("mmMessage.showtimeAdded", null, LocaleContextHolder.getLocale());
+            model.addAttribute("mmMessage", mmStatus);
         }
-//        model.addAttribute("marathon", mm);
         return "showtime/all";
     }
 
@@ -101,12 +106,12 @@ public class MovieMarathonController {
         }
         if (showtimeToRemove != null) {
             showtimes.remove(showtimeToRemove);
-//            session.setAttribute("mm", mm);
 
         }
 
         model.addAttribute("marathon", mm);
-        model.addAttribute("mmMessage", "Projekcija je uklonjena sa filmskog maratona.");
+        String mmStatus = messageSource.getMessage("mmMessage.showtimeRemoved", null, LocaleContextHolder.getLocale());
+        model.addAttribute("mmMessage", mmStatus);
 
         return "marathon/new";
     }
@@ -123,7 +128,10 @@ public class MovieMarathonController {
         movieMarathon.setUser(user);
         movieMarathon.setShowtimes(showtimes);
         movieMarathonService.save(movieMarathon);
-        redirectAttributes.addFlashAttribute("mmStatus", "Maraton je sacuvan sa projekcijama..." + movieMarathon.getShowtimes());
+
+        String mmStatus = messageSource.getMessage("message.mmStatus.created", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("mmStatus", mmStatus);
+
         session.setAttribute("mm", null);
         return "redirect:/mm/all/1";
     }
@@ -176,26 +184,32 @@ public class MovieMarathonController {
 
     private boolean validate(Showtime toAdd, Model model, List<Showtime> showtimes) {
         if (toAdd.getMovieMarathonId() != 0) {
-            model.addAttribute("mmMessage", "Projekcija se vec prikazuje na drugom filmskom maratonu.");
+            String mmStatus = messageSource.getMessage("mmMessage.error.anotherMovieMarathon", null, LocaleContextHolder.getLocale());
+            model.addAttribute("mmError", mmStatus);
             return false;
         }
         if (showtimes.isEmpty()) {
             return true;
         }
         if (showtimes.contains(toAdd)) {
-            model.addAttribute("mmMessage", "Projekcija se vec nalazi na filmskom maratonu.");
+            String mmStatus = messageSource.getMessage("mmMessage.error.alreadyAdded", null, LocaleContextHolder.getLocale());
+            model.addAttribute("mmError", mmStatus);
+
             return false;
         }
         if (!validateDateOdShowtime(toAdd, showtimes.get(0))) {
-            model.addAttribute("mmMessage", "Sve projekcije na filmskom maratonu moraju biti istog datuma.");
+            String mmStatus = messageSource.getMessage("mmMessage.error.differentDate", null, LocaleContextHolder.getLocale());
+            model.addAttribute("mmError", mmStatus);
             return false;
         }
         if (!validateMoviesAtShowtimes(toAdd, showtimes)) {
-            model.addAttribute("mmMessage", "Projekcija za odabrani film se vec nalazi na filmskom maratonu.");
+            String mmStatus = messageSource.getMessage("mmMessage.error.movie.alreadyAdded", null, LocaleContextHolder.getLocale());
+            model.addAttribute("mmError", mmStatus);
             return false;
         }
         if (!validateTimeOfShowtime(toAdd, showtimes)) {
-            model.addAttribute("mmMessage", "Preklapanje vremena projekcija.");
+            String mmStatus = messageSource.getMessage("mmMessage.error.showtimeTime", null, LocaleContextHolder.getLocale());
+            model.addAttribute("mmError", mmStatus);
             return false;
         }
         return true;

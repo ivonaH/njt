@@ -53,6 +53,7 @@
 
                 
                 <br> <h3><fmt:message key="label.addedShowtimes"/></h3>
+                ${mmMessage}
                 <br><hr>
                 <br>
                 <br>

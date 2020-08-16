@@ -98,7 +98,7 @@
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
 
-                <p>${message}</p>
+                <p>${reservationStatus}</p>
                 <table class="table table-dark">
                     <thead>
                         <tr>

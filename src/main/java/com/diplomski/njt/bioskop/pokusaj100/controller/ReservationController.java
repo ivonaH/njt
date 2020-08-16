@@ -17,6 +17,8 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -47,12 +49,14 @@ public class ReservationController {
     ShowtimeService showtimeService;
 
     ReservationValidator reservationValidator;
+    MessageSource messageSource;
 
     @Autowired
-    public ReservationController(ReservationService reservationService, ShowtimeService showtimeService, ReservationValidator reservationValidator) {
+    public ReservationController(ReservationService reservationService, ShowtimeService showtimeService, ReservationValidator reservationValidator, MessageSource messageSource) {
         this.reservationService = reservationService;
         this.showtimeService = showtimeService;
         this.reservationValidator = reservationValidator;
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(value = "/save")
@@ -62,25 +66,28 @@ public class ReservationController {
         }
         reservation.setUser(user);
         reservationService.save(reservation);
-        redirectAttributes.addFlashAttribute("message", "Rezervacija je sacuvana " + user + " res:us " + reservation.getUser());
-        return "redirect:/reservation/all";
+        String movieStatus = messageSource.getMessage("message.reservationStatus.created", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("reservationStatus", movieStatus);
+
+        return "redirect:/reservation/all/1";
     }
 
     @PostMapping(value = "/edit")
     public String save(RedirectAttributes redirectAttributes, @Validated Reservation reservation, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-           model.addAttribute("errorMessage", "Unesite email.");
+            model.addAttribute("errorMessage", "Unesite email.");
             model.addAttribute("reservation", reservationService.findById(reservation.getId()));
             return "/reservation/view";
         }
         reservationService.save(reservation);
-        redirectAttributes.addFlashAttribute("message", "Rezervacija je izmenjena.");
+        String movieStatus = messageSource.getMessage("message.reservationStatus.created", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("reservationStatus", movieStatus);
         return "redirect:/reservation/all/1";
     }
 
     @RequestMapping(value = "/all/{pageNum}")
     public String all(@PathVariable(name = "pageNum") int pageNum, Model model) {
-        Page<Reservation> page = reservationService.findAll(pageNum-1);
+        Page<Reservation> page = reservationService.findAll(pageNum - 1);
         List<Reservation> reservations = page.getContent();
         model.addAttribute("reservations", reservations);
         model.addAttribute("currentPage", pageNum);
@@ -113,7 +120,7 @@ public class ReservationController {
         @Spec(path = "showtime.dateTime", params = "dateTime", spec = GreaterThanOrEqual.class),
         @Spec(path = "showtime.movie.name", params = "movieName", spec = Like.class)
     }) Specification<Reservation> specification, Model model) {
-        Page<Reservation> page = reservationService.findAll(specification,pageNum-1);
+        Page<Reservation> page = reservationService.findAll(specification, pageNum - 1);
         List<Reservation> reservations = page.getContent();
         model.addAttribute("reservations", reservations);
         model.addAttribute("currentPage", pageNum);
@@ -126,7 +133,8 @@ public class ReservationController {
     public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
         reservationService.delete(id);
         ModelAndView modelAndView = new ModelAndView("redirect:/reservation/all/1");
-        redirectAttributes.addFlashAttribute("message", "Rezervacija sa idijem: " + id + " je obrisana.");
+        String mmStatus = messageSource.getMessage("message.reservationStatus.deleted", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("reservationStatus", mmStatus);
         return modelAndView;
     }
 
@@ -140,7 +148,6 @@ public class ReservationController {
     private List<Showtime> getShowtimes() {
         return showtimeService.findAll();
     }
-
 
     private Showtime getShowtimeWithId(int showtimeId) {
         return showtimeService.findById(showtimeId);

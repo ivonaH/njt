@@ -20,6 +20,8 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -53,18 +55,22 @@ public class ShowtimeController {
 
     ShowtimeValidator showtimeValidator;
 
+    MessageSource messageSource;
+
     @Autowired
-    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService, ReservationService reservationService, ShowtimeValidator showtimeValidator) {
+    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService, ReservationService reservationService, ShowtimeValidator showtimeValidator,    MessageSource messageSource) {
         this.showtimeService = showtimeService;
         this.movieService = movieService;
         this.hallService = hallService;
         this.reservationService = reservationService;
         this.showtimeValidator = showtimeValidator;
+        this.messageSource= messageSource;
+
     }
 
     @RequestMapping(value = "/all/{pageNum}")
     public String allShowtimes(@PathVariable(name = "pageNum") int pageNum, Model model) {
-        Page<Showtime> page = showtimeService.findAll(pageNum-1);
+        Page<Showtime> page = showtimeService.findAll(pageNum - 1);
         List<Showtime> showtimes = page.getContent();
         model.addAttribute("showtimes", showtimes);
         model.addAttribute("currentPage", pageNum);
@@ -83,7 +89,7 @@ public class ShowtimeController {
         @Spec(path = "hall.name", params = "hallName", spec = Like.class)
     }) Specification<Showtime> specification, Model model) {
 
-       Page<Showtime> page = showtimeService.findAll(specification,pageNum-1);
+        Page<Showtime> page = showtimeService.findAll(specification, pageNum - 1);
         List<Showtime> showtimes = page.getContent();
         model.addAttribute("showtimes", showtimes);
         model.addAttribute("currentPage", pageNum);
@@ -97,7 +103,8 @@ public class ShowtimeController {
     public ModelAndView delete(@PathVariable(name = "id") int id, RedirectAttributes redirectAttributes) {
         showtimeService.delete(id);
         ModelAndView modelAndView = new ModelAndView("redirect:/showtime/all/1");
-        redirectAttributes.addFlashAttribute("message", "Projekcija sa idijem: " + id + " je obrisana.");
+        String showtimeStatus = messageSource.getMessage("message.showtimeStatus.deleted", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("showtimeStatus", showtimeStatus);
         return modelAndView;
     }
 
@@ -110,8 +117,6 @@ public class ShowtimeController {
     @GetMapping(value = "/new")
     public String newShowtime(@RequestParam(value = "movieId") int movieId, Model model) {
         Movie m = getMovieWithId(movieId);
-        System.out.println("Movie je:" + m);
-        model.addAttribute("showtime", new Showtime());
         model.addAttribute("selectedMovieId", movieId);
         return "showtime/new";
     }
@@ -125,16 +130,15 @@ public class ShowtimeController {
     @PostMapping(value = "/save")
     public String saveShowtime(@SessionAttribute(name = "user") User user, @Validated Showtime showtime, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            System.out.println("Validacija neuspesna.");
             return "showtime/new";
-        } else {
-            System.out.println("Prosao validaciju.");
         }
 
         showtime.setId(1919);
         showtime.setUser(user);
         showtimeService.save(showtime);
-        redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
+
+        String showtimeStatus = messageSource.getMessage("message.showtimeStatus.created", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("showtimeStatus", showtimeStatus);
         return "redirect:/showtime/all/1";
 
     }
@@ -145,15 +149,12 @@ public class ShowtimeController {
             return "/showtime/view";
         }
         showtimeService.save(showtime);
-        redirectAttributes.addFlashAttribute("message", "Projekcija je sacuvana" + showtime + " datum je: " + showtime.getDateTime());
+        String showtimeStatus = messageSource.getMessage("message.showtimeStatus.created", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("showtimeStatus", showtimeStatus);
         return "redirect:/showtime/all/1";
 
     }
 
-//    @ModelAttribute(name = "showtimes")
-//    private List<Showtime> getShowtimes() {
-//        return showtimes;
-//    }
     @ModelAttribute(name = "movies")
     private List<Movie> getMovies() {
         return movieService.getAll();
