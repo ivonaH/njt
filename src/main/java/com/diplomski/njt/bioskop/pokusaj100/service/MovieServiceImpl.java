@@ -54,8 +54,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Page<Movie> findAll(Specification<Movie> specification, int pageNum) {
-        Pageable p = PageRequest.of(pageNum, 2, new Sort(Sort.Direction.DESC, "id")
-                .and(new Sort(Sort.Direction.ASC, "name")));
+        Pageable p = PageRequest.of(pageNum, 2, new Sort(Sort.Direction.ASC, "name")
+                .and(new Sort(Sort.Direction.DESC, "year")));
 
         return movieRepository.findAll(specification, p);
 
@@ -63,7 +63,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Page<Movie> findAll(int pageNum) {
-        Pageable p = PageRequest.of(pageNum,5,new Sort(Sort.Direction.DESC, "id"));
+        Pageable p = PageRequest.of(pageNum,5,new Sort(Sort.Direction.ASC, "name")
+                .and(new Sort(Sort.Direction.DESC, "year")));
         return movieRepository.findAll(p);
     }
 

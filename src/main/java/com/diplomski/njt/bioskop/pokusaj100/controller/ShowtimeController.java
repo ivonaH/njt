@@ -132,8 +132,6 @@ public class ShowtimeController {
         if (bindingResult.hasErrors()) {
             return "showtime/new";
         }
-
-        showtime.setId(1919);
         showtime.setUser(user);
         showtimeService.save(showtime);
 

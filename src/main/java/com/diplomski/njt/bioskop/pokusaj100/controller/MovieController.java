@@ -64,15 +64,10 @@ public class MovieController {
     }
 
     @PostMapping(value = "/save")
-    public String saveMovie(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, @Validated Movie movie, BindingResult bindingResult, HttpSession session) {
+    public String saveMovie(@SessionAttribute(name = "user") User user, RedirectAttributes redirectAttributes, @Validated Movie movie, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "movie/new";
         }
-
-        movie.setUser(
-                (User) session.getAttribute("user"));
-        movie.setId(
-                12121);
         movie.setUser(user);
         movieService.add(movie);
         
@@ -87,12 +82,12 @@ public class MovieController {
     public String allMovies(@PathVariable(name = "pageNum") int pageNum, Model model) {
         Page<Movie> page = movieService.findAll(pageNum - 1);
         List<Movie> movies = page.getContent();
-
+        
         model.addAttribute("currentPage", pageNum);
-
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("movies", movies);
+        
         return "movie/all";
     }
 
@@ -126,7 +121,6 @@ public class MovieController {
         List<Movie> movies = page.getContent();
 
         model.addAttribute("currentPage", pageNum);
-
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("movies", movies);

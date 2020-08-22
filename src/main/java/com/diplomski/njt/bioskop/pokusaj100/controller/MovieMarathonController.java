@@ -124,7 +124,6 @@ public class MovieMarathonController {
         }
         ArrayList<Showtime> showtimes = (ArrayList<Showtime>) marathonSession.getShowtimes();
 
-        movieMarathon.setId(1313);
         movieMarathon.setUser(user);
         movieMarathon.setShowtimes(showtimes);
         movieMarathonService.save(movieMarathon);

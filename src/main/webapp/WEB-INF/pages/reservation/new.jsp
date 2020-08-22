@@ -54,7 +54,7 @@
                                 <form:select path="showtime" class="custom-select">
                                     <c:if test="${not empty selectedShowtimeId}">
                                         <c:forEach items="${showtimes}" var="showtime">
-                                            <option value="${showtime.id}" label="${showtime}"
+                                            <option value="${showtime.id}" label="${showtime.id} ${showtime.movie.name} ${showtime.dateTime} ${showtime.hall.name}""
                                                     <c:if test="${showtime.id eq selectedShowtimeId}">selected="selected"</c:if> />
                                         </c:forEach>
                                     </c:if>

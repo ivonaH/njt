@@ -89,10 +89,12 @@ public class ReservationController {
     public String all(@PathVariable(name = "pageNum") int pageNum, Model model) {
         Page<Reservation> page = reservationService.findAll(pageNum - 1);
         List<Reservation> reservations = page.getContent();
+        
         model.addAttribute("reservations", reservations);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
+        
         return "/reservation/all";
     }
 
@@ -122,10 +124,12 @@ public class ReservationController {
     }) Specification<Reservation> specification, Model model) {
         Page<Reservation> page = reservationService.findAll(specification, pageNum - 1);
         List<Reservation> reservations = page.getContent();
+        
         model.addAttribute("reservations", reservations);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
+        
         return "reservation/all";
     }
 

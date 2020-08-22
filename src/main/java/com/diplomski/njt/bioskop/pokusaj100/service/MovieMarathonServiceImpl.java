@@ -8,6 +8,9 @@ package com.diplomski.njt.bioskop.pokusaj100.service;
 import com.diplomski.njt.bioskop.pokusaj100.domain.MovieMarathon;
 import com.diplomski.njt.bioskop.pokusaj100.repository.MovieMarathonRepository;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +30,8 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
 
     @Autowired
     MovieMarathonRepository movieMarathonRepository;
+@PersistenceContext
+	private EntityManager entityManager;
 
     public MovieMarathonServiceImpl() {
     }
@@ -35,6 +40,7 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
     public Page<MovieMarathon> findAll(int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "Name"));
         return movieMarathonRepository.findAll(pageable);
+       
     }
 
     @Override
