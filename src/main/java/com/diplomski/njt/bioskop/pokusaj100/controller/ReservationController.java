@@ -73,10 +73,8 @@ public class ReservationController {
     }
 
     @PostMapping(value = "/edit")
-    public String save(RedirectAttributes redirectAttributes, @Validated Reservation reservation, BindingResult bindingResult, Model model) {
+    public String save(@Validated Reservation reservation, BindingResult bindingResult,RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("errorMessage", "Unesite email.");
-            model.addAttribute("reservation", reservationService.findById(reservation.getId()));
             return "/reservation/view";
         }
         reservationService.save(reservation);

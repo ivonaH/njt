@@ -118,6 +118,9 @@ public class ShowtimeController {
     public String newShowtime(@RequestParam(value = "movieId") int movieId, Model model) {
         Movie m = getMovieWithId(movieId);
         model.addAttribute("selectedMovieId", movieId);
+        Showtime showtime=new Showtime();
+        showtime.setMovie(m);
+        model.addAttribute("showtime",showtime);
         return "showtime/new";
     }
 

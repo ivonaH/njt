@@ -123,10 +123,9 @@ public class MovieMarathonController {
             return "marathon/new";
         }
         ArrayList<Showtime> showtimes = (ArrayList<Showtime>) marathonSession.getShowtimes();
-
-        movieMarathon.setUser(user);
-        movieMarathon.setShowtimes(showtimes);
-        movieMarathonService.save(movieMarathon);
+        marathonSession.setUser(user);
+        marathonSession.setName(movieMarathon.getName());
+        movieMarathonService.save(marathonSession);
 
         String mmStatus = messageSource.getMessage("message.mmStatus.created", null, LocaleContextHolder.getLocale());
         redirectAttributes.addFlashAttribute("mmStatus", mmStatus);

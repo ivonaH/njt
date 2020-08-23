@@ -20,17 +20,17 @@
         <fmt:bundle basename="i18n/config">
             <title><fmt:message key="login.infoMessage"/></title>
         </fmt:bundle>
+
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/css/bootstrap.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/font-awesome/5.6.3/css/all.min.css'>
-        <link href='${pageContext.request.contextPath}/resources/css/styles.css' rel="stylesheet"/>
 
         <style>
             body{
                 margin: 0;
                 padding: 0;
                 font-family: sans-serif;
-                background: url(../img/pozadina.jpg) no-repeat;
+                /*                background: url(../img/pozadina.jpg) no-repeat;*/
                 background-size: cover;
             }
             .login-box{
@@ -91,6 +91,9 @@
         </fmt:bundle>
 
         <%@include file="/WEB-INF/pages/template/footer.jsp" %>
-
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.js"></script>
     </body>
 </html>

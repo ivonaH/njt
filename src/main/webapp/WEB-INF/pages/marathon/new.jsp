@@ -18,10 +18,10 @@
         <fmt:setLocale value="${sessionScope.lang}"/>
         <fmt:bundle basename="i18n/config">
             <title><fmt:message key="newMarathon.infoMessage"/></title>
-        </fmt:bundle>        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        </fmt:bundle>  
+        <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.css'>
+        <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/font-awesome/5.6.3/css/all.min.css'>
 
         <style>
             .linkAdd{
@@ -42,6 +42,9 @@
                 border: 1px solid lightgrey;
                 border-radius: 3px;
             }
+             .error{
+               color: crimson;
+            }
         </style>
     </head>
     <body>
@@ -51,44 +54,56 @@
                 <h2><fmt:message key="newMarathon.infoMessage"/></h2>
                 <hr>
 
-                
+
                 <br> <h3><fmt:message key="label.addedShowtimes"/></h3>
                 ${mmMessage}
                 <br><hr>
                 <br>
+                <c:if test="${empty mm.showtimes}">
+                    <a class="btn btn-dark" href="<c:url value = "/showtime/all/1" >
+                       </c:url>"><fmt:message key="label.addToMarathon"/></a>
+                </c:if>
                 <br>
-                <table class="table table-dark" id='table1'>
-                    <thead>
-                        <tr>
-                            <th><fmt:message key="label.showtimeId"/></th>
-                            <th><fmt:message key="label.dateTime"/></th>
-                            <th><fmt:message key="label.movie"/></th>
-                            <th><fmt:message key="label.Hall"/></th>
-                            <th><fmt:message key="label.action"/></th>
-                        </tr>
-                    </thead>
-                    <tbody path>
-                        <c:forEach
-                            items="${mm.showtimes}"
-                            var="showtime"
-                            varStatus="loop">
-                            <tr id="${showtime.id}">
-                                <td>${showtime.id}</td>
-                                <td>${showtime.dateTime}</td>
-                                <td>${showtime.movie}</td>
-                                <td>${showtime.hall}</td>
-                                <td><a class="linkAdd btn" href="<c:url value = "/mm/removeShowtime/${showtime.id}" >
-                                       </c:url>"><fmt:message key="label.removeShowtime"/></a></td>
+                <c:if test="${not empty mm.showtimes}">
+                    <table class="table table-dark" id='table1'>
+                        <thead>
+                            <tr>
+                                <th><fmt:message key="label.showtimeId"/></th>
+                                <th><fmt:message key="label.dateTime"/></th>
+                                <th><fmt:message key="label.movie"/></th>
+                                <th><fmt:message key="label.Hall"/></th>
+                                <th><fmt:message key="label.action"/></th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody path>
+                            <c:forEach
+                                items="${mm.showtimes}"
+                                var="showtime"
+                                varStatus="loop">
+                                <tr id="${showtime.id}">
+                                    <td>${showtime.id}</td>
+                                    <fmt:formatDate value="${showtime.dateTime}" pattern="yyyy-MM-dd HH:mm" var="myDate" />
+                                    <td>${myDate}</td>
+                                    <td>${showtime.movie}</td>
+                                    <td>${showtime.hall}</td>
+                                    <td><a class="linkAdd btn" href="<c:url value = "/mm/removeShowtime/${showtime.id}" >
+                                           </c:url>"><fmt:message key="label.removeShowtime"/></a></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
+                <br>
                 <div>
                     <form:form action="${pageContext.request.contextPath}/mm/save" method="POST" modelAttribute="movieMarathon">
                         <div class="form-group">
                             <label for="name"><fmt:message key="label.marathon.name"/> </label>
-                            <form:input path="name"/>
-                            <form:errors path="name" ></form:errors> 
+                            <div class="col-sm-6">
+                                <form:input path="name" class="form-control"/>
+                               <div class="col-sm-6 error">
+                                <form:errors path="name" ></form:errors> 
+                               </div>
+                                </div>
                             </div>
                             <input type="submit" value="<fmt:message key="button.saveMarathon"/>" class="btn btn-outline-dark " style="background-color:lightgreen;" />
                     </form:form>
@@ -96,7 +111,11 @@
             </div>
 
         </fmt:bundle>
-        
+
         <%@include file="/WEB-INF/pages/template/footer.jsp" %>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.js"></script>
     </body>
 </html>

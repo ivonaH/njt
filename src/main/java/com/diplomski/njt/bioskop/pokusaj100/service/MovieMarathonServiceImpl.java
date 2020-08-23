@@ -30,8 +30,7 @@ public class MovieMarathonServiceImpl implements MovieMarathonService {
 
     @Autowired
     MovieMarathonRepository movieMarathonRepository;
-@PersistenceContext
-	private EntityManager entityManager;
+
 
     public MovieMarathonServiceImpl() {
     }

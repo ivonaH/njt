@@ -96,7 +96,7 @@ public class Showtime {
     public int getMovieMarathonId() {
         return movieMarathonId;
     }
-    
+
     public void setMovieMarathonId(int movieMarathonId) {
         this.movieMarathonId = movieMarathonId;
     }
@@ -129,8 +129,4 @@ public class Showtime {
         return true;
     }
 
-
-
-    
-    
 }

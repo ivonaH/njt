@@ -30,7 +30,7 @@ public class MovieMarathon {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
-    @OneToMany(cascade = {CascadeType.PERSIST}, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "marathonId",referencedColumnName = "ID")
     private List<Showtime> showtimes;
 
