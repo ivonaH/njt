@@ -41,6 +41,9 @@
                 transform: translate(-50%,-50%);
 
             }
+            .error{
+               color: crimson;
+            }
         </style>
     </head>
     <body>
@@ -68,18 +71,18 @@
                 </div>
                 <div class="row">
                     <form:form method="Post" modelAttribute="user"  action="${pageContext.request.contextPath}/login/user">
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-8">
                             <label for="username"><fmt:message key="label.username"></fmt:message></label>
                             <form:input path="username"/>
                         </div> 
-                        <div>
+                        <div class="error">
                             <form:errors path="username"></form:errors>
-                            </div>
+                        </div>
                             <div class="form-group col-sm-6">
                                 <label for="password"><fmt:message key="label.password"></fmt:message></label>
                             <form:input type="password" path="password"/>
                         </div> 
-                        <div>
+                        <div class="error">
                             <form:errors path="password"></form:errors>
                             </div>
                             <div class="col-sm-6">

@@ -8,7 +8,6 @@ package com.diplomski.njt.bioskop.pokusaj100.service;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ReservationRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ShowtimeRepository;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

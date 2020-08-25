@@ -57,12 +57,15 @@
             </c:if>
         </fmt:bundle>
 
-
         <%@include file="/WEB-INF/pages/template/footer.jsp" %>
-
+      
+        </script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/popper.js/1.16.0/umd/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.js"></script>
+         <script type="text/javascript">
+            
+       
     </body>
 </html>

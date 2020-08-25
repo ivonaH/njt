@@ -45,7 +45,6 @@
                 <hr>
                 <div>
                     ${message}
-                    ${selectedShowtimeId}
                 </div>
                 <div>
                     <form:form modelAttribute="reservation" method="POST" action="${pageContext.request.contextPath}/reservation/save" >

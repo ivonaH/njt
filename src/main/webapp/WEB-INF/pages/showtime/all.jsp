@@ -113,6 +113,13 @@
             <div class="container">
                 <h2><fmt:message key="showtimeSearch.infoMessage"/></h2>
                 <hr>
+                <c:if test="${not empty showtimeStatus}">
+                    <div class="alert alert-success" role="alert">
+
+                        ${showtimeStatus}
+                    </div>
+
+                </c:if>
                 <form method="GET" action="${pageContext.request.contextPath}/showtime/find/1">
                     <div class="row">
                         <div class="form-group col-sm-4">

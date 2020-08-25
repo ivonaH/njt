@@ -73,6 +73,13 @@
 
                 <h2><fmt:message key="searchMarathon.infoMessage"/></h2>
                 <hr>
+                     <c:if test="${not empty mmStatus}">
+                    <div class="alert alert-success" role="alert">
+
+                        ${mmStatus}
+                    </div>
+
+                </c:if>
                 <form method="GET" action="${pageContext.request.contextPath}/mm/find/1">
                     <div class="row">
                         <div class="form-group col-sm-4">
@@ -98,8 +105,7 @@
 
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
-
-                ${mmStatus}
+           
                 <table class="table table-dark">
                     <thead>
                         <tr>

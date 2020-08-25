@@ -41,7 +41,7 @@
                 border: 1px solid lightgrey;
                 border-radius: 3px;
             }
-             .pageNavigation{
+            .pageNavigation{
                 text-align: center;
                 color:#6C757D;
                 font-size: 20px;
@@ -63,6 +63,13 @@
             <div class="container">
                 <h2><fmt:message key="link.searchReservation"/></h2>
                 <hr>
+                  <c:if test="${not empty reservationStatus}">
+                    <div class="alert alert-success" role="alert">
+
+                        ${reservationStatus}
+                    </div>
+
+                </c:if>
                 <form  method="GET" action="${pageContext.request.contextPath}/reservation/find/1">
                     <div class="row">
                         <div class="form-group col-sm-3">
@@ -94,7 +101,7 @@
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
 
-                <p>${reservationStatus}</p>
+              
                 <table class="table table-dark">
                     <thead>
                         <tr>
@@ -112,7 +119,7 @@
                             varStatus="loop">
                             <tr>
                                 <td>${reservation.id}</td>
-                                  <fmt:formatDate value="${reservation.showtime.dateTime}" pattern="yyyy-MM-dd HH:mm" var="myDate" />
+                                <fmt:formatDate value="${reservation.showtime.dateTime}" pattern="yyyy-MM-dd HH:mm" var="myDate" />
                                 <td>${myDate}<br> Film: ${reservation.showtime.movie.name}<br> Salla: ${reservation.showtime.hall.name}</td>
                                 <td>${reservation.nameLastname}</td>
                                 <td>${reservation.email}</td>
@@ -156,8 +163,8 @@
                             </c:if>
                             <c:if test="${currentPage==i}">
                                 <u><c:out value = "${i}"/></u>
-                            </c:if>
-                        </c:forEach>
+                                </c:if>
+                            </c:forEach>
                 </div>
             </div>
         </fmt:bundle>

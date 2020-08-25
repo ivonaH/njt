@@ -17,12 +17,12 @@
         <fmt:bundle basename="i18n/config">
             <title><fmt:message key="newMovie.infoMessage"/></title>
         </fmt:bundle>
-       
+
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/css/bootstrap.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/font-awesome/5.6.3/css/all.min.css'>
 
-            <style>
+        <style>
             body{
                 padding-bottom: 5%;
             }
@@ -32,8 +32,8 @@
                 border: 1px solid lightgrey;
                 border-radius: 3px;
             }
-             .error{
-               color: crimson;
+            .error{
+                color: crimson;
             }
         </style>
     </head>
@@ -44,9 +44,13 @@
             <div class="container">
                 <h2><fmt:message key="newMovie.infoMessage"/></h2>
                 <hr>
-                <div>
-                    ${movieStatus}
-                </div>
+                <c:if test="${not empty movieStatus}">
+                    <div class="alert alert-success" role="alert">
+
+                        ${movieStatus}
+                    </div>
+
+                </c:if>
                 <div>
                     <form:form modelAttribute="movie" method="POST" action="${pageContext.request.contextPath}/movie/save" >
                         <div class="form-group" >
@@ -105,7 +109,7 @@
             </div>
         </fmt:bundle>
         <%@include file="/WEB-INF/pages/template/footer.jsp" %>
-         <%@include file="/WEB-INF/pages/template/footer.jsp" %>
+        <%@include file="/WEB-INF/pages/template/footer.jsp" %>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/popper.js/1.16.0/umd/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
