@@ -50,7 +50,7 @@
     <body>
         <%@include file="../template/menu.jsp" %>
         <fmt:bundle basename="i18n/config">
-            <div class="container" style="margin-top: 3%;margin-bottom: 3%;">
+            <div class="container"  style='margin-top:8%;'>
                 <h2><fmt:message key="newMarathon.infoMessage"/></h2>
                 <hr>
 

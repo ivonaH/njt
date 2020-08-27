@@ -18,7 +18,7 @@
         <fmt:bundle basename="i18n/config">
             <title><fmt:message key="showtimeSearch.infoMessage"/></title>
         </fmt:bundle>
-         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/css/bootstrap.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.css'>
         <link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/font-awesome/5.6.3/css/all.min.css'>
 
@@ -26,13 +26,13 @@
         <style>
             .ikonica{
                 color:lightgreen;
-                font-size: 25px;
+                font-size: 15px;
             }
             .ikonica:hover{
                 color:#6C757D;
             }
             .tooltiptextMM {
-                font-size: 15px;
+                font-size: 10px;
                 visibility: hidden;
                 width: 120px;
                 background-color: #6C757D;
@@ -64,11 +64,21 @@
             .linkAdd{
                 background-color: #6C757D;
                 color: lightgreen;
-
+                font-size: 14px;
 
             }
             .green{
                 background-color: lightgreen;
+                font-size: 13px;
+
+            }
+            .ikonica{
+                color:lightgreen;
+                font-size: 20px;
+            }
+            .ikonica:hover{
+                color:#6C757D;
+                text-decoration: none;
 
             }
             .linkAdd:hover{
@@ -110,7 +120,7 @@
     <body>
         <%@include file="../template/menu.jsp" %>
         <fmt:bundle basename="i18n/config">
-            <div class="container">
+            <div class="container"  style='margin-top:8%;'>
                 <h2><fmt:message key="showtimeSearch.infoMessage"/></h2>
                 <hr>
                 <c:if test="${not empty showtimeStatus}">
@@ -175,32 +185,22 @@
                                 <td>${showtime.id}</td>
                                 <td>${showtime.movie.name}</td>
                                 <td>
-                                <fmt:formatDate value="${showtime.dateTime}" pattern="yyyy-MM-dd HH:mm" var="myDate" />
-                                ${myDate}
+                                    <fmt:formatDate value="${showtime.dateTime}" pattern="yyyy-MM-dd HH:mm" var="myDate" />
+                                    ${myDate}
                                 </td>
                                 <td>${showtime.hall}</td>
                                 <td>${showtime.user.username}</td>
 
                                 <td>
-                                    <ul class="navbar-nav mr-auto d-flex justify-content-end">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <fmt:message key="label.action"/>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/delete/">
 
-                                                    </c:url>"><fmt:message key="label.delete"/></a>
+                                    <a class="ikonica" href="<c:url value = "/reservation/new?showtimeId=${showtime.id}">
 
-                                                <a class="dropdown-item" href="<c:url value = "/showtime/${showtime.id}/view/">
-
-                                                    </c:url>"><fmt:message key="label.view"/></a>
-                                                <a class="dropdown-item" href="<c:url value = "/reservation/new?showtimeId=${showtime.id}">
-
-                                                    </c:url>"><fmt:message key="label.createReservation"/></a>
-                                            </div
-                                        </div>
-                                    </ul>
+                                        </c:url>"><fmt:message key="label.createReservation"/>
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM6 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm4.5 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+                                        </svg>
+                                    </a>
                                 </td>
 
                                 <c:if test="${showtime.movieMarathonId == 0}">
@@ -244,7 +244,29 @@
                                         ${showtime.movieMarathonId}
                                     </td>    
                                 </c:if>
+                                <td>
+                                    <span>
 
+                                        <a class="ikonica" href="<c:url value = "/showtime/${showtime.id}/delete/">
+
+                                            </c:url>">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>
+                                        </a>
+
+                                        <a class="ikonica" href="<c:url value = "/showtime/${showtime.id}/view/">
+
+                                            </c:url>">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
+                                            <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                            </svg>
+                                        </a>
+
+                                    </span>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>

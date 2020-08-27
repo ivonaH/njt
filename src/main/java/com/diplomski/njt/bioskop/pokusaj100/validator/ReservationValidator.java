@@ -66,6 +66,16 @@ public class ReservationValidator implements Validator {
         if (errors.hasErrors()) {
             return;
         }
+          Calendar cal = Calendar.getInstance();
+
+   
+        if(reservation.getShowtime().getDateTime().before(cal.getTime())){
+           errors.rejectValue("showtime", "reservation.showtime.inPast", "");
+
+        }
+         if (errors.hasErrors()) {
+            return;
+        }
         if (reservation.getId() == 0) {
             int numberOfReservations = reservationService.countByShowtimeId(reservation.getShowtime().getId());
             System.out.println("NUMBER OF RESERVATIONS IS: " + numberOfReservations);

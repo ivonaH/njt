@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,6 +6,7 @@
  */
 package com.diplomski.njt.bioskop.pokusaj100;
 
+import com.diplomski.njt.bioskop.pokusaj100.config.DatabaseConfiguration;
 import com.diplomski.njt.bioskop.pokusaj100.formatter.HallFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.formatter.MovieFormatter;
 import com.diplomski.njt.bioskop.pokusaj100.formatter.ReservationFormatter;
@@ -16,20 +18,30 @@ import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import com.diplomski.njt.bioskop.pokusaj100.service.UserService;
 import java.util.List;
+import java.util.Locale;
 import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
@@ -40,6 +52,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = {
     "com.diplomski.njt.bioskop.pokusaj100"})
+@Import(DatabaseConfiguration.class)
+@EnableJpaRepositories(basePackages = "com.diplomski.njt.bioskop.pokusaj100.repository")
+@EnableTransactionManagement
 public class WebAppContextConfig implements WebMvcConfigurer {
 //    //definisanje handler mapera, view resolvera
 //
@@ -80,9 +95,27 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 
     @Bean
     public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("/i18n/config");
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("/WEB-INF/i18n/config");
         return messageSource;
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        return slr;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
     }
 
     @Override

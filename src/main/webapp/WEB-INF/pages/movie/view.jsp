@@ -38,7 +38,7 @@
         <%@include file="../template/menu.jsp" %>
 
         <fmt:bundle basename="i18n/config">
-            <div class="container">
+            <div class="container"  style='margin-top:8%;'>
                 <h2><fmt:message key="viewMovie.infoMessage"/></h2>
                 <hr>
                 <div>

@@ -69,7 +69,7 @@
 
         <fmt:bundle basename="i18n/config">
 
-            <div class="container">
+            <div class="container"  style='margin-top:8%;'>
 
                 <h2><fmt:message key="searchMarathon.infoMessage"/></h2>
                 <hr>

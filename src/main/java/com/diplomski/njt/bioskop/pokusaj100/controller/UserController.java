@@ -38,11 +38,13 @@ public class UserController {
     public UserController(UserService userService, UserValidator userValidator, MessageSource messageSource) {
         this.userService = userService;
         this.userValidator = userValidator;
-        this.messageSource=messageSource;
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(value = "/login/user")
     public String userPage(HttpServletRequest req, @Validated User user, BindingResult bindingResult, Model model) {
+        req.getSession(true).setAttribute("user", null);
+
         if (bindingResult.hasErrors()) {
             String errorMessage = messageSource.getMessage("message.user.enterUsernameAndPasssword", null, LocaleContextHolder.getLocale());
             model.addAttribute("errorMessage", errorMessage);

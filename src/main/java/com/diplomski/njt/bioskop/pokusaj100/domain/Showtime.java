@@ -29,6 +29,7 @@ public class Showtime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date dateTime;
     @ManyToOne
     @JoinColumn(name = "hallId")

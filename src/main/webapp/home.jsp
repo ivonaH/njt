@@ -41,6 +41,7 @@
 
         <%@include file="/WEB-INF/pages/template/menu.jsp" %>
         <fmt:bundle basename="i18n/config">
+            <div class="container"  style='margin-top:8%;'>
 
             <c:if test="${empty sessionScope.user}">
 
@@ -66,6 +67,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.js"></script>
          <script type="text/javascript">
             
-       
+       </div>
     </body>
 </html>

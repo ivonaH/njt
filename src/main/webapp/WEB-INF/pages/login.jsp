@@ -32,6 +32,7 @@
                 font-family: sans-serif;
                 /*                background: url(../img/pozadina.jpg) no-repeat;*/
                 background-size: cover;
+                margin-top: 8%;
             }
             .login-box{
                 width: 280px;

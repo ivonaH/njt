@@ -53,7 +53,7 @@ public class ShowtimeValidator implements Validator {
 
         Calendar cal = Calendar.getInstance();
 
-        if (showtime.getDateTime().before(cal.getTime())) {
+        if (showtime.getDateTime().before(cal.getTime()) && showtime.getId()==0) {
             errors.rejectValue("dateTime", "showtime.dateTime.inPast", "");
         }
 

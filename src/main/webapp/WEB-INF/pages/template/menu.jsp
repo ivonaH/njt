@@ -11,7 +11,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+
         <style>
+           
             .dropdown-menu{
 
                 background-color: #6C757D;
@@ -32,7 +35,7 @@
             .green {
                 color:black;
             }
-          
+
 
         </style>
     </head>
@@ -40,82 +43,88 @@
         <fmt:setLocale value="${sessionScope.lang}"/>
         <fmt:bundle basename="i18n/config">
 
+            <div style=' position: fixed; width: 100%; margin-top: -8%; z-index: 10;'>
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark"  >
+                    <!-- Brand -->
+                    <a class="navbar-brand" href="#" style="color: lightgreen;padding-left:14%; font-size: 35px;">Bioskop</a>
+                    <c:if test="${not empty sessionScope.user}">
 
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark" >
-                <!-- Brand -->
-                <a class="navbar-brand" href="#" style="color: lightgreen;padding-left:14%; font-size: 35px;">Bioskop</a>
-                <c:if test="${not empty sessionScope.user}">
+                        <!-- Links -->
+                        <ul class="navbar-nav ml-auto" ;">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/home"><fmt:message key="link.HomePage"/></a>
+                            </li>
 
-                    <!-- Links -->
-                    <ul class="navbar-nav ml-auto" ;">
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/home"><fmt:message key="link.HomePage"/></a>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                    <fmt:message key="link.movie"/>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/new"><fmt:message key="link.newMovie"/></a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/all/1"><fmt:message key="link.searchMovie"/></a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                    <fmt:message key="link.showtime"/>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/newS"><fmt:message key="link.newShowtime"/></a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/all/1"><fmt:message key="link.searchShowtime"/></a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                    <fmt:message key="link.reservation"/>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/newR"><fmt:message key="link.newReservation"/></a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/all/1"><fmt:message key="link.searchReservation"/></a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                    <fmt:message key="link.marathon"/>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/mm/new"><fmt:message key="link.newMarathon"/></a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/mm/all/1"><fmt:message key="link.searchMarathon"/></a>
+                                </div>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                <fmt:message key="link.movie"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/new"><fmt:message key="link.newMovie"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/movie/all/1"><fmt:message key="link.searchMovie"/></a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                <fmt:message key="link.showtime"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/newS"><fmt:message key="link.newShowtime"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/showtime/all/1"><fmt:message key="link.searchShowtime"/></a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                <fmt:message key="link.reservation"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/newR"><fmt:message key="link.newReservation"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/all/1"><fmt:message key="link.searchReservation"/></a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                <fmt:message key="link.marathon"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/mm/new"><fmt:message key="link.newMarathon"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/mm/all/1"><fmt:message key="link.searchMarathon"/></a>
-                            </div>
-                        </li>
+                            <!-- Dropdown -->
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color:lightgreen;">
+                                    <fmt:message key="link.loggedAs"/> ${sessionScope.user.username}
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><fmt:message key="link.logout"/></a>
+                                </div>
+                            </li>
 
-                        <!-- Dropdown -->
-                        <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color:lightgreen;">
-                                <fmt:message key="link.loggedAs"/> ${sessionScope.user.username}
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><fmt:message key="link.logout"/></a>
-                            </div>
-                        </li>
+                        </ul>
 
-                    </ul>
+                    </c:if>
+                </nav>    
 
-                </c:if>
-            </nav>    
+                <nav class="navbar navbar-expand-sm justify-content-end" style="background-color:lightgreen;margin-bottom: 3%;">
+                    <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+                        <ul class="navbar-nav text-right">
+                            <li class="nav-item active">
+                                <a  class="nav-link active green" href="?sessionLocale=en_US">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" width="25" height="15"/>
 
-            <nav class="navbar navbar-expand-sm justify-content-end" style="background-color:lightgreen;margin-bottom: 3%;">
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-                    <ul class="navbar-nav text-right">
-                        <li class="nav-item active">
-                            <a  class="nav-link active green" href="?sessionLocale=en_US">en_US</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link active green" href="?sessionLocale=sr_RS">sr_RS</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+                                    en_US</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link active green" href="?sessionLocale=sr_RS">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg" width="30" height="15"/>
+                                    sr_RS</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
 
         </fmt:bundle>
     </body>

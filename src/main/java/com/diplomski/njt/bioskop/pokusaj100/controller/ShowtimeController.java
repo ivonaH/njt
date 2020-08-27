@@ -14,6 +14,7 @@ import com.diplomski.njt.bioskop.pokusaj100.service.MovieService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ReservationService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import com.diplomski.njt.bioskop.pokusaj100.validator.ShowtimeValidator;
+import java.util.Date;
 import java.util.List;
 import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -24,6 +25,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,13 +60,13 @@ public class ShowtimeController {
     MessageSource messageSource;
 
     @Autowired
-    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService, ReservationService reservationService, ShowtimeValidator showtimeValidator,    MessageSource messageSource) {
+    public ShowtimeController(ShowtimeService showtimeService, MovieService movieService, HallService hallService, ReservationService reservationService, ShowtimeValidator showtimeValidator, MessageSource messageSource) {
         this.showtimeService = showtimeService;
         this.movieService = movieService;
         this.hallService = hallService;
         this.reservationService = reservationService;
         this.showtimeValidator = showtimeValidator;
-        this.messageSource= messageSource;
+        this.messageSource = messageSource;
 
     }
 
@@ -118,9 +120,9 @@ public class ShowtimeController {
     public String newShowtime(@RequestParam(value = "movieId") int movieId, Model model) {
         Movie m = getMovieWithId(movieId);
         model.addAttribute("selectedMovieId", movieId);
-        Showtime showtime=new Showtime();
+        Showtime showtime = new Showtime();
         showtime.setMovie(m);
-        model.addAttribute("showtime",showtime);
+        model.addAttribute("showtime", showtime);
         return "showtime/new";
     }
 
