@@ -49,11 +49,8 @@
                 color: lavenderblush;
 
             }
-            .my-float{
-                margin-top:18px;
-            }
+        
             .my-float:hover{
-                margin-top:18px;
                 text-decoration: none;
             }
             .fly-img{
@@ -69,6 +66,9 @@
                 box-shadow: 2px 2px 3px #999;
                 text-decoration: none;
                 padding: 1%;
+            }
+            .fly-img:hover{
+                color:black;
             }
         </style>
     </head>

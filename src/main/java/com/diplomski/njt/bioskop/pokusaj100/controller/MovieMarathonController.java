@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -28,6 +29,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,7 +79,7 @@ public class MovieMarathonController {
     }
 
     @GetMapping(value = "/addShowtime/{showtimeId}")
-    public String addShowtime(@PathVariable(name = "showtimeId") int showtimeId, HttpSession session, Model model) {
+    public String addShowtime(@PathVariable(name = "showtimeId") int showtimeId, HttpSession session, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (session.getAttribute("mm") == null) {
             MovieMarathon mm = new MovieMarathon();
             session.setAttribute("mm", mm);
@@ -85,16 +87,18 @@ public class MovieMarathonController {
         MovieMarathon mm = (MovieMarathon) session.getAttribute("mm");
         ArrayList<Showtime> showtimes = (ArrayList<Showtime>) mm.getShowtimes();
         Showtime toAdd = showtimeService.findById(showtimeId);
-        if (validate(toAdd, model, showtimes)) {
+        String message = "";
+        if (validate(toAdd, redirectAttributes, showtimes)) {
             showtimes.add(toAdd);
             String mmStatus = messageSource.getMessage("mmMessage.showtimeAdded", null, LocaleContextHolder.getLocale());
-            model.addAttribute("mmMessage", mmStatus);
+            redirectAttributes.addFlashAttribute("mmMessage", mmStatus);
         }
-        return "showtime/all";
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
     @GetMapping(value = "/removeShowtime/{showtimeId}")
-    public String removeShowtime(@PathVariable(name = "showtimeId") int showtimeId, HttpSession session, Model model) {
+    public String removeShowtime(@PathVariable(name = "showtimeId") int showtimeId, HttpSession session, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         MovieMarathon mm = (MovieMarathon) session.getAttribute("mm");
         ArrayList<Showtime> showtimes = (ArrayList<Showtime>) mm.getShowtimes();
         Showtime showtimeToRemove = null;
@@ -109,11 +113,11 @@ public class MovieMarathonController {
 
         }
 
-        model.addAttribute("marathon", mm);
         String mmStatus = messageSource.getMessage("mmMessage.showtimeRemoved", null, LocaleContextHolder.getLocale());
-        model.addAttribute("mmMessage", mmStatus);
-
-        return "marathon/new";
+        redirectAttributes.addFlashAttribute("mmMessage",mmStatus);
+//        model.addAttribute("mmMessage", mmStatus);
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
     @PostMapping(value = "/save")
@@ -180,34 +184,37 @@ public class MovieMarathonController {
         binder.setValidator(marathonValidator);
     }
 
-    private boolean validate(Showtime toAdd, Model model, List<Showtime> showtimes) {
+    private boolean validate(Showtime toAdd, RedirectAttributes redirectAttributes, List<Showtime> showtimes) {
+        String message = "";
         if (toAdd.getMovieMarathonId() != 0) {
-            String mmStatus = messageSource.getMessage("mmMessage.error.anotherMovieMarathon", null, LocaleContextHolder.getLocale());
-            model.addAttribute("mmError", mmStatus);
+            message = messageSource.getMessage("mmMessage.error.anotherMovieMarathon", null, LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("mmError", message);
             return false;
         }
         if (showtimes.isEmpty()) {
             return true;
         }
         if (showtimes.contains(toAdd)) {
-            String mmStatus = messageSource.getMessage("mmMessage.error.alreadyAdded", null, LocaleContextHolder.getLocale());
-            model.addAttribute("mmError", mmStatus);
-
+            message = messageSource.getMessage("mmMessage.error.alreadyAdded", null, LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("mmError", message);
             return false;
         }
         if (!validateDateOdShowtime(toAdd, showtimes.get(0))) {
-            String mmStatus = messageSource.getMessage("mmMessage.error.differentDate", null, LocaleContextHolder.getLocale());
-            model.addAttribute("mmError", mmStatus);
+            message = messageSource.getMessage("mmMessage.error.differentDate", null, LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("mmError", message);
+
             return false;
         }
         if (!validateMoviesAtShowtimes(toAdd, showtimes)) {
-            String mmStatus = messageSource.getMessage("mmMessage.error.movie.alreadyAdded", null, LocaleContextHolder.getLocale());
-            model.addAttribute("mmError", mmStatus);
+            message = messageSource.getMessage("mmMessage.error.movie.alreadyAdded", null, LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("mmError", message);
+
             return false;
         }
         if (!validateTimeOfShowtime(toAdd, showtimes)) {
-            String mmStatus = messageSource.getMessage("mmMessage.error.showtimeTime", null, LocaleContextHolder.getLocale());
-            model.addAttribute("mmError", mmStatus);
+            message = messageSource.getMessage("mmMessage.error.showtimeTime", null, LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("mmError", message);
+
             return false;
         }
         return true;

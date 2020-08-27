@@ -55,6 +55,15 @@
                 color:lightgreen;
                 text-decoration: none;
             }
+            .ikonica{
+                color:lightgreen;
+                font-size: 20px;
+            }
+            .ikonica:hover{
+                color:#6C757D;
+                text-decoration: none;
+
+            }
         </style>
     </head>
     <body>
@@ -63,7 +72,7 @@
             <div class="container"  style='margin-top:8%;'>
                 <h2><fmt:message key="link.searchReservation"/></h2>
                 <hr>
-                  <c:if test="${not empty reservationStatus}">
+                <c:if test="${not empty reservationStatus}">
                     <div class="alert alert-success" role="alert">
 
                         ${reservationStatus}
@@ -101,7 +110,7 @@
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
 
-              
+
                 <table class="table table-dark">
                     <thead>
                         <tr>
@@ -120,29 +129,37 @@
                             <tr>
                                 <td>${reservation.id}</td>
                                 <fmt:formatDate value="${reservation.showtime.dateTime}" pattern="yyyy-MM-dd HH:mm" var="myDate" />
-                                <td>${myDate}<br> Film: ${reservation.showtime.movie.name}<br> Salla: ${reservation.showtime.hall.name}</td>
+                                <td><fmt:message key="label.dateTime"/>:
+                                    ${myDate}<br> <fmt:message key="label.movieName"/>: ${reservation.showtime.movie.name}<br> <fmt:message key="label.Hall"/>: ${reservation.showtime.hall.name}</td>
                                 <td>${reservation.nameLastname}</td>
                                 <td>${reservation.email}</td>
                                 <td>${reservation.user.username}</td>
 
+
                                 <td>
-                                    <ul class="navbar-nav mr-auto d-flex justify-content-end">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <fmt:message key="label.action"/>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="<c:url value = "/reservation/${reservation.id}/delete/">
+                                    <span>
 
-                                                    </c:url>"><fmt:message key="label.delete"/></a>
+                                        <a class="ikonica"  href="<c:url value = "/reservation/${reservation.id}/delete/">
 
-                                                <a class="dropdown-item" href="<c:url value = "/reservation/${reservation.id}/view/">
+                                            </c:url>">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>
+                                        </a>
 
-                                                    </c:url>"><fmt:message key="label.view"/></a>
-                                            </div>
-                                        </div>
-                                    </ul>
+                                        <a class="ikonica" href="<c:url value = "/reservation/${reservation.id}/view/">
+
+                                            </c:url>">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
+                                            <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                            </svg>
+                                        </a>
+
+                                    </span>
                                 </td>
+
                             </tr>
                         </c:forEach>
                     </tbody>

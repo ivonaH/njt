@@ -42,8 +42,8 @@
                 border: 1px solid lightgrey;
                 border-radius: 3px;
             }
-             .error{
-               color: crimson;
+            .error{
+                color: crimson;
             }
         </style>
     </head>
@@ -56,8 +56,11 @@
 
 
                 <br> <h3><fmt:message key="label.addedShowtimes"/></h3>
-                ${mmMessage}
-                <br><hr>
+                <c:if test="${not empty mmMessage}">
+                    <div class="alert alert-success" role="alert">
+                        <p>${mmMessage}</p>
+                    </div>
+                </c:if>                <br><hr>
                 <br>
                 <c:if test="${empty mm.showtimes}">
                     <a class="btn btn-dark" href="<c:url value = "/showtime/all/1" >
@@ -100,9 +103,9 @@
                             <label for="name"><fmt:message key="label.marathon.name"/> </label>
                             <div class="col-sm-6">
                                 <form:input path="name" class="form-control"/>
-                               <div class="col-sm-6 error">
-                                <form:errors path="name" ></form:errors> 
-                               </div>
+                                <div class="col-sm-6 error">
+                                    <form:errors path="name" ></form:errors> 
+                                    </div>
                                 </div>
                             </div>
                             <input type="submit" value="<fmt:message key="button.saveMarathon"/>" class="btn btn-outline-dark " style="background-color:lightgreen;" />

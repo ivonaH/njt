@@ -161,8 +161,21 @@
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
                 <p>${message}</p>
-                <p>${mmError}</p>
-                <p>${mmSuccess}</p>
+                <c:if test="${not empty mmError}">
+                    <div class="alert alert-danger" role="alert">
+                        <p>${mmError}</p>
+                    </div>
+                </c:if>
+                <c:if test="${not empty mmSuccess}">
+                    <div class="alert alert-success" role="alert">
+                        <p>${mmSuccess}</p>
+                    </div>
+                </c:if>
+                <c:if test="${not empty mmMessage}">
+                    <div class="alert alert-success" role="alert">
+                        <p>${mmMessage}</p>
+                    </div>
+                </c:if>
                 <table class="table table-dark">
                     <thead>
                         <tr>
