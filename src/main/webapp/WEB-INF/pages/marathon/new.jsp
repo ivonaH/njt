@@ -85,7 +85,7 @@
                 text-align:center;
                 box-shadow: 2px 2px 3px #999;
                 padding-top:15px;
-                
+
             }
 
             .my-floatM{
@@ -135,8 +135,8 @@
                         </div>
 
                     </form>
+                    <hr style="margin-bottom: 3%;">
                 </c:if>
-                <hr style="margin-bottom: 3%;">
 
                 <h2><fmt:message key="search.Result"/></h2>
                 <hr>
