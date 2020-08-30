@@ -12,6 +12,7 @@ import com.diplomski.njt.bioskop.pokusaj100.service.MovieMarathonService;
 import com.diplomski.njt.bioskop.pokusaj100.service.ShowtimeService;
 import com.diplomski.njt.bioskop.pokusaj100.validator.MovieMarathonValidator;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +30,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +43,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -75,6 +78,26 @@ public class MovieMarathonController {
             session.setAttribute("mm", mm);
         }
         model.addAttribute("movieMarathon", session.getAttribute("mm"));
+        List<Showtime> showtimesAll = showtimeService.findByMarathonIdAndDateTimeGreaterThanEqual(0, Calendar.getInstance().getTime());
+
+        model.addAttribute("showtimesAll", showtimesAll);
+        return "marathon/new";
+    }
+
+    @GetMapping(value = "/showtimes")
+    public String newMMShowtimes(@RequestParam(name = "dateTime") String date, Model model) throws ParseException {
+        SimpleDateFormat sdf;
+        Calendar c = Calendar.getInstance();
+        if (!date.contains(" ")) {
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+        } else {
+            sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+        c.setTime(sdf.parse(date));
+
+        List<Showtime> showtimesAll = showtimeService.findByMarathonIdAndDateTimeGreaterThanEqual(0, c.getTime());
+
+        model.addAttribute("showtimesAll", showtimesAll);
         return "marathon/new";
     }
 
@@ -114,7 +137,7 @@ public class MovieMarathonController {
         }
 
         String mmStatus = messageSource.getMessage("mmMessage.showtimeRemoved", null, LocaleContextHolder.getLocale());
-        redirectAttributes.addFlashAttribute("mmMessage",mmStatus);
+        redirectAttributes.addFlashAttribute("mmMessage", mmStatus);
 //        model.addAttribute("mmMessage", mmStatus);
         String referer = request.getHeader("Referer");
         return "redirect:" + referer;
@@ -176,7 +199,7 @@ public class MovieMarathonController {
 
     @ModelAttribute(name = "showtimes")
     private List<Showtime> getShowtimes() {
-        return showtimeService.findAll();
+        return showtimeService.findAll(1).getContent();
     }
 
     @InitBinder

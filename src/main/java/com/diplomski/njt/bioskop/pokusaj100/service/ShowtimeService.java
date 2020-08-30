@@ -27,9 +27,11 @@ public interface ShowtimeService {
 
     public void save(Showtime showtime);
 
-    public Page<Showtime> findAll(Specification<Showtime> specification,int pageNum);
+    public Page<Showtime> findAll(Specification<Showtime> specification, int pageNum);
 
     public List<Showtime> findByDateTimeAndHallId(Date dateTime, int hallId);
+
+    List<Showtime> findByMarathonIdAndDateTimeGreaterThanEqual(int marathonId, Date dateTime);
 
     public List<Showtime> findByHallIdAndDateTimeBetween(int id, Date dateTime, Date endDateTime);
 

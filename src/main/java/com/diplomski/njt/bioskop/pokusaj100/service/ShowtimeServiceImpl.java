@@ -44,7 +44,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     @Override
     public Page<Showtime> findAll(int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "DateTime"));
-       return showtimeRepository.findAll(pageable);
+        return showtimeRepository.findAll(pageable);
     }
 
     @Override
@@ -62,13 +62,11 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         showtimeRepository.save(showtime);
     }
 
-
-      @Override
-    public Page<Showtime>findAll(Specification<Showtime> specification,int pageNum) {
+    @Override
+    public Page<Showtime> findAll(Specification<Showtime> specification, int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, 5, new Sort(Sort.Direction.ASC, "DateTime"));
-         return showtimeRepository.findAll(specification,pageable);
+        return showtimeRepository.findAll(specification, pageable);
     }
-    
 
     @Override
     public List<Showtime> findByDateTimeAndHallId(Date dateTime, int hallId) {
@@ -80,4 +78,10 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         return showtimeRepository.findByHallIdAndDateTimeBetween(id, dateTime, endDateTime);
     }
 
+    @Override
+    public List<Showtime> findByMarathonIdAndDateTimeGreaterThanEqual(int id, Date dateTime) {
+        return showtimeRepository.findByMovieMarathonIdAndDateTimeGreaterThan(id, dateTime, new Sort(Sort.Direction.ASC, "DateTime"));
+    }
+    
+ 
 }
