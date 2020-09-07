@@ -8,6 +8,7 @@ package com.diplomski.njt.bioskop.pokusaj100.service;
 import com.diplomski.njt.bioskop.pokusaj100.domain.Showtime;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ReservationRepository;
 import com.diplomski.njt.bioskop.pokusaj100.repository.ShowtimeRepository;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +79,10 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         return showtimeRepository.findByHallIdAndDateTimeBetween(id, dateTime, endDateTime);
     }
 
+
     @Override
     public List<Showtime> findByMarathonIdAndDateTimeGreaterThanEqual(int id, Date dateTime) {
         return showtimeRepository.findByMovieMarathonIdAndDateTimeGreaterThan(id, dateTime, new Sort(Sort.Direction.ASC, "DateTime"));
     }
-    
- 
+
 }

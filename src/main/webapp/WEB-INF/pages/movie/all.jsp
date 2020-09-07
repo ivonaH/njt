@@ -148,7 +148,13 @@
                                         <td>${movie.user.username}</td>
                                         <td>${movie.year}</td>
                                         <td>${movie.duration}</td>
+                                     
                                         <td>
+                                            <a class="green btn" href="<c:url value = "/showtime/new?movieId=${movie.id}">
+                                               </c:url>"><fmt:message key="label.newShowtime"/></a>
+                                            </a>
+                                        </td>
+                                           <td>
                                         
 
 
@@ -172,11 +178,6 @@
                                                 </a>
 
                                             </span>
-                                        </td>
-                                        <td>
-                                            <a class="green btn" href="<c:url value = "/showtime/new?movieId=${movie.id}">
-                                               </c:url>"><fmt:message key="label.newShowtime"/></a>
-                                            </a>
                                         </td>
                                     </tr>
                                 </c:forEach>

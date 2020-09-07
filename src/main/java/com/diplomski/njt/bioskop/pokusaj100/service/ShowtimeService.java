@@ -35,4 +35,5 @@ public interface ShowtimeService {
 
     public List<Showtime> findByHallIdAndDateTimeBetween(int id, Date dateTime, Date endDateTime);
 
+
 }

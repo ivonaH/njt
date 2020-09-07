@@ -32,6 +32,8 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Integer>, Jp
 
     public List<Showtime> findByHallIdAndDateTimeBetweenOrderByDateTimeAsc(int id, Date dateTime, Date endDateTime);
 
+    public List<Showtime> findByMovieMarathonIdAndDateTimeBetweenOrderByDateTimeAsc(int id, Date dateTime, Date endDateTime);
+
     public List<Showtime> findByMovieMarathonIdAndDateTimeGreaterThan(int id, Date dateTime, Sort sort);
 
 }

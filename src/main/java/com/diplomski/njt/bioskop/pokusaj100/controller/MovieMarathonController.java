@@ -72,13 +72,28 @@ public class MovieMarathonController {
 
     @RequestMapping(value = "/new")
     public String newMM(Model model, HttpSession session) {
-        if (session.getAttribute("mm") == null) {
-            MovieMarathon mm = new MovieMarathon();
+        List<Showtime> showtimesAll = null;
+        MovieMarathon mm = (MovieMarathon) session.getAttribute("mm");
+        if (mm == null) {
+            mm = new MovieMarathon();
             mm.setName("");
             session.setAttribute("mm", mm);
+            showtimesAll = showtimeService.findByMarathonIdAndDateTimeGreaterThanEqual(0, Calendar.getInstance().getTime());
+        } else {
+            if (mm.getShowtimes().size() > 0) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(mm.getShowtimes().get(0).getDateTime());
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                showtimesAll = showtimeService.findByMarathonIdAndDateTimeGreaterThanEqual(0, calendar.getTime());
+            } else {
+                showtimesAll = showtimeService.findByMarathonIdAndDateTimeGreaterThanEqual(0, Calendar.getInstance().getTime());
+
+            }
+
         }
         model.addAttribute("movieMarathon", session.getAttribute("mm"));
-        List<Showtime> showtimesAll = showtimeService.findByMarathonIdAndDateTimeGreaterThanEqual(0, Calendar.getInstance().getTime());
 
         model.addAttribute("showtimesAll", showtimesAll);
         return "marathon/new";

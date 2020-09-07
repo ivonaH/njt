@@ -43,7 +43,7 @@
 
             }
             .error{
-               color: crimson;
+                color: crimson;
             }
         </style>
     </head>
@@ -78,7 +78,7 @@
                         </div> 
                         <div class="error">
                             <form:errors path="username"></form:errors>
-                        </div>
+                            </div>
                             <div class="form-group col-sm-6">
                                 <label for="password"><fmt:message key="label.password"></fmt:message></label>
                             <form:input type="password" path="password"/>
@@ -94,10 +94,13 @@
             </div>
         </fmt:bundle>
 
+
         <%@include file="/WEB-INF/pages/template/footer.jsp" %>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/popper.js/1.16.0/umd/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap-table/1.16.0/dist/bootstrap-table.min.js"></script>
+
+      
     </body>
 </html>

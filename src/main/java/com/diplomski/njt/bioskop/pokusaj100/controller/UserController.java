@@ -21,6 +21,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -58,7 +59,6 @@ public class UserController {
 
             }
             req.getSession(true).setAttribute("user", u1);
-
             return "redirect:/";
         }
     }
