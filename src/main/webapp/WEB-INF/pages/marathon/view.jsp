@@ -54,7 +54,7 @@
                 <table class="table table-dark" id='table1'>
                     <thead>
                         <tr>
-                            <th><fmt:message key="label.marathon.id"/></th>
+                            <th><fmt:message key="label.showtimeId"/></th>
                             <th><fmt:message key="label.dateTime"/></th>
                             <th><fmt:message key="label.movie"/></th>
                             <th><fmt:message key="label.Hall"/></th>

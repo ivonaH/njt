@@ -10,5 +10,5 @@ package com.diplomski.njt.bioskop.pokusaj100.domain;
  * @author root
  */
 public enum Genre{
-    action, drama, romance, mistery, horror
+    action, adventure,comedy,crime, drama, horror, mystery,romance,thriller
 }

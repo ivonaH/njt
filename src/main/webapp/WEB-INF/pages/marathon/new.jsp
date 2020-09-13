@@ -126,8 +126,10 @@
                     <form method="GET" action="${pageContext.request.contextPath}/mm/showtimes">
                         <div class="row">
                             <div class="form-group col-sm-4">
-                                <label for="dateTime"><fmt:message key="label.dateTime"/></label>
-                                <input name="dateTime" class="form-control"/>
+                                <label for="dateTime"><fmt:message key="label.date"/></label>
+                                <input type="date" id="start" name="dateTime" class="form-control"
+                                       value="${param.dateTime}"
+                                       min="2020-09-10" max="2020-12-31">
                             </div>
                         </div>
                         <div class="btn-holder">

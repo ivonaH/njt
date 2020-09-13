@@ -93,7 +93,7 @@
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="movie"><fmt:message key="label.movie"/> </label>
-                            <input name="movie.name" value="${param.movie.name}" class="form-control"/>
+                            <input name="movieName" value="${param.movie.name}" class="form-control"/>
                         </div>
 
                     </div>
